@@ -1,0 +1,22 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: dce63fb1-db18-4fa7-bc38-10f815836be5
+  title: Crochet maths
+  # description:
+  # keywords: []
+  authors: Rosie Shewell Brockway
+  github: https://github.com/RosieSB/crochet-maths
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+  toc:
+   - file: intro.md
+   - file: torus.md
+  numbering:
+    code: false
+    equations: false
+    headings: true
+site:
+  template: book-theme
+  # options:
+  #   favicon: favicon.ico
+  #   logo: site_logo.png
