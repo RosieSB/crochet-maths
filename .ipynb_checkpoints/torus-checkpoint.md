@@ -44,11 +44,10 @@ $$
 
 ### Example
 
-:::{code-cell} python
+:::{code-cell} 
 :label: parameters
 :tags: [remove-input]
-from ipywidgets import interact, interactive, fixed, interact_manual
-import ipywidgets as widgets
+
 import numpy as np
 
 # Major & minor radii
@@ -64,9 +63,10 @@ st_count = [0]*(N+1)
 row = [0]*(N+1)
 for n in range(N+1):
     theta = n*np.pi/N
-    st_count[n] = str(round(2*np.pi*(R-r*np.cos(theta))/w))
-    row[n] = n #"Row "+str(n)+": "+str(st_count[n])+" st."
+    st_count[n] = round(2*np.pi*(R-r*np.cos(theta))/w)
+    row[n] = n
 :::
+
 
 Parameters: major radius R = {eval}`R`; minor radius r = {eval}`r`; stitch height h = {eval}`h`; stitch width w = {eval}`w`. 
 
@@ -83,61 +83,45 @@ Number of rows: $N = \lfloor\frac{r\pi}{h}\rfloor = ${eval}`N`.
 import pandas as pd
 pattern = pd.DataFrame(
     {
-     #   "Row": row,
-        "Stitch count ": st_count
+        "Row": row,
+        "Stitch count": st_count
     }
 )
 pattern
 :::
 
+![](#tbl:pattern)
+
+
+---
+
 :::{code-cell}
-:label: model
-:tags: [remove-input]
+:label: torus-pattern
 
 import numpy as np
-from mpl_toolkits import mplot3d
-import matplotlib.pyplot as plt
-plt.style.use('seaborn-v0_8-poster')
 
-def st(w,h): # Stitch of width w and heaight h, modelled as a spheroid, centered at (x0,y0,z_0)
-    u = np.linspace(0, np.pi, 10)
-    v = np.linspace(0, 2 * np.pi, 10)
-    u, v = np.meshgrid(u, v)
-    x = (w/2)*np.sin(u)*np.cos(v)
-    y = (w/2)*np.sin(u)*np.sin(v)
-    z = (h/2)*np.cos(u)
-    return x, y, z
+R = 4
+r = 1.78255 # must satisfy N = r*pi/h
+w = .4
+h = .4 # note h=w - non-square stitch case yet to be tested.
 
-fig = plt.figure(figsize = (8,8))
-ax = plt.axes(projection='3d')
-ax.grid()
-st_cnt = []
-st = st(w,h)
+# Number of rows
+N = round(r*np.pi/h)
 
-for n in range(1,N+1,1):
+# Stitch count
+st_cnt = round(2*np.pi*(R-r)/w)
+
+print("Crochet pattern for a torus with major radius R = ", R, "minor radius r = ", r, "and stitch dimensions ", w, "×", h, "mm." )
+
+print("Row 0: Chain ", st_cnt, "and join into round. 1dc into each ch around.")
+
+print(" ")
+
+for n in range(1,N+1):
     theta = n*np.pi/N
-    # Stitch count in row n
     st_cnt = round(2*np.pi*(R-r*np.cos(theta))/w)
-    #cos_theta = np.cos(theta)
-    #circumference = 2*np.pi*(R-r*np.cos(n*np.pi/N))
-    #print("Stitch count: ", st_cnt[n],"\t theta: ", theta, "\t cos(theta): ", cos_theta,"\t Circumference: ", circumference)
-    for k in range(1,st_cnt+1):
-        phi = k*2*np.pi/st_cnt
-        x0 = (R-r*np.cos(theta))*np.cos(phi)
-        y0 = (R-r*np.cos(theta))*np.sin(phi)
-        z0 = r*np.sin(theta)        
-        x = x0 + st[0]
-        y = y0 + st[1]
-        z = z0 + st[2]
-        ax.plot_surface(x, y, z, color='b', edgecolor='black', linewidth=.1)
-        ax.plot_surface(x, y, -z, color='r', edgecolor='black', linewidth=.1)
+    print("Row ",n,": ",st_cnt," dc")
 
-# Set axes label
-ax.set_xlabel('x', labelpad=20)
-ax.set_ylabel('y', labelpad=20)
-ax.set_zlabel('z', labelpad=20)
-
-ax.set_aspect('equal')
-
-plt.show()
+print("This completes the upper half of the torus. For the lower half, turn work upside down and repeat rows 1 to ", N-1,". Fill with stuffing and stitch around, weaving in ends as needed.")
 :::
+

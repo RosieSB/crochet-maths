@@ -120,7 +120,35 @@ for n in range(1,N+1,1):
     st_cnt = round(2*np.pi*(R-r*np.cos(theta))/w)
     #cos_theta = np.cos(theta)
     #circumference = 2*np.pi*(R-r*np.cos(n*np.pi/N))
+    #print("Stitch count: "st_cnt = []
+st = st(w,h)
+
+for n in range(1,N+1,1):
+    theta = n*np.pi/N
+    # Stitch count in row n
+    st_cnt = round(2*np.pi*(R-r*np.cos(theta))/w)
+    #cos_theta = np.cos(theta)
+    #circumference = 2*np.pi*(R-r*np.cos(n*np.pi/N))
     #print("Stitch count: ", st_cnt[n],"\t theta: ", theta, "\t cos(theta): ", cos_theta,"\t Circumference: ", circumference)
+    for k in range(1,st_cnt+1):
+        phi = k*2*np.pi/st_cnt
+        x0 = (R-r*np.cos(theta))*np.cos(phi)
+        y0 = (R-r*np.cos(theta))*np.sin(phi)
+        z0 = r*np.sin(theta)        
+        x = x0 + st[0]
+        y = y0 + st[1]
+        z = z0 + st[2]
+        ax.plot_surface(x, y, z, color='b', edgecolor='black', linewidth=.1)
+        ax.plot_surface(x, y, -z, color='r', edgecolor='black', linewidth=.1)
+
+# Set axes label
+ax.set_xlabel('x', labelpad=20)
+ax.set_ylabel('y', labelpad=20)
+ax.set_zlabel('z', labelpad=20)
+
+ax.set_aspect('equal')
+
+plt.show(), st_cnt[n],"\t theta: ", theta, "\t cos(theta): ", cos_theta,"\t Circumference: ", circumference)
     for k in range(1,st_cnt+1):
         phi = k*2*np.pi/st_cnt
         x0 = (R-r*np.cos(theta))*np.cos(phi)
