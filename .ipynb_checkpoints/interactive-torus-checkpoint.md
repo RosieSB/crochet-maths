@@ -6,24 +6,114 @@ kernelspec:
 
 # Interactive torus pattern
 
-**Set up:** Chain $\left\lfloor\frac{2\pi(R-r)}{w}\right\rfloor$ stitches and join into a round.
+:::{code-cell} Python
+:label: parameters
 
-**Row n:** Crochet $\left\lfloor \frac{2\pi}{w}\left(R-r\cos\left(\frac{n\pi}{N}\right)\right)\right\rfloor$ stitches around. Taking care to spread increases as evenly as possible.
-
-### Example
-
-:::{code-cell} python
-:label: enter-R
-:tags: [remove-input]
-from ipywidgets import interact, interactive, fixed, interact_manual
 import ipywidgets as widgets
 import numpy as np
 
-# Major & minor radii
-R = 4
+# Major radius (R)
+MajorRadiusSlider = widgets.FloatSlider(min=0, max=30, step=1, value=4, description="Major radius: ")
+MajorRadiusText = widgets.BoundedFloatText(
+    value=4,
+    min=0,
+    max=30,
+    step=.01,
+)
+widgetLink = widgets.jslink((MajorRadiusSlider, 'value'), (MajorRadiusText, 'value'))
+display(MajorRadiusSlider)
 
-def F(R: float):
-    return R
+# Minor radius (r)
+MinorRadiusSlider = widgets.FloatSlider(min=0, max=30, step=.01, value=1.78, description="Minor radius: ")
+MinorRadiusText = widgets.BoundedFloatText(
+    value=1.78,
+    min=0,
+    max=30,
+    step=.01,
+)
+widgetLink = widgets.jslink((MinorRadiusSlider, 'value'), (MinorRadiusText, 'value'))
+display(MinorRadiusSlider)
 
-interact(F, R=4)
+# Stitch width (w)
+StitchWidthSlider = widgets.FloatSlider(min=0, max=5, step=.01, value=.4, description="Stitch width: ")
+StitchWidthText = widgets.BoundedFloatText(
+    value=.4,
+    min=0,
+    max=5,
+    step=.01,
+)
+widgetLink = widgets.jslink((StitchWidthSlider, 'value'), (StitchWidthText, 'value'))
+display(StitchWidthSlider)
+
+# Stitch height (h)
+StitchHeightSlider = widgets.FloatSlider(min=0, max=5, step=.01, value=.4, description="Stitch height: ")
+StitchHeightText = widgets.BoundedFloatText(
+    value=.4,
+    min=0,
+    max=5,
+    step=.01,
+)
+widgetLink = widgets.jslink((StitchHeightSlider, 'value'), (StitchHeightText, 'value'))
+display(StitchHeightSlider)
+
+# Number of rows
+N = widgets.Label(value=f'{round(MinorRadiusSlider.value * np.pi/StitchHeightSlider.value)}')
+
+# Initial stitch count
+init_st_cnt = widgets.Label(value=f'{round(2 * np.pi * (MajorRadiusSlider.value-MinorRadiusSlider.value)/StitchWidthSlider.value)}')
+
+def update_N_1(n):
+    N.value = f'{round(n["owner"].value * np.pi/StitchHeightSlider.value)}'
+    init_st_cnt.value = f'{round(2*np.pi*(MajorRadiusSlider.value-MinorRadiusSlider.value)/StitchWidthSlider.value)}'
+MinorRadiusSlider.observe(update_N_1)
+
+def update_N_2(m):
+    N.value = f'{round(MinorRadiusSlider.value * np.pi/m["owner"].value)}'
+    init_st_cnt.value = f'{round(2*np.pi*(MajorRadiusSlider.value-MinorRadiusSlider.value)/StitchWidthSlider.value)}'
+StitchHeightSlider.observe(update_N_2)
 :::
+
+Begin with a foundation chain joined into a loop. Work the following stitch counts in each row. Increases made using 2 st in st of previous row. Try to evenly distribute increases for a symmetrical look.
+
+:::{code-block} Python
+:label: pattern
+:tags: [remove-input]
+
+import ipywidgets as widgets
+import numpy as np
+
+out = widgets.Output()
+with out:
+    st_count = [0]*(int(N.value)+1)
+    row = [0]*(int(N.value)+1)
+    for n in range(int(N.value)+1):
+        st_count[n] = round(2*np.pi*(MajorRadiusSlider.value-MinorRadiusSlider.value*np.cos(n*np.pi/int(N.value)))/StitchWidthSlider.value)
+        row[n] = n
+        if n<10:
+            print('Row  ',n,': ',st_count[n],' st')
+        else:
+            print('Row ',n,': ',st_count[n],' st')
+    
+def on_value_change(k):
+    out.clear_output()
+    with out:
+        st_count = [0]*(int(N.value)+1)
+        row = [0]*(int(N.value)+1)
+        for n in range(int(N.value)+1):
+            st_count[n]=round(2*np.pi*(MajorRadiusSlider.value-MinorRadiusSlider.value*np.cos(n*np.pi/int(N.value)))/StitchWidthSlider.value)
+            row[n] = n
+            if n<10:
+                print('Row  ',n,': ',st_count[n],' st')
+            else:
+                print('Row ',n,': ',st_count[n],' st')
+
+N.observe(on_value_change, names='value')
+MajorRadiusSlider.observe(on_value_change, names='value')
+MinorRadiusSlider.observe(on_value_change, names='value')
+StitchHeightSlider.observe(on_value_change, names='value')
+StitchWidthSlider.observe(on_value_change, names='value')
+
+out
+:::
+
+This completes the top half of the torus. The bottom half is almost identical --- just turn the work upside down and repeat, omitting the very last row (row {eval}`N`). 

@@ -8,7 +8,7 @@ kernelspec:
 
 :::{code-cell} Python
 :label: parameters
-
+:tags: [remove-input]
 import ipywidgets as widgets
 import numpy as np
 
@@ -21,7 +21,6 @@ MajorRadiusText = widgets.BoundedFloatText(
     step=.01,
 )
 widgetLink = widgets.jslink((MajorRadiusSlider, 'value'), (MajorRadiusText, 'value'))
-display(MajorRadiusSlider)
 
 # Minor radius (r)
 MinorRadiusSlider = widgets.FloatSlider(min=0, max=30, step=.01, value=1.78, description="Minor radius: ")
@@ -32,7 +31,6 @@ MinorRadiusText = widgets.BoundedFloatText(
     step=.01,
 )
 widgetLink = widgets.jslink((MinorRadiusSlider, 'value'), (MinorRadiusText, 'value'))
-display(MinorRadiusSlider)
 
 # Stitch width (w)
 StitchWidthSlider = widgets.FloatSlider(min=0, max=5, step=.01, value=.4, description="Stitch width: ")
@@ -43,7 +41,7 @@ StitchWidthText = widgets.BoundedFloatText(
     step=.01,
 )
 widgetLink = widgets.jslink((StitchWidthSlider, 'value'), (StitchWidthText, 'value'))
-display(StitchWidthSlider)
+
 
 # Stitch height (h)
 StitchHeightSlider = widgets.FloatSlider(min=0, max=5, step=.01, value=.4, description="Stitch height: ")
@@ -54,7 +52,7 @@ StitchHeightText = widgets.BoundedFloatText(
     step=.01,
 )
 widgetLink = widgets.jslink((StitchHeightSlider, 'value'), (StitchHeightText, 'value'))
-display(StitchHeightSlider)
+
 
 # Number of rows
 N = widgets.Label(value=f'{round(MinorRadiusSlider.value * np.pi/StitchHeightSlider.value)}')
@@ -73,15 +71,22 @@ def update_N_2(m):
 StitchHeightSlider.observe(update_N_2)
 :::
 
-Begin with a foundation chain joined into a loop. Work the following stitch counts in each row. Increases made using 2 st in st of previous row. Try to evenly distribute increases for a symmetrical look.
+Major radius: R = {eval}`MajorRadiusText` 
+
+Minor radius: r = {eval}`MinorRadiusText` 
+
+Stitch width: w = {eval}`StitchWidthText`
+
+Stitch height: h = {eval}`StitchHeightText` 
+
+Number of rows: N = {eval}`N`. 
+
+**Row 0.** Chain {eval}`init_st_cnt` and join into round. 1 st into each chain sp around.
+
+**Subsequent rows:** Work the following stitch counts in subsequent rows. Increases made using 2 st in st of previous row. Try to evenly distribute increases for a symmetrical look.
 
 :::{code-block} Python
-:label: pattern
 :tags: [remove-input]
-
-import ipywidgets as widgets
-import numpy as np
-
 out = widgets.Output()
 with out:
     st_count = [0]*(int(N.value)+1)

@@ -76,12 +76,7 @@ StitchHeightSlider.observe(update_N_2)
 Begin with a foundation chain joined into a loop. Work the following stitch counts in each row. Increases made using 2 st in st of previous row. Try to evenly distribute increases for a symmetrical look.
 
 :::{code-block} Python
-:label: pattern
 :tags: [remove-input]
-
-import ipywidgets as widgets
-import numpy as np
-
 out = widgets.Output()
 with out:
     st_count = [0]*(int(N.value)+1)
