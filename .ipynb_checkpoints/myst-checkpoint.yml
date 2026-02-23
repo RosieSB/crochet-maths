@@ -11,7 +11,7 @@ project:
   toc:
    - file: intro.md
    - file: torus.md
-   - file: pattern-widget.ipynb
+   - file: interactive-torus.ipynb
   numbering:
     code: false
     equations: false
