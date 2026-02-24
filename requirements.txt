@@ -1,6 +1,3 @@
-# Jupyter book
-jupyter-book
-
 # To execute the code in our notebook
 altair
 matplotlib
