@@ -17,7 +17,10 @@ Press the power button for full interactivity.
 **Lower half:** Same as upper half, but with first and last rows omitted. 
 
 **Finishing:** Stuff and sew up. Weave in ends.
-
+:::::{grid} 3 6 3
+::::{grid-item}
+::::
+::::{card}
 :::{code-cell} Python
 :label: interactive-torus
 :tag: remove-input
@@ -47,3 +50,6 @@ out = widgets.interactive_output(f, {'R': R, 'r': r, 'w': w, 'h': h})
 widgets.VBox([widgets.HTML(value="Choose pattern parameters:"),
               widgets.GridBox([R,r,w,h],),
               out])
+:::
+::::
+:::::

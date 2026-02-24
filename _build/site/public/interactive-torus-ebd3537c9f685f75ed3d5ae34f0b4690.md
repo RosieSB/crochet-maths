@@ -14,10 +14,6 @@ Press the power button for full interactivity.
 
 **Upper half:** Begin with a foundation chain joined into a loop. Work the stitch counts displayed below in each row. Increases are made using 2 st in st of previous row, evenly distributed for a symmetrical look. 
 
-**Lower half:** Same as upper half, but with first and last rows omitted. 
-
-**Finishing:** Stuff and sew up. Weave in ends.
-
 :::{code-cell} Python
 :label: interactive-torus
 :tag: remove-input
@@ -47,3 +43,8 @@ out = widgets.interactive_output(f, {'R': R, 'r': r, 'w': w, 'h': h})
 widgets.VBox([widgets.HTML(value="Choose pattern parameters:"),
               widgets.GridBox([R,r,w,h],),
               out])
+:::
+
+**Lower half:** Same as upper half, but with first and last rows omitted. 
+
+**Finishing:** Stuff and sew up. Weave in ends.

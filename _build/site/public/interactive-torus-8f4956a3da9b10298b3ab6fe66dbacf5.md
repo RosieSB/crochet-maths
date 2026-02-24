@@ -47,3 +47,5 @@ out = widgets.interactive_output(f, {'R': R, 'r': r, 'w': w, 'h': h})
 widgets.VBox([widgets.HTML(value="Choose pattern parameters:"),
               widgets.GridBox([R,r,w,h],),
               out])
+:::
+
