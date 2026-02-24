@@ -33,9 +33,9 @@ def f(R,r,w,h):
     for n in range(int(N)+1):
         st_count[n]=round(2*np.pi*(R-r*np.cos(n*np.pi/int(N)))/w)
         if n<10:
-            print('  Row  ',n,': ',st_count[n],' st')
+            print(' Row  ',n,': ',st_count[n],' st')
         else:
-            print('  Row ',n,': ',st_count[n],' st')
+            print(' Row ',n,': ',st_count[n],' st')
 
 out = widgets.interactive_output(f, {'R': R, 'r': r, 'w': w, 'h': h})
 
