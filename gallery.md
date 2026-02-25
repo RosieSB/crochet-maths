@@ -1,6 +1,6 @@
 # Gallery
 
-## Tori 
+## Torus
 
 ### Feb 2026 
 :::{figure} figs/Feb26_torus_2.jpg
