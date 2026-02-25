@@ -12,6 +12,7 @@ project:
    - file: intro.md
    - file: torus.md
    - file: interactive-torus.md
+   - file: gallery.md
   numbering:
     code: false
     equations: false
@@ -21,4 +22,4 @@ site:
   template: book-theme
   # options:
   #   favicon: favicon.ico
-  #   logo: site_logo.png
+  logo: site_logo.jpg
