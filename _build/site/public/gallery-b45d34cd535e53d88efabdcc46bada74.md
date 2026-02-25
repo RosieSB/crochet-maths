@@ -29,7 +29,7 @@ I'm pleased with the [7-colouring](https://en.wikipedia.org/wiki/Heawood_conject
 Pattern used to create [](#fig:Sept25_torus_2).
 :::
 
-## Miscounts and mismeasurement (for science)
+## Miscounts and mismeasurements (for science)
 Failure to meet the requirement $h=\frac{r\pi}{N}$ and/or mis-measurement of stitch sizes results in geometric "torusoids" (surfaces of revolution of non-circular ellipses). This appears to be most noticeable when $R/r$ is close to $1$. 
 
 ### Feb 2026
