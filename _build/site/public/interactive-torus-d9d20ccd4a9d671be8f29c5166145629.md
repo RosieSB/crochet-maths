@@ -8,7 +8,7 @@ kernelspec:
 
 ::::{margin}
 :::{tip} 
-Press "⏻" followed by "▷" to display content.
+Press the power button to display content.
 :::
 ::::
 
@@ -56,6 +56,6 @@ widgets.VBox(
     widgets.VBox([widgets.HTML(value="<b>Choose pattern dimensions (cm):"), R, r, w, h]),
     widgets.VBox([widgets.HTML(value="<b>Stitch count per row:"),out])
     ],
-    layout=Layout(display='flex',justify_content='space-around',width='80%')
+    layout=Layout(display='flex',align_items='left',justify_content='space-around',width='80%')
 )
 :::

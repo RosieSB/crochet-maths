@@ -8,7 +8,7 @@ kernelspec:
 
 ::::{margin}
 :::{tip} 
-Press "⏻" followed by "▷" to display content.
+Press the power button to display content.
 :::
 ::::
 
