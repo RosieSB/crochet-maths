@@ -20,7 +20,7 @@ This is the closest in accuracy yet. Worked using hdc (UK) and colour work where
 $R=5$, $r=2$, $w=0.6$, $h=0.63$, $N=10$.
 :::
 
-I'm pleased with the [7-colouring](https://en.wikipedia.org/wiki/Heawood_conjecture) as a concept, but ideally the tension would be more uniform. I think working in back loops only made this worse, especially at points where the colour changes. I plan to reattempt this soon with the colour work method of [](#fig:Feb26_torus_2).
+I'm pleased with this [7-colouring](https://en.wikipedia.org/wiki/Heawood_conjecture) as a concept, but ideally the tension would be more uniform. I think working in back loops only made this worse, especially at points where the colour changes. I plan to reattempt this soon with the colour work method of [](#fig:Feb26_torus_2).
 
 :::{figure} figs/torus-k7.png
 :width: 400
