@@ -12,6 +12,8 @@ project:
    - file: intro.md
    - file: torus.md
    - file: interactive-torus.md
+   - file: interactive-toral-geodesics.ipynb
+   - file: gallery.md
   numbering:
     code: false
     equations: false
@@ -19,6 +21,6 @@ project:
   jupyter: true
 site:
   template: book-theme
-  # options:
-  #   favicon: favicon.ico
-  #   logo: site_logo.png
+  options:
+  #  favicon: favicon.ico
+    logo: site_logo.png

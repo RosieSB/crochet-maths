@@ -36,7 +36,7 @@ $$
 C(n)=2\pi\left(R-r\cos\left(\frac{n\pi}{N}\right)\right).
 $$
 
-## Pattern 
+## Torus crochet 
 
 **Set up:** Chain $\left\lfloor\frac{2\pi(R-r)}{w}\right\rfloor$ stitches and join into a round.
 
@@ -44,10 +44,13 @@ $$
 
 ### Example
 
-:::{code-cell} 
+:::{aside}
+[See here](#interactive-torus) for an interactive version.
+:::
+
+:::{code-cell} python
 :label: parameters
 :tags: [remove-input]
-
 import numpy as np
 
 # Major & minor radii
@@ -63,10 +66,9 @@ st_count = [0]*(N+1)
 row = [0]*(N+1)
 for n in range(N+1):
     theta = n*np.pi/N
-    st_count[n] = round(2*np.pi*(R-r*np.cos(theta))/w)
-    row[n] = n
+    st_count[n] = str(round(2*np.pi*(R-r*np.cos(theta))/w))
+    row[n] = n #"Row "+str(n)+": "+str(st_count[n])+" st."
 :::
-
 
 Parameters: major radius R = {eval}`R`; minor radius r = {eval}`r`; stitch height h = {eval}`h`; stitch width w = {eval}`w`. 
 
@@ -76,52 +78,26 @@ Number of rows: $N = \lfloor\frac{r\pi}{h}\rfloor = ${eval}`N`.
 
 **Subsequent rows:** Work the following stitch counts in subsequent rows. Increases made using 2 st in st of previous row. Try to evenly distribute increases for a symmetrical look.
 
-
+:::::{grid}
+::::{grid-item}
+::::
+::::{grid-item}
 :::{code-cell}
-:label: pattern
+:label: pattern-table
 :tags: [remove-input]
-import pandas as pd
-pattern = pd.DataFrame(
-    {
-        "Row": row,
-        "Stitch count": st_count
-    }
-)
-pattern
-:::
-
-![](#tbl:pattern)
-
-
----
-
-:::{code-cell}
-:label: torus-pattern
-
+from tabulate import tabulate
 import numpy as np
 
-R = 4
-r = 1.78255 # must satisfy N = r*pi/h
-w = .4
-h = .4 # note h=w - non-square stitch case yet to be tested.
-
-# Number of rows
-N = round(r*np.pi/h)
-
-# Stitch count
-st_cnt = round(2*np.pi*(R-r)/w)
-
-print("Crochet pattern for a torus with major radius R = ", R, "minor radius r = ", r, "and stitch dimensions ", w, "×", h, "mm." )
-
-print("Row 0: Chain ", st_cnt, "and join into round. 1dc into each ch around.")
-
-print(" ")
-
-for n in range(1,N+1):
-    theta = n*np.pi/N
-    st_cnt = round(2*np.pi*(R-r*np.cos(theta))/w)
-    print("Row ",n,": ",st_cnt," dc")
-
-print("This completes the upper half of the torus. For the lower half, turn work upside down and repeat rows 1 to ", N-1,". Fill with stuffing and stitch around, weaving in ends as needed.")
+table = np.transpose([row, st_count])
+pattern = tabulate(table,headers=["Row","Stitch count"],tablefmt="plain")
+print(pattern)
 :::
+::::
+::::{grid-item}
+::::
+:::::
+
+This completes the top half of the torus. The bottom half is almost identical --- just turn the work upside down and repeat, omitting the very last row (row {eval}`N`). 
+
+## Geometry of the torus
 
