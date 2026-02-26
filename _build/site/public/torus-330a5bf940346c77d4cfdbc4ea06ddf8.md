@@ -74,9 +74,9 @@ for n in range(N+1):
 Parameters: major radius R = {eval}`R`; minor radius r = {eval}`r`; stitch height h = {eval}`h`; stitch width w = {eval}`w`. 
 
 
-Number of rows: $N = ${eval}`N`.
+Number of rows: $N = \text{round}\left(\frac{r\pi}{h}\right) = ${eval}`N`.
 
-**Row 0.** Chain {eval}`st_count[0]` and join into round. 1 st into each chain sp around.
+**Row 0.** Chain $s(0)=\text{round}\left(\right)=${eval}`st_count[0]` and join into round. 1 st into each chain sp around.
 
 **Subsequent rows:** Work the following stitch counts in subsequent rows. Increases made using 2 st in st of previous row. Try to evenly distribute increases for a symmetrical look.
 

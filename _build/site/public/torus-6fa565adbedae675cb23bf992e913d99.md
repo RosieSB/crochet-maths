@@ -41,17 +41,13 @@ $$
 
 ### Example
 
-Values calculated with Python.
-
-::::{aside}
-:::{note}
+:::{aside}
 [See here](#interactive-torus) for an interactive version.
 :::
-::::
 
 :::{code-cell} python
 :label: parameters
-:tags: [hide-input]
+:tags: [remove-input]
 import numpy as np
 
 # Major & minor radii
@@ -73,8 +69,7 @@ for n in range(N+1):
 
 Parameters: major radius R = {eval}`R`; minor radius r = {eval}`r`; stitch height h = {eval}`h`; stitch width w = {eval}`w`. 
 
-
-Number of rows: $N = ${eval}`N`.
+Number of rows: $N = \text{round}\left(\frac{r\pi}{h}\right) = ${eval}`N`.
 
 **Row 0.** Chain {eval}`st_count[0]` and join into round. 1 st into each chain sp around.
 
