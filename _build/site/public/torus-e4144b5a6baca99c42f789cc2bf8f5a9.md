@@ -246,13 +246,19 @@ Rearranging [](#eq:c) and appying [](#eq:dphi_dtheta), we get
 (interactive-geodesics)=
 #### Interactive visualisation
 
-The coupled geodesic equations [](eq:gd) can be solved numerically as an initial value problem, by specifying an initial point and a value for the parameter $c$. Go to [](#interactive-toral-geodesics) for an interactive implementation of this using ipywidgets. [](#fig:toral-geodesics) shows some example output. 
+The coupled geodesic equations [](eq:gd) can be solved numerically as an initial value problem, by specifying an initial point and a value for the parameter $c$. Below is an interactive implementation of this using ipywidgets. 
 
+To use it, you may need to **press the power and/or play buttons**. This will enable in-page execution with Jupyter[^in-page-exec]. 
 
-:::{figure} figs/toral-geodesic-example.png
-:label: fig:toral-geodesics
-:align: center
-:width: 400
+[^in-page-exec]: [See here](https://mystmd.org/guide/in-page-execution) for information about ipywidgets and in-page execution with MyST markdown.
 
-A geodesic on a torus. [Interactive version.](#interactive-toral-geodesics)
+::::{figure}
+:label: embedded-toral-geodesics
+
+:::{embed} #interactive-toral-geos
+:remove-input: true 
+:hide-output: true
 :::
+
+A geodesic on a torus. [Click for interactive version](#interactive-toral-geodesics)
+::::

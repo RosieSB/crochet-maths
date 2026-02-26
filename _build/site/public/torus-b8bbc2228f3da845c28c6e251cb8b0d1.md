@@ -246,7 +246,7 @@ Rearranging [](#eq:c) and appying [](#eq:dphi_dtheta), we get
 (interactive-geodesics)=
 #### Interactive visualisation
 
-The coupled geodesic equations [](eq:gd) can be solved numerically as an initial value problem, by specifying an initial point and a value for the parameter $c$. Go to [](#interactive-toral-geodesics) for an interactive implementation of this using ipywidgets. [](#fig:toral-geodesics) shows some example output. 
+The coupled geodesic equations [](eq:gd) can be solved numerically as an initial value problem, by specifying an initial point and a value for the parameter $c$. See [](#interactive-toral-geodesics) for an interactive implementation of this using ipywidgets. [](#fig:toral-geodesics) shows some example output. 
 
 
 :::{figure} figs/toral-geodesic-example.png

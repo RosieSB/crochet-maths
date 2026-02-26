@@ -47,8 +47,9 @@ def g(R,r,theta_0,phi_0,c,tmax):
         print("Error! |c| must not exceed ", R-r)
     else:
         # TORUS GEODESIC EQUATIONS 
+        # Geodesic from P=r(t0,f0) with specified initial angle 
         def F(t,y): #y=(theta,phi), dy/dt=F
-            theta_dot = (1/r)*np.s  qrt(1-c**2/(R-r*np.cos(y[0]))**2)
+            theta_dot = (1/r)*np.sqrt(1-c**2/(R-r*np.cos(y[0]))**2)
             phi_dot = c/(R-r*np.cos(y[0]))**2
             return [theta_dot,phi_dot]
             
