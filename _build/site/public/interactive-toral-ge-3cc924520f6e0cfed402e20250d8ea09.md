@@ -37,7 +37,7 @@ phi_0 = widgets.FloatText(value=np.pi/6,min=0,max=2*np.pi,step=.1,description='I
 # c parameter
 c = widgets.FloatText(value=2,step=.01,description='c')
 
-# arclength
+# length of curve
 tmax = widgets.FloatText(value=100,step=.1,description='tmax')
 
 

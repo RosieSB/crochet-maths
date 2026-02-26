@@ -26,18 +26,11 @@ from scipy.integrate import solve_ivp
 
 plt.style.use('seaborn-v0_8-poster')
 
-# torus dimensions
 R = widgets.FloatText(value=4,min=0,max=30,step=.01,description='Major radius')
 r = widgets.FloatText(value=1.78,min=0,max=30,step=.01,description='Minor radius')
-
-# Inital point
 theta_0 = widgets.FloatText(value=np.pi,min=-np.pi,max=np.pi,step=.1,description='Initial θ')
 phi_0 = widgets.FloatText(value=np.pi/6,min=0,max=2*np.pi,step=.1,description='Initial ϕ')
-
-# c parameter
 c = widgets.FloatText(value=2,step=.01,description='c')
-
-# arclength
 tmax = widgets.FloatText(value=100,step=.1,description='tmax')
 
 

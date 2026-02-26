@@ -213,7 +213,6 @@ R_{\theta\theta}=R^\theta_{\theta\theta\theta}+R^\phi_{\theta\phi\theta}=-\frac{
 R_{\phi\phi}=R^\theta_{\phi\theta\phi}+R^\phi_{\phi\phi\phi}=-\frac{\cos\theta}{R-r\cos\theta}
 \end{gather*}
 
-(geodesics)=
 ### Geodesics
 
 #### Clairaut parametrisation
