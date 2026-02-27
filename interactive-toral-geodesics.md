@@ -25,6 +25,8 @@ from matplotlib import colormaps
 import numpy as np
 from scipy.integrate import solve_ivp
 
+%matplotlib ipympl
+
 plt.style.use('seaborn-v0_8-poster')
 
 
