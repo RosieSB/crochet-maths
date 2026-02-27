@@ -15,7 +15,6 @@ See [](#geodesics) for mathematical background.
 :::{code-cell}
 :label: interactive-toral-geos
 :tag: hide-input
-
 import ipywidgets as widgets
 from ipywidgets import Layout
 
@@ -33,22 +32,23 @@ R = widgets.FloatText(value=4,min=0,max=30,step=.01,description='Major radius')
 r = widgets.FloatText(value=1.78,min=0,max=30,step=.01,description='Minor radius')
 
 # Inital point
-theta_0 = widgets.FloatSlider(value=3.14,min=-3.14,max=np.pi,step=.01,description='Initial θ')
-phi_0 = widgets.FloatSlider(value=.52,min=0,max=6.28,step=.01,description='Initial ϕ')
+theta_0 = widgets.FloatSlider(value=np.pi,min=-np.pi,max=np.pi,step=.1,description='Initial θ')
+phi_0 = widgets.FloatSlider(value=np.pi/6,min=0,max=2*np.pi,step=.1,description='Initial ϕ')
 
 # initial angle
-alpha_0 = widgets.FloatText(value=.3,min=-3.14,max=3.14,step=.01,description='Initial angle')
+alpha_0 = widgets.FloatSlider(value=.3,min=-np.pi,max=np.pi,step=.01,description='Initial angle')
 
 # arclength
-tmax = widgets.FloatSlider(min=.1,max=200,value=50,step=.1,description='Arclength')
+tmax = widgets.FloatText(value=100,step=.1,description='tmax')
 
 def g(R,r,theta_0,phi_0,alpha_0,tmax):
     c = (R-r*np.cos(theta_0))*np.sin(alpha_0)
+    sgn = 0
     if abs(alpha_0)<np.pi/2:
         sgn = 1
     else:
         sgn = -1
-        
+    print(c, np.sin(alpha_0),np.cos(theta_0))
     # TORUS GEODESIC EQUATIONS
     def F(t,y): #y=(theta,phi), dy/dt=F
         theta_dot = sgn*(1/r)*np.sqrt(1-c**2/(R-r*np.cos(y[0]))**2)

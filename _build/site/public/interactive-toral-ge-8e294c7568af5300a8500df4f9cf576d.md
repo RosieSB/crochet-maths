@@ -15,7 +15,7 @@ See [](#geodesics) for mathematical background.
 :::{code-cell}
 :label: interactive-toral-geos
 :tag: hide-input
-
+#| label: interactive-toral-geos
 import ipywidgets as widgets
 from ipywidgets import Layout
 
@@ -37,10 +37,10 @@ theta_0 = widgets.FloatSlider(value=3.14,min=-3.14,max=np.pi,step=.01,descriptio
 phi_0 = widgets.FloatSlider(value=.52,min=0,max=6.28,step=.01,description='Initial ϕ')
 
 # initial angle
-alpha_0 = widgets.FloatText(value=.3,min=-3.14,max=3.14,step=.01,description='Initial angle')
+alpha_0 = widgets.FloatSlider(value=.3,min=-3.14,max=3.14,step=.01,description='Initial angle')
 
 # arclength
-tmax = widgets.FloatSlider(min=.1,max=200,value=50,step=.1,description='Arclength')
+tmax = widgets.FloatSlider(min=.1,max=100,value=200,step=.1,description='Arclength')
 
 def g(R,r,theta_0,phi_0,alpha_0,tmax):
     c = (R-r*np.cos(theta_0))*np.sin(alpha_0)
