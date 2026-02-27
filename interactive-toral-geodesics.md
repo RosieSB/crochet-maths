@@ -104,7 +104,7 @@ def g(R,r,theta_0,phi_0,alpha_0,tmax):
 out = widgets.interactive_output(g, {'R': R, 'r':r, 'theta_0': theta_0, 'phi_0': phi_0 ,'alpha_0': alpha_0, 'tmax': tmax})
 
 widgets.HBox(
-    children = [widgets.VBox([R,r,theta_0,phi_0,alpha_0,tmax]),out],
+    children = [widgets.VBox([R,r,theta_0,phi_0,alpha_0,tmax]),widgets.HBox([out],layout=Layout(width=100%))],
     layout = Layout(display='flex',flex_flow='row wrap',align_items='center',justify_content='space-around')
 )
 :::
