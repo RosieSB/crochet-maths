@@ -14,9 +14,12 @@ Press power and play buttons to display content.
 
 :::{code-cell} Python
 :label: interactive-torus
-:tag: hide-inputimport ipywidgets as widgets
-
+:tag: hide-input
+import ipywidgets as widgets
 from ipywidgets import Layout
+
+from tabulate import tabulate
+
 import numpy as np
 
 from mpl_toolkits import mplot3d
@@ -56,16 +59,22 @@ def f(R,r,w,h):
         row = [0]*(int(N)+1)
         for n in range(int(N)+1):
             st_count[n]=round(2*np.pi*(R-r*np.cos(n*np.pi/int(N)))/w)
+            #if n<10:
+            #    print('  Row  ',n,': ',st_count[n],' st')
+            #else:
+            #    print('  Row ',n,': ',st_count[n],' st')
             pattern[n] = widgets.HBox([widgets.ToggleButton(value=False,description="Row "+str(n)+": "+str(st_count[n])+" st",indent=True)])
-            display(widgets.VBox(pattern))
+            #row[n] = row[n] = n #"Row "+str(n)+": "+str(st_count[n])+" st."
+    #table = np.transpose([row, st_count])
+    #pattern = tabulate(table,headers=["Row","Stitch count"],tablefmt="html")
+    #display(pattern)
+    display(widgets.VBox(pattern))
 
 # Pattern model
 def g(R,r,w,h,B):
     if r>=R:
         pattern=[widgets.HTML(value='Error! Major radius must exceed minor radius')]
     elif B==True:
-        plt.clf()
-        plt.close()
         N = round(r * np.pi/h)
         fig = plt.figure(figsize = (8,8))
         ax = plt.axes(projection='3d')
@@ -111,9 +120,9 @@ parameters = widgets.VBox([widgets.HTML(value="<b>Choose pattern dimensions (cm)
 display(pattern_text)
 
 widgets.VBox(
-    [widgets.HBox([parameters,pattern_output],layout=Layout()),
-     widgets.HBox([figure_output],layout=Layout()),
-     widgets.HBox([B],layout=Layout(padding='10px'))
+    [widgets.HBox([parameters,pattern_output],layout=Layout()),#justify_content='space-around')),
+     widgets.HBox([figure_output],layout=Layout()),#justify_content='space-around')),
+     widgets.HBox([B],layout=Layout(padding='10px'))#,justify_content='space-around'))
     ], 
     layout=Layout(display='flex')
 )

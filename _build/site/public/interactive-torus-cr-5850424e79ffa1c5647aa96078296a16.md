@@ -14,9 +14,12 @@ Press power and play buttons to display content.
 
 :::{code-cell} Python
 :label: interactive-torus
-:tag: hide-inputimport ipywidgets as widgets
-
+:tag: hide-input
+import ipywidgets as widgets
 from ipywidgets import Layout
+
+from tabulate import tabulate
+
 import numpy as np
 
 from mpl_toolkits import mplot3d
@@ -33,7 +36,7 @@ r = widgets.FloatText(value=1.78,min=0,max=30,step=.01,description='Minor radius
 w = widgets.FloatText(value=.4,min=0,max=5,step=.01,description='Stitch width')
 h = widgets.FloatText(value=.4,min=0,max=5,step=.01,description='Stitch height')
 
-B=widgets.ToggleButton(value=False,description='Click for 3d visualisation',layout=Layout(width='50%',height='80px'))
+B=widgets.ToggleButton(value=False,description='Click for 3d model',layout=Layout(width='50%',height='80px'))
 
 def st(w,h): # Stitch of width w and heaight h, modelled as a spheroid, centered at (x0,y0,z_0)
             u = np.linspace(0, np.pi, 10)
@@ -56,16 +59,22 @@ def f(R,r,w,h):
         row = [0]*(int(N)+1)
         for n in range(int(N)+1):
             st_count[n]=round(2*np.pi*(R-r*np.cos(n*np.pi/int(N)))/w)
-            pattern[n] = widgets.HBox([widgets.ToggleButton(value=False,description="Row "+str(n)+": "+str(st_count[n])+" st",indent=True)])
-            display(widgets.VBox(pattern))
+            #if n<10:
+            #    print('  Row  ',n,': ',st_count[n],' st')
+            #else:
+            #    print('  Row ',n,': ',st_count[n],' st')
+            #pattern[n] = widgets.HBox([widgets.ToggleButton(value=False,description="Row "+str(n)+": "+str(st_count[n])+" st",indent=True)])
+            row[n] = row[n] = n #"Row "+str(n)+": "+str(st_count[n])+" st."
+    table = np.transpose([row, st_count])
+    pattern = tabulate(table,headers=["Row","Stitch count"],tablefmt="html")
+    display(pattern)
+#    display(widgets.VBox(pattern))
 
 # Pattern model
 def g(R,r,w,h,B):
     if r>=R:
         pattern=[widgets.HTML(value='Error! Major radius must exceed minor radius')]
     elif B==True:
-        plt.clf()
-        plt.close()
         N = round(r * np.pi/h)
         fig = plt.figure(figsize = (8,8))
         ax = plt.axes(projection='3d')
@@ -106,14 +115,14 @@ pattern_text = widgets.VBox([
     widgets.HTML(value="<b>Finishing:</b> Stuff and sew up. Weave in ends.")
 ])
 
-parameters = widgets.VBox([widgets.HTML(value="<b>Choose pattern dimensions (cm):"), R, r, w, h],layout=Layout(margin='0px 50px 0px 0px'))
+parameters = widgets.VBox([widgets.HTML(value="<b>Choose pattern dimensions (cm):"), R, r, w, h])
 
 display(pattern_text)
 
 widgets.VBox(
-    [widgets.HBox([parameters,pattern_output],layout=Layout()),
-     widgets.HBox([figure_output],layout=Layout()),
-     widgets.HBox([B],layout=Layout(padding='10px'))
+    [widgets.HBox([parameters,pattern_output],layout=Layout(justify_content='space-around')),
+     widgets.HBox([figure_output],layout=Layout(justify_content='space-around')),
+     widgets.HBox([B],layout=Layout(justify_content='space-around',padding='10px'))
     ], 
     layout=Layout(display='flex')
 )
