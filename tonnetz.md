@@ -53,8 +53,8 @@ colours = [0]*(N+1)
 
 for n in range(int(N)+1):
     colours[n] = ['yellow' for i in range(st_count[n]+1)]
-    colours[0] = ['magenta' for i in range(st_count[0]+1)
-    for k in range(0,st_count[n]+1):
+    colours[0] = ['magenta' for i in range(st_count[0]+1)]
+    for k in range(0,st_count[n]):
         theta = n*np.pi/N
         phi = (k+.5)*2*np.pi/st_count[n] # slight offset to better reflect crochet stitch distribution
         u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
