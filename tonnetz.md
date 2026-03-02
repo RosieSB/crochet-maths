@@ -11,7 +11,7 @@ I would like to make a better version of [](fig:Jan26_torus_1), now I have a pat
 :::{embed} #fig:tonnetz-grid
 :::
 
-Below is some code that will do this, along with its output pattern. Parameters[^prams] $R=5$, $r=3$, $w=0.4$, $h=0.4$ have been chosen fairly arbitrarily.
+Below is some code that will do this, along with its output pattern. Parameters[^prams] $R=5$, $r=2$, $w=0.4$, $h=0.4$ have been chosen fairly arbitrarily.
 
 [^prams]: C.f. [](#CT) for what these do.
 
@@ -31,7 +31,7 @@ from matplotlib.colors import TABLEAU_COLORS, same_color
 %matplotlib ipympl
 
 R = 5
-r = 3
+r = 2
 w = .4
 h = .4
 
