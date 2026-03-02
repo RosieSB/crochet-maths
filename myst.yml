@@ -14,6 +14,7 @@ project:
    - file: interactive-torus-crochet.md
    - file: interactive-toral-geodesics.md
    - file: gallery.md
+   - file: tonnetz.ipynb
   numbering:
     code: false
     equations: false
