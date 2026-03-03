@@ -81,7 +81,7 @@ ax.set(zlim=(-R-r,R+r))
     
 ax.set_aspect('equal')
 
-plt.show()
+plt.show() 
 
 
 table = np.transpose([row, st_count])
