@@ -15,6 +15,7 @@ project:
    - file: interactive-toral-geodesics.md
    - file: gallery.md
    - file: tonnetz.md
+   - file: k7-torus.ipynb
   numbering:
     code: false
     equations: false
