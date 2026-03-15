@@ -14,8 +14,9 @@ project:
    - file: interactive-torus-crochet.md
    - file: interactive-toral-geodesics.md
    - file: gallery.md
-   - file: tonnetz.md
-   - file: k7-torus.ipynb
+   - file: colour-work-patterns.md
+   #- file: tonnetz.md
+   #- file: k7-torus.ipynb
   numbering:
     code: false
     equations: false
