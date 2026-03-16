@@ -28,8 +28,8 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import TABLEAU_COLORS, same_color
 %matplotlib ipympl
 
-R = 6
-r = 2
+R = 8
+r = 3
 w = .6
 h = .6
 
@@ -77,7 +77,7 @@ for n in range(int(N)+1):
         y = (R-r*np.cos(u))*np.sin(v)
         z = r*np.sin(u)
         tol=.45 
-        if n==N or n==round(N/3) or k==0 or k==round(st_count[n]/4) or k==int(st_count[n]/2) or k==round(3*st_count[n]/4):
+        if n==N or n==round(N/3) or k==round(st_count[n]/4) or k==int(st_count[n]/2) or k==round(3*st_count[n]/4) or k==st_count[n]:
             colours[n][k] = 'xkcd:light green'
         elif abs(4*phi-3*theta-np.pi)<tol or abs(4*(phi-np.pi/2)-3*theta-np.pi)<tol or abs(4*(phi-np.pi/2)-3*(theta-2*np.pi/3)+np.pi)<tol or abs(4*(phi-np.pi)-3*theta-np.pi)<tol or abs(4*(phi-3*np.pi/2)-3*theta-np.pi)<tol:
             colours[n][k] = 'xkcd:light green'
