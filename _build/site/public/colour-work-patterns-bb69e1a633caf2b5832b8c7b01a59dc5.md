@@ -122,13 +122,13 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import TABLEAU_COLORS, same_color
 %matplotlib ipympl
 
-R = 3
-r = 1
-w = .4
-h = .4
+R = 8
+r = 3
+w = .6
+h = .6
 :::
 
-Below is a pattern and colour chart for a 7-coloured torus, created with the following parameters: R={eval}`R`, r={eval}`r`, w={eval}`w`, h={eval}`h`.
+Below is a pattern and colour chart for a 7-coloured torus with the following parameters: R={eval}`R`, r={eval}`r`, w={eval}`w`, h={eval}`h`.
 
 :::{code-cell} python
 :name: 7-torus-pattern
@@ -157,12 +157,12 @@ ax.grid()
 c = [
     'gray',
     'xkcd:bright pink',
-    'xkcd:lime green',
-    'xkcd:yellow',
-    'xkcd:violet',
     'xkcd:tangerine',
-    'xkcd:kelly green',
-    'xkcd:bright blue'
+    'xkcd:aqua',
+    'xkcd:violet',
+    'xkcd:light blue',
+    'xkcd:magenta',
+    'xkcd:yellow'
 ]  
 
 colours = [0]*(N+1)
@@ -246,10 +246,6 @@ for n in range(int(N)+1):
         x = (R-r*np.cos(u))*np.cos(v)
         y = (R-r*np.cos(u))*np.sin(v)
         z = r*np.sin(u)
-        if n==0:
-            lw=1
-        else:
-            lw=.1
         ax.plot_surface(x, y, z, color=colours[n][k], edgecolor='black', linewidth=.1)
 
 # LOWER
