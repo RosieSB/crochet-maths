@@ -58,7 +58,7 @@ display(pattern)
 :::{code-cell} python
 :name: tonnetz-visual
 :tag: [remove-input]
-fig = plt.figure(figsize = (15,15),label=' ')
+fig = plt.figure(figsize = (15,15),label='Colourwork diagram')
 ax = plt.axes(projection='3d')
 ax.grid()
 
@@ -151,7 +151,7 @@ display(pattern)
 
 # Pattern model
 
-axs = plt.figure(layout="tight", figsize=(12,12),label=' ').subplot_mosaic(
+axs = plt.figure(layout="tight", figsize=(12,12),label='Colourwork diagrams').subplot_mosaic(
     """
     AB
     CD
