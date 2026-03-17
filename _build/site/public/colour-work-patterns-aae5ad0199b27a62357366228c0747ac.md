@@ -247,10 +247,10 @@ for n in range(int(N)+1):
         y = (R-r*np.cos(u))*np.sin(v)
         z = r*np.sin(u)
         if n==0:
-            lw=.5
+            alph=.8
         else:
-            lw=.1
-        ax.plot_surface(x, y, z, color=colours[n][k], edgecolor='black', linewidth=lw)
+            alph=1
+        ax.plot_surface(x, y, z, color=colours[n][k], edgecolor='black', linewidth=.1, alpha=alph)
 
 # LOWER
 for n in range(1,int(N)):
