@@ -159,10 +159,10 @@ fig, axs = plt.subplots(4, 1, subplot_kw={'projection': '3d'})
 fig.set_figheight(32)
 fig.set_figwidth(8)
 
-axs[0].view_init(elev=45, azim=45, roll=0)
-axs[1].view_init(elev=45, azim=225, roll=0)
-axs[2].view_init(elev=-45, azim=45, roll=0)
-axs[3].view_init(elev=-45, azim=225, roll=0)
+axs[0].view_init(elev=20, azim=45, roll=0)
+axs[1].view_init(elev=20, azim=225, roll=0)
+axs[2].view_init(elev=-20, azim=45, roll=0)
+axs[3].view_init(elev=-20, azim=225, roll=0)
 
 
 c = [
@@ -365,7 +365,7 @@ for ax in axs:
     ax.set_ylabel('y', labelpad=20)
     ax.set_zlabel('z', labelpad=20)
     ax.set_aspect('equal')
-
+    ax.set(zlim=(-R-r,R+r))
 
 plt.show()
 :::

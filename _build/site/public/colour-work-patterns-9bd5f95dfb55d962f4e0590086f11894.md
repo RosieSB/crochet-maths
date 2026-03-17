@@ -365,7 +365,7 @@ for ax in axs:
     ax.set_ylabel('y', labelpad=20)
     ax.set_zlabel('z', labelpad=20)
     ax.set_aspect('equal')
-
+    ax.set(zlim=(-R-r,R+r))
 
 plt.show()
 :::
