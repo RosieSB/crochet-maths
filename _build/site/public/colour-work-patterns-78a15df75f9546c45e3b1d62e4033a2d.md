@@ -63,7 +63,7 @@ c = [
     'xkcd:tangerine',
     'xkcd:kelly green',
     'xkcd:bright blue'
-]
+]  
 
 colours_upper = [0]*(N+1)
 
@@ -195,7 +195,7 @@ display(pattern)
 :name: 7-torus-tapestry-chart
 :tag: [remove-input]
 
-fig = plt.figure(figsize = (10,4),label=' ',layout='tight')
+fig = plt.figure(figsize = (10,10),label=' ',layout='tight')
 ax = plt.axes()
 
 for n in range(N+1):

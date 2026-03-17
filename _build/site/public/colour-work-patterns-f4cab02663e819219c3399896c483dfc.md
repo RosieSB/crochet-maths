@@ -63,7 +63,7 @@ c = [
     'xkcd:tangerine',
     'xkcd:kelly green',
     'xkcd:bright blue'
-]
+]  
 
 colours_upper = [0]*(N+1)
 
@@ -195,7 +195,7 @@ display(pattern)
 :name: 7-torus-tapestry-chart
 :tag: [remove-input]
 
-fig = plt.figure(figsize = (10,4),label=' ',layout='tight')
+fig = plt.figure(figsize = (10,10),label=' ',layout='tight')
 ax = plt.axes()
 
 for n in range(N+1):
@@ -225,7 +225,7 @@ Use tabs to view from different angles
 :tag: [remove-input]
 fig = plt.figure(figsize = (10,10),label=' ')
 ax = plt.axes(projection='3d')
-ax.view_init(elev=30, azim=-60, roll=0)
+ax.view_init(elev=30, azim=45, roll=0)
 
 for n in range(N+1):
     for k in range(st_count[n]):
@@ -242,7 +242,7 @@ for n in range(N+1):
             lw=.5
         else:
             lw=.1
-        ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
+        ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw, lightsource=None)
         #lower
         if 0<n<N:
             u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
@@ -251,7 +251,7 @@ for n in range(N+1):
             x = (R-r*np.cos(u))*np.cos(v)
             y = (R-r*np.cos(u))*np.sin(v)
             z = r*np.sin(u)
-            ax.plot_surface(x, y, z, color=colours_lower[n][k], edgecolor='black', linewidth=lw)
+            ax.plot_surface(x, y, z, color=colours_lower[n][k], edgecolor='black', linewidth=lw, lightsource=None)
         
 # Axis labels for 3d plots
 ax.set_xlabel('x')
@@ -269,7 +269,7 @@ plt.show()
 :tag: [remove-input]
 fig = plt.figure(figsize = (10,10),label=' ')
 ax = plt.axes(projection='3d')
-ax.view_init(elev=30, azim=60, roll=0)
+ax.view_init(elev=30, azim=225, roll=0)
 
 for n in range(N+1):
     for k in range(st_count[n]):
@@ -286,7 +286,7 @@ for n in range(N+1):
             lw=.5
         else:
             lw=.1
-        ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
+        ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw, lightsource=None)
         #lower
         if 0<n<N:
             u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
@@ -295,184 +295,7 @@ for n in range(N+1):
             x = (R-r*np.cos(u))*np.cos(v)
             y = (R-r*np.cos(u))*np.sin(v)
             z = r*np.sin(u)
-            ax.plot_surface(x, y, z, color=colours_lower[n][k], edgecolor='black', linewidth=lw)
-        
-# Axis labels for 3d plots
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-ax.set(zlim=(-R-r,R+r))
-ax.set_aspect('equal')
-
-plt.show()
-:::
-::::
-::::{tab-item} View 3
-:::{code-cell} python
-:name: 7-torus-3d-model-3
-:tag: [remove-input]
-fig = plt.figure(figsize = (10,10),label=' ')
-ax = plt.axes(projection='3d')
-ax.view_init(elev=30, azim=120, roll=0)
-
-for n in range(N+1):
-    for k in range(st_count[n]):
-        # upper
-        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
-        v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
-        u, v = np.meshgrid(u, v)
-        x = (R-r*np.cos(u))*np.cos(v)
-        y = (R-r*np.cos(u))*np.sin(v)
-        z = r*np.sin(u)
-        
-        # Highlight row 0
-        if n==0:
-            lw=.5
-        else:
-            lw=.1
-        ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
-        #lower
-        if 0<n<N:
-            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
-            v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
-            u, v = np.meshgrid(u, v)
-            x = (R-r*np.cos(u))*np.cos(v)
-            y = (R-r*np.cos(u))*np.sin(v)
-            z = r*np.sin(u)
-            ax.plot_surface(x, y, z, color=colours_lower[n][k], edgecolor='black', linewidth=lw)
-        
-# Axis labels for 3d plots
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-ax.set(zlim=(-R-r,R+r))
-ax.set_aspect('equal')
-
-plt.show()
-:::
-::::
-::::{tab-item} View 4
-:::{code-cell} python
-:name: 7-torus-3d-model-4
-:tag: [remove-input]
-fig = plt.figure(figsize = (10,10),label=' ')
-ax = plt.axes(projection='3d')
-ax.view_init(elev=-30, azim=-60, roll=0)
-
-for n in range(N+1):
-    for k in range(st_count[n]):
-        # upper
-        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
-        v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
-        u, v = np.meshgrid(u, v)
-        x = (R-r*np.cos(u))*np.cos(v)
-        y = (R-r*np.cos(u))*np.sin(v)
-        z = r*np.sin(u)
-        
-        # Highlight row 0
-        if n==0:
-            lw=.5
-        else:
-            lw=.1
-        ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
-        #lower
-        if 0<n<N:
-            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
-            v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
-            u, v = np.meshgrid(u, v)
-            x = (R-r*np.cos(u))*np.cos(v)
-            y = (R-r*np.cos(u))*np.sin(v)
-            z = r*np.sin(u)
-            ax.plot_surface(x, y, z, color=colours_lower[n][k], edgecolor='black', linewidth=lw)
-        
-# Axis labels for 3d plots
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-ax.set(zlim=(-R-r,R+r))
-ax.set_aspect('equal')
-
-plt.show()
-:::
-::::
-::::{tab-item} View 5
-:::{code-cell} python
-:name: 7-torus-3d-model-5
-:tag: [remove-input]
-fig = plt.figure(figsize = (10,10),label=' ')
-ax = plt.axes(projection='3d')
-ax.view_init(elev=-30, azim=60, roll=0)
-
-for n in range(N+1):
-    for k in range(st_count[n]):
-        # upper
-        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
-        v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
-        u, v = np.meshgrid(u, v)
-        x = (R-r*np.cos(u))*np.cos(v)
-        y = (R-r*np.cos(u))*np.sin(v)
-        z = r*np.sin(u)
-        
-        # Highlight row 0
-        if n==0:
-            lw=.5
-        else:
-            lw=.1
-        ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
-        #lower
-        if 0<n<N:
-            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
-            v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
-            u, v = np.meshgrid(u, v)
-            x = (R-r*np.cos(u))*np.cos(v)
-            y = (R-r*np.cos(u))*np.sin(v)
-            z = r*np.sin(u)
-            ax.plot_surface(x, y, z, color=colours_lower[n][k], edgecolor='black', linewidth=lw)
-        
-# Axis labels for 3d plots
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-ax.set(zlim=(-R-r,R+r))
-ax.set_aspect('equal')
-
-plt.show()
-:::
-::::
-
-::::{tab-item} View 6
-:::{code-cell} python
-:name: 7-torus-3d-model-6
-:tag: [remove-input]
-fig = plt.figure(figsize = (10,10),label=' ')
-ax = plt.axes(projection='3d')
-ax.view_init(elev=-30, azim=120, roll=0)
-
-for n in range(N+1):
-    for k in range(st_count[n]):
-        # upper
-        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
-        v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
-        u, v = np.meshgrid(u, v)
-        x = (R-r*np.cos(u))*np.cos(v)
-        y = (R-r*np.cos(u))*np.sin(v)
-        z = r*np.sin(u)
-        
-        # Highlight row 0
-        if n==0:
-            lw=.5
-        else:
-            lw=.1
-        ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
-        #lower
-        if 0<n<N:
-            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
-            v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
-            u, v = np.meshgrid(u, v)
-            x = (R-r*np.cos(u))*np.cos(v)
-            y = (R-r*np.cos(u))*np.sin(v)
-            z = r*np.sin(u)
-            ax.plot_surface(x, y, z, color=colours_lower[n][k], edgecolor='black', linewidth=lw)
+            ax.plot_surface(x, y, z, color=colours_lower[n][k], edgecolor='black', linewidth=lw, lightsource=None)
         
 # Axis labels for 3d plots
 ax.set_xlabel('x')

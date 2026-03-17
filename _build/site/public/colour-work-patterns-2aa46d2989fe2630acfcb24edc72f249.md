@@ -56,13 +56,13 @@ for n in range(int(N)+1):
 # Colours
 c = [
     'gray',
-    'xkcd:bright pink',
-    'xkcd:lime green',
-    'xkcd:yellow',
-    'xkcd:violet',
-    'xkcd:tangerine',
+    'xkcd:bright blue',
     'xkcd:kelly green',
-    'xkcd:bright blue'
+    'xkcd:tangerine',
+    'xkcd:violet',
+    'xkcd:yellow',
+    'xkcd:lime green',
+    'xkcd:bright pink'
 ]
 
 colours_upper = [0]*(N+1)
