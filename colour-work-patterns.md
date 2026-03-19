@@ -359,7 +359,7 @@ plt.show()
 :tag: [remove-input]
 fig = plt.figure(figsize = (10,10),label=' ')
 ax = plt.axes(projection='3d')
-ax.view_init(elev=-30, azim=-60, roll=0)
+ax.view_init(elev=-30, azim=-60, roll=180)
 
 for n in range(N+1):
     for k in range(st_count[n]):
@@ -403,7 +403,7 @@ plt.show()
 :tag: [remove-input]
 fig = plt.figure(figsize = (10,10),label=' ')
 ax = plt.axes(projection='3d')
-ax.view_init(elev=-30, azim=60, roll=0)
+ax.view_init(elev=-30, azim=60, roll=180)
 
 for n in range(N+1):
     for k in range(st_count[n]):
@@ -448,7 +448,7 @@ plt.show()
 :tag: [remove-input]
 fig = plt.figure(figsize = (10,10),label=' ')
 ax = plt.axes(projection='3d')
-ax.view_init(elev=-30, azim=120, roll=0)
+ax.view_init(elev=-30, azim=120, roll=180)
 
 for n in range(N+1):
     for k in range(st_count[n]):
