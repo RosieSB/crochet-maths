@@ -359,7 +359,7 @@ plt.show()
 :tag: [remove-input]
 fig = plt.figure(figsize = (10,10),label=' ')
 ax = plt.axes(projection='3d')
-ax.view_init(elev=-30, azim=120, roll=180)
+ax.view_init(elev=-30, azim=-60, roll=180)
 
 for n in range(N+1):
     for k in range(st_count[n]):
@@ -441,13 +441,14 @@ ax.set_aspect('equal')
 plt.show()
 :::
 ::::
+
 ::::{tab-item} View 6
 :::{code-cell} python
 :name: 7-torus-3d-model-6
 :tag: [remove-input]
 fig = plt.figure(figsize = (10,10),label=' ')
 ax = plt.axes(projection='3d')
-ax.view_init(elev=-30, azim=-60, roll=180)
+ax.view_init(elev=-30, azim=120, roll=180)
 
 for n in range(N+1):
     for k in range(st_count[n]):
