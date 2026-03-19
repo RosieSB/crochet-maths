@@ -59,8 +59,8 @@ c = [
     'xkcd:red',
     'xkcd:magenta',
     'xkcd:blue',
+    'xkcd:teal',
     'xkcd:kelly green',
-    'xkcd:lime green',
     'xkcd:yellow',
     'xkcd:tangerine'
 ]
