@@ -197,7 +197,7 @@ display(pattern)
 :name: 7-torus-tapestry-chart
 :tag: [remove-input]
 
-fig = plt.figure(figsize = (8,4),label=' ',layout='tight')
+fig = plt.figure(figsize = (10,4),label=' ',layout='tight')
 ax = plt.axes()
 
 for n in range(N+1):
@@ -209,9 +209,11 @@ for n in range(N+1):
             ax.scatter(k*2*np.pi/(st_count[n]-1), -n, color=colours_lower[n][k])
         
 # Axis labels 
-ax.set_xlabel('Angle ($\phi$)')
+ax.set_xlabel('Longitude')
 ax.set_ylabel('Row')
-ax.set_xticks([0, .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi], labels=["$0$", r"$\frac{\pi}{2}$", r"$\pi$", r"$\frac{3\pi}{2}$", r"$2\pi$"])
+ax.set_xticks([0., .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi],
+               labels=["$0$", "$\frac{\pi}{2}$",
+                       $\pi$", "$\frac{3}{2}\pi$", "$2\pi$"])
 ax.set_aspect(.25)
 
 plt.show()
