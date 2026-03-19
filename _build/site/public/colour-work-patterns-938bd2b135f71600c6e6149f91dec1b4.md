@@ -191,6 +191,8 @@ display(pattern)
 
 ### Tapestry crochet chart
 
+**Colours:** 
+
 :::{code-cell} python
 :name: 7-torus-tapestry-chart
 :tag: [remove-input]
