@@ -471,10 +471,10 @@ area = 3**2
 for n in range(N+1):
     for k in range(st_count[n]):
         # upper
-        ax.scatter(k*2*np.pi/(st_count[n]-1), -n, color=colours_upper[n][k], s=area)
+        ax.scatter(k*2*np.pi/(st_count[n]-1), n, color=colours_upper[n][k], s=area)
         #lower
         if 0<n<N:
-            ax.scatter(k*2*np.pi/(st_count[n]-1), n, color=colours_lower[n][k], s=area)
+            ax.scatter(k*2*np.pi/(st_count[n]-1), -n, color=colours_lower[n][k], s=area)
         
 #Axis labels 
 ax.set_xlabel('Angle (ϕ)')

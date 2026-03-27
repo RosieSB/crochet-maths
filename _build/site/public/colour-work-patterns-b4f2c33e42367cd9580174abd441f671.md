@@ -203,7 +203,7 @@ ax.view_init(elev=30, azim=-60, roll=0)
 for n in range(N+1):
     for k in range(st_count[n]):
         # upper
-        u = -np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
+        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
         v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
         u, v = np.meshgrid(u, v)
         x = (R-r*np.cos(u))*np.cos(v)
@@ -218,7 +218,7 @@ for n in range(N+1):
         ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
         #lower
         if 0<n<N:
-            u = -np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
+            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
             v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
             u, v = np.meshgrid(u, v)
             x = (R-r*np.cos(u))*np.cos(v)
@@ -247,7 +247,7 @@ ax.view_init(elev=30, azim=60, roll=0)
 for n in range(N+1):
     for k in range(st_count[n]):
         # upper
-        u = -np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
+        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
         v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
         u, v = np.meshgrid(u, v)
         x = (R-r*np.cos(u))*np.cos(v)
@@ -262,7 +262,7 @@ for n in range(N+1):
         ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
         #lower
         if 0<n<N:
-            u = -np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
+            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
             v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
             u, v = np.meshgrid(u, v)
             x = (R-r*np.cos(u))*np.cos(v)
@@ -291,7 +291,7 @@ ax.view_init(elev=30, azim=120, roll=0)
 for n in range(N+1):
     for k in range(st_count[n]):
         # upper
-        u = -np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
+        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
         v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
         u, v = np.meshgrid(u, v)
         x = (R-r*np.cos(u))*np.cos(v)
@@ -306,7 +306,7 @@ for n in range(N+1):
         ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
         #lower
         if 0<n<N:
-            u = -np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
+            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
             v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
             u, v = np.meshgrid(u, v)
             x = (R-r*np.cos(u))*np.cos(v)
@@ -335,7 +335,7 @@ ax.view_init(elev=-30, azim=120, roll=180)
 for n in range(N+1):
     for k in range(st_count[n]):
         # upper
-        u = -np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
+        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
         v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
         u, v = np.meshgrid(u, v)
         x = (R-r*np.cos(u))*np.cos(v)
@@ -350,7 +350,7 @@ for n in range(N+1):
         ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
         #lower
         if 0<n<N:
-            u = -np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
+            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
             v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
             u, v = np.meshgrid(u, v)
             x = (R-r*np.cos(u))*np.cos(v)
@@ -379,7 +379,7 @@ ax.view_init(elev=-30, azim=60, roll=180)
 for n in range(N+1):
     for k in range(st_count[n]):
         # upper
-        u = -np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
+        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
         v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
         u, v = np.meshgrid(u, v)
         x = (R-r*np.cos(u))*np.cos(v)
@@ -394,7 +394,7 @@ for n in range(N+1):
         ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
         #lower
         if 0<n<N:
-            u = -np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
+            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
             v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
             u, v = np.meshgrid(u, v)
             x = (R-r*np.cos(u))*np.cos(v)
@@ -423,7 +423,7 @@ ax.view_init(elev=-30, azim=-60, roll=180)
 for n in range(N+1):
     for k in range(st_count[n]):
         # upper
-        u = -np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
+        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
         v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
         u, v = np.meshgrid(u, v)
         x = (R-r*np.cos(u))*np.cos(v)
@@ -438,7 +438,7 @@ for n in range(N+1):
         ax.plot_surface(x, y, z, color=colours_upper[n][k], edgecolor='black', linewidth=lw)
         #lower
         if 0<n<N:
-            u = -np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
+            u = np.linspace((-n-.5)*np.pi/N, (-n+.5)*np.pi/N, 2)
             v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
             u, v = np.meshgrid(u, v)
             x = (R-r*np.cos(u))*np.cos(v)
@@ -471,10 +471,10 @@ area = 3**2
 for n in range(N+1):
     for k in range(st_count[n]):
         # upper
-        ax.scatter(k*2*np.pi/(st_count[n]-1), -n, color=colours_upper[n][k], s=area)
+        ax.scatter(k*2*np.pi/(st_count[n]-1), n, color=colours_upper[n][k], s=area)
         #lower
         if 0<n<N:
-            ax.scatter(k*2*np.pi/(st_count[n]-1), n, color=colours_lower[n][k], s=area)
+            ax.scatter(k*2*np.pi/(st_count[n]-1), -n, color=colours_lower[n][k], s=area)
         
 #Axis labels 
 ax.set_xlabel('Angle (ϕ)')
