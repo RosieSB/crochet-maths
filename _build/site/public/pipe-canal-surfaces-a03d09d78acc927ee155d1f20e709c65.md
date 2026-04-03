@@ -287,7 +287,7 @@ T = ((-1/sqrt2)*np.sin(u/sqrt2),1/sqrt2*np.cos(u/sqrt2),1/sqrt2)
 N = (-np.cos(u/sqrt2),-np.sin(u/sqrt2),0)
 B = ((1/sqrt2)*np.sin(u/sqrt2),-(1/sqrt2)*np.cos(u/sqrt2),1/sqrt2)
 gamma = (np.cos(u/sqrt2), np.sin(u/sqrt2), u/sqrt2)
-r = 1/u**2
+r = np.power(u,-2)
 absrdot = 2/(u**3)
 
 x = gamma[0] - r*absrdot*T[0] + r*np.sqrt(1-(absrdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 

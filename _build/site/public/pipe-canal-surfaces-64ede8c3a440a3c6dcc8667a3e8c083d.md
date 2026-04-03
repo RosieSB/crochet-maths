@@ -267,39 +267,22 @@ Then $\dot r= \frac{-2}{u^3}$, so $|\dot r|=\frac{2}{u^3}<1=|\dot\gamma|$, provi
 
 \begin{align*}
 \mathbf{x}(u,v) &= \gamma(u)-r(u)|\dot r(u)|\dot\gamma(u) + r(u)\left(1-\dot r(u)^2\right)^{\frac{1}{2}}\left(\mathbf{N}\cos(v)+\mathbf{B}\sin(v) \right) \\
-&= \gamma(u)-\frac{2}{u^5}\mathbf{T} + \frac{1}{u^5}\sqrt{u^6-4}\left(\mathbf{N}\cos(v)+\mathbf{B}\sin(v) \right) 
+&= \left(\begin{array}{c} 
+\cos\left(\frac{u}{\sqrt{2}}\right) \\
+\sin\left(\frac{u}{\sqrt{2}}\right) \\
+\frac{u}{\sqrt{2}}
+\end{array}\right)-\frac{2}{u^5}\left(\begin{array}{c} -\frac{1}{\sqrt{2}}\sin\left(\frac{u}{\sqrt{2}}\right) \\
+\frac{1}{\sqrt{2}}\cos\left(\frac{u}{\sqrt{2}}\right) \\
+\frac{1}{\sqrt{2}}
+\end{array}\right) \\
+  &\hspace{1.5em}+ \frac{1}{u^2}\left(1-\frac{4}{u^6}\right)^{\frac{1}{2}}\left(\begin{array}{c} 
+-\cos\left(\frac{u}{\sqrt{2}}\right)\cos(v)+\frac{1}{\sqrt{2}}\sin\left(\frac{u}{\sqrt{2}}\right)\sin(v) \\
+-\sin\left(\frac{u}{\sqrt{2}}\right)\cos(v)-\frac{1}{\sqrt{2}}\cos\left(\frac{u}{\sqrt{2}}\right)\sin(v) \\
+\frac{1}{\sqrt{2}}\sin(v)
+\end{array}\right)
 \end{align*}
 
-::::{figure}
-:::{code-cell} python
-:tags: remove-input
 
-r=.8
-
-fig = plt.figure(figsize = (10,8), label = ' ')
-ax = plt.axes(projection='3d')
-
-u = np.linspace(2, 7, 100)
-v = np.linspace(0,2*np.pi,100)
-u, v = np.meshgrid(u, v)
-
-T = ((-1/sqrt2)*np.sin(u/sqrt2),1/sqrt2*np.cos(u/sqrt2),1/sqrt2)
-N = (-np.cos(u/sqrt2),-np.sin(u/sqrt2),0)
-B = ((1/sqrt2)*np.sin(u/sqrt2),-(1/sqrt2)*np.cos(u/sqrt2),1/sqrt2)
-gamma = (np.cos(u/sqrt2), np.sin(u/sqrt2), u/sqrt2)
-r = 1/u**2
-absrdot = 2/(u**3)
-
-x = gamma[0] - r*absrdot*T[0] + r*np.sqrt(1-(absrdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
-y = gamma[1] - r*absrdot*T[1] + r*np.sqrt(1-(absrdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
-z = gamma[2] - r*absrdot*T[2] + r*np.sqrt(1-(absrdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v)) 
-
-ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .5)
-
-ax.set_aspect('equal')
-
-plt.show()
-:::
 
 ## Crocheting a pipe surface
 
