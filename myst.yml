@@ -11,12 +11,11 @@ project:
   toc:
    - file: intro.md
    - file: torus.md
+   - file: pipe-canal-surfaces.md
    - file: interactive-torus-crochet.md
    - file: interactive-toral-geodesics.md
    - file: gallery.md
    - file: colour-work-patterns.md
-   #- file: tonnetz.md
-   #- file: k7-torus.ipynb
   numbering:
     code: false
     equations: false
