@@ -242,7 +242,7 @@ r=.8
 fig = plt.figure(figsize = (10,8), label = ' ')
 ax = plt.axes(projection='3d')
 
-u = np.linspace(-10, 10, 100)
+u = np.linspace(0, 7, 100)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 x = (1-r*np.cos(v))*np.cos(u/sqrt2) + r/sqrt2*np.sin(u/sqrt2)*np.sin(v)
@@ -250,11 +250,6 @@ y = (1-r*np.cos(v))*np.sin(u/sqrt2) - r/sqrt2*np.cos(u/sqrt2)*np.sin(v)
 z = (u+r*np.sin(v))/sqrt2
 
 ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .5)
-
-#Axis labels
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
 
 ax.set_aspect('equal')
 
@@ -267,8 +262,8 @@ Pipe surface on a helix.
 For a non-constant radius example, use the same helix $\gamma$, but this time with 
 $$
 \begin{array}{c}
-r = 1+\frac{1}{2}\sin\left(\frac{u}{2}\right), \\
-\dot r = \frac{1}{4}\cos\left(\frac{u}{2}\right)
+r = 1+\frac{1}{2}\cos\left(\frac{u}{2}\right), \\
+\dot r = -\frac{1}{4}\sin\left(\frac{u}{2}\right)
 \end{array} \;\; u\in\mathbb{R}
 $$ 
 Then 
@@ -302,8 +297,8 @@ T = ((-1/sqrt2)*np.sin(u/sqrt2),1/sqrt2*np.cos(u/sqrt2),1/sqrt2)
 N = (-np.cos(u/sqrt2),-np.sin(u/sqrt2),0)
 B = ((1/sqrt2)*np.sin(u/sqrt2),-(1/sqrt2)*np.cos(u/sqrt2),1/sqrt2)
 
-r = 1+np.sin(u/2)/2
-rdot = np.cos(u/2)/4
+r = 1+np.cos(u/2)/2
+rdot = -np.sin(u/2)/4
 
 x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
 y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
@@ -311,18 +306,10 @@ z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(
 
 ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .5)
 
-#Axis labels
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-
 ax.set_aspect('equal')
 
 plt.show()
 :::
-
-Helical canal surface with sinusoidal radius function.
-::::
 
 ## Crocheting a pipe surface
 
