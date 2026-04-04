@@ -237,9 +237,7 @@ So the helix pipe with radius $r$ has parametrisation
 :label: helix-pipe
 :tags: remove-input
 
-import numpy as np
-import matplotlib.pyplot as plt
-%matplotlib ipympl
+r=.8
 
 fig = plt.figure(figsize = (10,8), label = ' ')
 ax = plt.axes(projection='3d')
@@ -247,23 +245,9 @@ ax = plt.axes(projection='3d')
 u = np.linspace(-7, 7, 100)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
-
-sqrt2 = np.sqrt(2)
-
-#Diretrix
-gamma = (np.cos(u/sqrt2), np.sin(u/sqrt2), u/sqrt2)
-
-#ON Frame
-T = ((-1/sqrt2)*np.sin(u/sqrt2),1/sqrt2*np.cos(u/sqrt2),1/sqrt2)
-N = (-np.cos(u/sqrt2),-np.sin(u/sqrt2),0)
-B = ((1/sqrt2)*np.sin(u/sqrt2),-(1/sqrt2)*np.cos(u/sqrt2),1/sqrt2)
-
-#Radius function
-r = .6
-
-x = gamma[0] + r*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
-y = gamma[1] + r*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
-z = gamma[2] + r*(N[2]*np.cos(v)+B[2]*np.sin(v)) 
+x = (1-r*np.cos(v))*np.cos(u/sqrt2) + r/sqrt2*np.sin(u/sqrt2)*np.sin(v)
+y = (1-r*np.cos(v))*np.sin(u/sqrt2) - r/sqrt2*np.cos(u/sqrt2)*np.sin(v)
+z = (u+r*np.sin(v))/sqrt2
 
 ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .5)
 
@@ -280,24 +264,26 @@ plt.show()
 Pipe surface on a helix.
 ::::
 
-### Example: Non-constant radius function
 For a non-constant radius example, use the same helix $\gamma$, but this time with 
 $$
-r = 1-\frac{u}{7}, \;\; -7\leq u\eq 7.
+\begin{array}{c}
+r = 1+\frac{1}{2}\sin\left(\frac{u}{2}\right), \\
+\dot r = \frac{1}{4}\cos\left(\frac{u}{2}\right)
+\end{array} \;\; u\in\mathbb{R}
 $$ 
-Then $\dot r = -\frac{1}{7}. Note we have chosen $r$ so that
+Then 
+Note we have chosen $r$ so that
 
-- $r\geq 0$ 
+- $r\geq 0$
 
 - $|\dot r|\leq\frac{1}{4} < 1 =|\dot\gamma|$.
-for our range of parameter $-7\leq u\leq 7$.
 
 Substituting into [](#canal-param) gives the following surface.
 
 ::::{figure}
 :::{code-cell} python
 :label: helix-canal
-:tags: hide-input
+:tags: remove-input
 import numpy as np
 import matplotlib.pyplot as plt
 %matplotlib ipympl
@@ -320,8 +306,8 @@ N = (-np.cos(u/sqrt2),-np.sin(u/sqrt2),0)
 B = ((1/sqrt2)*np.sin(u/sqrt2),-(1/sqrt2)*np.cos(u/sqrt2),1/sqrt2)
 
 #Radius function
-r = 1-u/7
-rdot = -1/7
+r = .5+np.sin(3*u)/9
+rdot = np.cos(3*u)/3
 
 x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
 y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
@@ -339,79 +325,7 @@ ax.set_aspect('equal')
 plt.show()
 :::
 
-Helical canal surface with non-constant radius function.
-::::
-
-## Example: Circular directrix
-
-This time let us choose a circle lying in the $x$-$y$ plane for the directrix $\gamma$ and another sinusoidal radius function. We continue using arc length parametrisation for $\gamma$ as it simplifies computation of ON frame significantly.
-
-\begin{gather*}
-\gamma = \left(R\cos\left(\frac{u}{R}\right), R\sin\left(\frac{u}{R}\right), 0\right), \\
-\mathbf{T} = \dot\gamma = \left(-\sin\left(\frac{u}{R}\right), \cos\left(\frac{u}{R}\right), 0\right)
-\mathbf{N} = \ddot\gamma = \left(-\cos\left(\frac{u}{R}\right), -\sin\left(\frac{u}{R}\right), 0\right)
-\mathbf{B} = (0,0,1)
-\end{gather*}
-
-For the radius function, take
-\begin{gather*}
-r = a+b\sin\left(\frac{cu}{R}\right) \\
-rdot = \frac{bc}{R}\cos\left(\frac{cu}{R}\right)
-\end{gather*}
-
-:::{code-cell}
-:label: circle-canal-parameters
-:tag: remove-input
-R = 10
-a = 2
-b = .3
-c = 6
-:::
-
-Parameters $R$, $a$, $b$ and $c$ are chosen so as to produce a smooth and not too bulbus result. In this case, $R=${eval}`R`, $a=${eval}`a`, $b=${eval}`b`, $R=${eval}`c`.
-
-::::{figure}
-:::{code-cell}
-:label: circle-canal
-:tags: hide-input
-
-import numpy as np
-import matplotlib.pyplot as plt
-%matplotlib ipympl
-
-fig = plt.figure(figsize = (10,8), label = ' ')
-ax = plt.axes(projection='3d')
-
-u = np.linspace(0, 2*np.pi*R, 100)
-v = np.linspace(0,2*np.pi,100)
-u, v = np.meshgrid(u, v)
-  
-sqrt2 = np.sqrt(2)
-
-gamma = (R*np.cos(u/R), R*np.sin(u/R), 0)
-T = (-np.sin(u/R),np.cos(u/R),0)
-N = (-np.cos(u/R),-np.sin(u/R),0)
-B = (0,0,1)
-r = a+b*np.sin(c*u/R)
-rdot = (b*c/R)*np.cos(b*u/R)
-
-x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
-y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
-z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v)) 
-
-ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .5)
-
-# Axis labels
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-
-ax.set_aspect('equal')
-
-plt.show()
-:::
-
-Canal surface with sinusoidal radius function and circular directrix.
+Helical canal surface with sinusoidal radius function.
 ::::
 
 ## Crocheting a pipe surface

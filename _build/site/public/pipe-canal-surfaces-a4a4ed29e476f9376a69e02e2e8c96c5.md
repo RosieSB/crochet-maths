@@ -280,24 +280,26 @@ plt.show()
 Pipe surface on a helix.
 ::::
 
-### Example: Non-constant radius function
 For a non-constant radius example, use the same helix $\gamma$, but this time with 
 $$
-r = 1-\frac{u}{7}, \;\; -7\leq u\eq 7.
+\begin{array}{c}
+r = 1+\frac{1}{2}\sin\left(\frac{u}{2}\right), \\
+\dot r = \frac{1}{4}\cos\left(\frac{u}{2}\right)
+\end{array} \;\; u\in\mathbb{R}
 $$ 
-Then $\dot r = -\frac{1}{7}. Note we have chosen $r$ so that
+Then 
+Note we have chosen $r$ so that
 
-- $r\geq 0$ 
+- $r\geq 0$
 
 - $|\dot r|\leq\frac{1}{4} < 1 =|\dot\gamma|$.
-for our range of parameter $-7\leq u\leq 7$.
 
 Substituting into [](#canal-param) gives the following surface.
 
 ::::{figure}
 :::{code-cell} python
 :label: helix-canal
-:tags: hide-input
+:tags: remove-input
 import numpy as np
 import matplotlib.pyplot as plt
 %matplotlib ipympl
@@ -320,8 +322,8 @@ N = (-np.cos(u/sqrt2),-np.sin(u/sqrt2),0)
 B = ((1/sqrt2)*np.sin(u/sqrt2),-(1/sqrt2)*np.cos(u/sqrt2),1/sqrt2)
 
 #Radius function
-r = 1-u/7
-rdot = -1/7
+r = .6+np.sin(3*u)/9
+rdot = np.cos(3*u)/3
 
 x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
 y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
@@ -339,7 +341,7 @@ ax.set_aspect('equal')
 plt.show()
 :::
 
-Helical canal surface with non-constant radius function.
+Helical canal surface with sinusoidal radius function.
 ::::
 
 ## Example: Circular directrix
@@ -373,7 +375,7 @@ Parameters $R$, $a$, $b$ and $c$ are chosen so as to produce a smooth and not to
 ::::{figure}
 :::{code-cell}
 :label: circle-canal
-:tags: hide-input
+:tags: remove-input
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -385,7 +387,7 @@ ax = plt.axes(projection='3d')
 u = np.linspace(0, 2*np.pi*R, 100)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
-  
+
 sqrt2 = np.sqrt(2)
 
 gamma = (R*np.cos(u/R), R*np.sin(u/R), 0)

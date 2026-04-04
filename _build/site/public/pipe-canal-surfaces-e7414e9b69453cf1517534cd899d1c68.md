@@ -283,9 +283,9 @@ Pipe surface on a helix.
 ### Example: Non-constant radius function
 For a non-constant radius example, use the same helix $\gamma$, but this time with 
 $$
-r = 1-\frac{u}{7}, \;\; -7\leq u\eq 7.
+r = 1+\frac{u}{10}, \;\; -7\leq u\eq 7.
 $$ 
-Then $\dot r = -\frac{1}{7}. Note we have chosen $r$ so that
+Then $\dot r = \frac{1}{10}. Note we have chosen $r$ so that
 
 - $r\geq 0$ 
 
@@ -320,8 +320,8 @@ N = (-np.cos(u/sqrt2),-np.sin(u/sqrt2),0)
 B = ((1/sqrt2)*np.sin(u/sqrt2),-(1/sqrt2)*np.cos(u/sqrt2),1/sqrt2)
 
 #Radius function
-r = 1-u/7
-rdot = -1/7
+r = 1+u/10
+rdot = 1/10
 
 x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
 y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
