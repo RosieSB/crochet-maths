@@ -525,8 +525,8 @@ for n in range(N+1):
 
 
 # Pattern model
-fig = plt.figure(figsize = (8,8), label = ' ')
-ax = plt.axes(projection='3d')
+fig = plt.figure(figsize = (8,8))
+ax = plt.axes(projection='3d', label = ' ')
 ax.grid()
 for n in range(N+1):
     reduced_st_count[n] = round(st_count[n]/st_count[0])
