@@ -289,7 +289,7 @@ Then $\dot r = -\frac{1}{7}. Note we have chosen $r$ so that
 - $|\dot r|\leq\frac{1}{4} < 1 =|\dot\gamma|$.
 for our range of parameter $-7\leq u\leq 7$.
 
-Substituting into [](#eq:canal-param) gives the following surface.
+Substituting into [](#canal-param) gives the following surface.
 
 ::::{figure}
 :::{code-cell} python
@@ -507,7 +507,7 @@ kappa = 1/R
 :::
 
 
-Parameter values: $R=${eval}`R`, $r=${eval}`r`, $w=${eval}`w` and $h=${eval}`h`. The curvature of the directrix circle is $\kappa=\frac{1}{R}=${eval}`kappa`.
+Parameter values: $R=${eval}`R`, $r=${eval}`r`, $w=${eval}`w` and $h=${eval}`h`. The curvature of the directrix circle is $\kappa=\frac{1}{R}=$`kappa`.
 
 :::{code-cell} python
 :label: curved-pipe-code

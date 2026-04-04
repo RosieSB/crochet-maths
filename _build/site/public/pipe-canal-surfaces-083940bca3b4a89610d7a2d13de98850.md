@@ -103,7 +103,10 @@ or, more lengthily,
 
 
 ### Example: Helix
-Arc length parametrisation:
+Arc length parametrisation [^1]:
+
+[^1]: Check:  $\displaystyle\int_0^u\Vert\dot\gamma(u)\Vert dt = \int_0^u\sqrt{\frac{1}{2}\sin^2\left(\frac{t}{\sqrt{2}}\right)+\frac{1}{2}\cos^2\left(\frac{t}{\sqrt{2}}\right)+\frac{1}{2}}dt =\int_0^u1dt = u$  ✓ . 
+
 
 $$
 \gamma(u) = \left(\begin{array}{c} 
@@ -289,7 +292,7 @@ Then $\dot r = -\frac{1}{7}. Note we have chosen $r$ so that
 - $|\dot r|\leq\frac{1}{4} < 1 =|\dot\gamma|$.
 for our range of parameter $-7\leq u\leq 7$.
 
-Substituting into [](#eq:canal-param) gives the following surface.
+Substituting into [](#canal-param) gives the following surface.
 
 ::::{figure}
 :::{code-cell} python
@@ -415,15 +418,14 @@ Canal surface with sinusoidal radius function and circular directrix.
 
 This is a more complicated endeaver than that of a torus. One simplification to try first is to assume the directrix curve $\gamma$ is planar, so that torsion, $\tau$, is equal to $0$.
 
-Locally, a pipe surface with (constant) radius $r>0$, planar directrix $\gamma$ and curvature $\kappa$ would coincide with a torus with major radius $\frac{1}{\kappa}$ and minor radius $r$.
+Locally, it seems plausable that a pipe surface with (constant) radius $r>0$, planar directrix $\gamma$ and curvature $\kappa$ would coincide with a torus with major radius $\frac{1}{\kappa}$ and minor radius $r$.
 
-:::{dropdown} Click for check
-First observe that a torus is itself a pipe surface of a circle with radius $R$. Indeed, using  $\gamma(u) = (R\cos\left(\frac{u}{R}\right),R\sin\left(\frac{u}{R}\right),0)$, $\mathbf{N}=(-\cos\left(\frac{u}{R}\right),-\sin\left(\frac{u}{R}\right),0)$, $\mathbf{B}=(0,0,1)$, and so the parametrisation [](#eq:pipe-param) becomes
+How would one prove this? Well, a torus is itself a pipe surface of a circle with radius $R$. Indeed, using [](#eq:pipe-param) with $\gamma(u) = (R\cos(u/R),R\sin(u/R),0)$, we have $\mathbf{N}=(-\cos(u/R),-\sin(u/R),0)$, $\mathbf{B}=(0,0,1)$ and
 
 \begin{align*}
-\mathbf{x}(u,v) &= \left(R\cos\left(\frac{u}{R}\right),R\sin\left(\frac{u}{R}\right),0\right) + r\Big( \left(-\cos\left(\frac{u}{R}\right),-\sin\left(\frac{u}{R}\right),0\right)\cdot\cos(v) \\ 
+\mathbf{x}(u,v) &= (R\cos(u/R),R\sin(u/R),0) + r\Big( (-\cos(u/R),-\sin(u/R),0)\cdot\cos(v) \\ 
 &\hspace{18em} +(0,0,1)\cdot\sin(v) \Big) \\
-&= \left(\left(R-r\cos(v)\right)\cos\left(\frac{u}{R}\right),\left(R-r\cos(v)\right)\sin\left(\frac{u}{R}\right),r\sin(v)\right), 
+&= \big((R-r\cos(v))\cos(u/R),(R-r\cos(v))\sin(u/R),r\sin(v)\big), 
 \end{align*}
 
 which is equivalent to the parametrisation of [](#CT). 
@@ -441,7 +443,7 @@ and
 $$
 \frac{d\mathbf{N}}{du} = -\kappa\mathbf{T}, \; \frac{d^2\mathbf{N}}{du^2}=-\kappa\frac{d\mathbf{T}}{du}=-\kappa^2\mathbf{N}, ...
 $$
-More generally, for $m\in\mathbb{N}\cup\{0\}$,
+More generally
 \begin{gather*}
 \mathbf{T}^{(2m)}(u) = (-1)^m\kappa^{2m}\mathbf{T}(u) = (-1)^m\kappa^{2m}(0,1,0),\\
  \mathbf{T}^{(2m+1)}(u) = (-1)^m\kappa^{2m+1}\mathbf{N}(u) = (-1)^m\kappa^{2m+1}(-1,0,0), \\
@@ -473,99 +475,3 @@ So the parametrisation of the pipe surface near $u$ will be
 \end{align*}
 
 This confirms our suspicion: small deviations in the parameter $u$ give surface sections that coincide precisely with the torus (with radii $R=\frac{1}{\kappa}$ and $r$).
-:::
-
-This suggests a method for crocheting pipe (and eventually, canal surfaces): work out how to crochet small sections of pipe of a specified radius and curvature, and then stack them, changing the curvature and radius as needed. For now, we continue to restrict to the torsion-free (i.e. planar directrix) case.
-
-### Curved pipe pattern
-The following pattern is a section of torus, modified from [](#torus-crochet-eg) and similar. 
-
-:::{code-cell} python 
-:label: curved-pipe-parameters
-:tags: remove-input
-from tabulate import tabulate
-import numpy as np
-from mpl_toolkits import mplot3d
-import matplotlib.pyplot as plt
-from matplotlib.colors import TABLEAU_COLORS, same_color
-prop_cycle = plt.rcParams['axes.prop_cycle']
-colors = prop_cycle.by_key()['color']
-
-%matplotlib ipympl
-
-plt.style.use('seaborn-v0_8-poster')
-
-#Major & minor radii
-R = 3
-r = 2
-#Stitch dimensions
-w = 1
-h = 1
-
-#Curvature of directrix
-kappa = 1/R
-:::
-
-
-Parameter values: $R=${eval}`R`, $r=${eval}`r`, $w=${eval}`w` and $h=${eval}`h`. The curvature of the directrix circle is $\kappa=\frac{1}{R}=${eval}`kappa`.
-
-:::{code-cell} python
-:label: curved-pipe-code
-:tags: remove-input
-# Row count
-N = round(r*np.pi/h)
-
-# Stitch count
-st_count = [0]*(N+1)
-reduced_st_count = [0]*(N+1)
-row = [0]*(N+1)
-for n in range(N+1):
-    st_count[n]=round(2*np.pi*(R-r*np.cos(n*np.pi/int(N)))/w)
-    row[n] = n #"Row "+str(n)+": "+str(st_count[n])+" st."
-
-
-# Pattern model
-fig = plt.figure(figsize = (8,8))
-ax = plt.axes(projection='3d')
-ax.grid()
-for n in range(N+1):
-    reduced_st_count[n] = round(st_count[n]/st_count[0])
-    for k in range(reduced_st_count[n]):
-        theta = n*np.pi/N
-        phi = k*2*np.pi/st_count[n] # < phi1
-        u = np.linspace((n-.5)*np.pi/N, (n+.5)*np.pi/N, 2)
-        v = np.linspace((k-.5)*2*np.pi/st_count[n], (k+.5)*2*np.pi/st_count[n], 2)
-        u, v = np.meshgrid(u, v)
-        x = (R-r*np.cos(u))*np.cos(v)
-        y = (R-r*np.cos(u))*np.sin(v)
-        z = r*np.sin(u)
-        ax.plot_surface(x, y, z, color=colors[k%10], edgecolor='black', linewidth=.1)
-        if n>0 and n<N:
-            ax.plot_surface(x, y, -z, color=colors[9-k%10], edgecolor='black', linewidth=.1)
-
-# Dual stitch count
-dual_st_count = [2*N]
-k = 0
-rnd = [0]
-for n in range(1,N+1):
-    if reduced_st_count[n]>reduced_st_count[n-1]:
-        dual_st_count.append(2*N-(2*n-1))
-        k = k + 1
-        rnd.append(k)
-
-# Stitch count table
-table = np.transpose([rnd, dual_st_count])
-pattern = tabulate(table,headers=["Round","Stitch count"],tablefmt="html")
-display(pattern)
-
-# Axis labels
-ax.set_xlabel('x', labelpad=20)
-ax.set_ylabel('y', labelpad=20)
-ax.set_zlabel('z', labelpad=20)
-
-ax.set_aspect('equal')
-
-ax.view_init(elev=45, azim=-135, roll=0)
-
-plt.show()
-:::

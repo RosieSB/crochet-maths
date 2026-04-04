@@ -507,7 +507,7 @@ kappa = 1/R
 :::
 
 
-Parameter values: $R=${eval}`R`, $r=${eval}`r`, $w=${eval}`w` and $h=${eval}`h`. The curvature of the directrix circle is $\kappa=\frac{1}{R}=${eval}`kappa`.
+Parameter values: $R=${eval}`R`, $r=${eval}`r`, $w=${eval}`w` and $h=${eval}`h`. The curvature of the directrix circle is $\kappa=\frac{1}{R}=$`kappa`.
 
 :::{code-cell} python
 :label: curved-pipe-code
