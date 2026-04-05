@@ -487,10 +487,10 @@ from tabulate import tabulate
 import numpy as np
 from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 from matplotlib.colors import TABLEAU_COLORS, same_color
 prop_cycle = plt.rcParams['axes.prop_cycle']
-colors = list(mcolors.TABLEAU_COLORS)
+colors = mcolors.TABLEAU_COLORS
+print(list(colors))
 
 %matplotlib ipympl
 
@@ -544,8 +544,7 @@ for n in range(N+1):
         if n>0 and n<N:
             ax.plot_surface(x, y, -z, color=colors[k%10], edgecolor='black', linewidth=.1)
 
-
-#Dual stitch count table
+# Dual stitch count
 dual_st_count = [2*N]
 r = 0
 rnd = [0]
@@ -555,16 +554,16 @@ for n in range(1,N+1):
         r = r + 1
         rnd.append(r)
 
+
+# Stitch count table
 colour = [0]*(r+1)
 for k in range(r+1):
-    colour[k] = colors[k%10][4:]
-    colour[k] = colour[k].capitalize()
-
+    colour[k] = colors[k%10]
 table = np.transpose([rnd, dual_st_count, colour])
 pattern = tabulate(table,headers=["Round","Stitch count", "Colour"],tablefmt="html")
 display(pattern)
 
-#Axis labels
+# Axis labels
 ax.set_xlabel('x', labelpad=20)
 ax.set_ylabel('y', labelpad=20)
 ax.set_zlabel('z', labelpad=20)
