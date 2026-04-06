@@ -356,7 +356,7 @@ r = a+b\sin\left(\frac{cu}{R}\right) \\
 rdot = \frac{bc}{R}\cos\left(\frac{cu}{R}\right)
 \end{gather*}
 
-:::{code-cell}
+:::{code-cell} python
 :label: circle-canal-parameters
 :tag: remove-input
 R = 10
@@ -368,7 +368,7 @@ c = 6
 Parameters $R$, $a$, $b$ and $c$ are chosen so as to produce a smooth and not too bulbus result. In this case, $R=${eval}`R`, $a=${eval}`a`, $b=${eval}`b`, $R=${eval}`c`.
 
 ::::{figure}
-:::{code-cell}
+:::{code-cell} python
 :label: circle-canal
 :tags: hide-input
 
@@ -847,111 +847,210 @@ plt.show()
 
 ## Klein bottle as a channel surface??
 
-The trick (of course) will be choosing the right directrix and radius function, for optimum crochetability.
+The trick will be choosing the right directrix and radius function, for optimum crochetability. 
 
 
+### Directrix shape
+
+It seems simplest to build the directrix out of straight and circular arc segments as follows:
+
+- Straight segment 1: For main bottle section, from base to beginning of handle.
+
+- Circlular arc 1: Out of top of main bottle section round to form top of handle
+
+- Straight segment 2: For middle of handle (includes self intersection point)
+
+- Circular arc 2: to smooth out join of handle to main bottle directrix
+
+- Straight segment 3: Down to base of bottle. 
+
+The main equations to find are for straight segment 2 and the two circular arcs. 
+
+For simplicity, assume Straight segment 1 lies on the $z$ axis, and fix the origin as the join of Circular arc 2 with Straight segment 3. The base point is at height $d<0$ on the negative $z$-axis. 
+
+:::{image} figs/Klein-directrix-calc.png
+:width: 600
+:::
+
+Using the notation in the diagram, 
+
+$$
+P=(a+a\cos\theta,h-a\sin\theta), \;\;Q=(b-b\cos\theta,b\sin\theta)
+$$
+
+Write $z=my+c$ for the equation of $L$. Then 
+$$
+m = \cot\theta = \frac{b\sin\theta - h+a\sin\theta}{b-b\cos\theta - a-a\cos\theta}
+$$
+
+so
+$$
+\cos\theta(b-b\cos\theta - a - a\cos\theta) = \sin\theta(b\sin\theta - h + a\sin\theta)
+$$
+$$
+b\cos\theta-b\cos^2\theta - a\cos\theta-a\cos^2\theta = b\sin^2\theta - h\sin\theta +a\sin^2\theta
+$$
+$$
+h\sin\theta = r+s+(r-s)\cos\theta
+$$
+and hence
+$$
+h=(a+b)\csc\theta+(a-b)\cot\theta.\tag{1}
+$$
+For the $z$-intercept $c$, using coordinates of $Q$,
+\begin{align*}
+c &= b\sin\theta - \cot\theta(b-b\cos\theta) \\
+&= b\left(\sin\theta-\frac{\cos\theta}{\sin\theta}+\frac{\cos^2\theta}{\sin\theta}\right) \\
+&=b(\csc\theta-\cot\theta).
+\end{align*}
+
+On the other hand, using coordinates of $P$,
+\begin{align*}
+c&=h-a\sin\theta-\cot\theta(a+a\cos\theta)\\
+&=h-a\left(\sin\theta+\frac{\cos\theta}{\sin\theta}+\frac{\cos^2\theta}{\sin\theta}\right) \\
+&= h-a(\csc\theta+\cot\theta).
+\end{align*}
+
+So, 
+$$
+h-a(\csc\theta+\cot\theta)=b(\csc\theta-\cot\theta),
+$$
+which rearranges to give $(1)$.
+
+So $L$ has Cartesian equation
+$$
+L: \; z=(\cot\theta)y+b(\csc\theta-\cot\theta).
+$$
+
+For the directrix itself, take the concatenation of the following parametric curves.
+
+- Straight segment 1: $\gamma_1(t)=(0,-t)$, $t\in[d,h]$ 
+
+- Circlular arc 1: Out of top of main bottle section round to form top of handle
+
+- Straight segment 2: For middle of handle (includes self intersection point)
+
+- Circular arc 2: to smooth out join of handle to main bottle directrix
+
+- Straight segment 3: Down to base of bottle.
+
+### Interactive widget
+The following interactive widget is to help determine directrix shape. 
 
 ::::{figure}
 :align: center
 :::{code-cell} python
-:label: helix
-:tags: remove-input
+:label: klein-directrix-calc
+:tags: hide-input
 import numpy as np
 import matplotlib.pyplot as plt
+import ipywidgets as widgets
+from ipywidgets import Layout
 
-fig = plt.figure(figsize = (6,6), label = ' ')
-ax = plt.axes(projection='3d')
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib ipympl
 
-#Straight segment 1
-u = np.linspace(0, 8, 2)
+d = widgets.FloatSlider(value=-1,min=-5,max=0,step=.1,description='d')
+a = widgets.FloatSlider(value=1,min=0,max=5,step=.1,description='a')
+b = widgets.FloatSlider(value=2,min=0,max=5,step=.1,description='b')
+theta = widgets.FloatSlider(value=1,min=0,max=np.pi/2,step=.1,description='θ')
 
-x = 0
-y = 0
-z = u
+def f(d,a,b,theta):
+    plt.clf()
+    plt.close()
+    
+    h = (a+b+(a-b)*np.cos(theta))/np.sin(theta)
+    
+    P = np.array([0,a*(1+np.cos(theta)),h-a*np.sin(theta)])    
+    Q = np.array([0,b*(1-np.cos(theta)),b*np.sin(theta)])
+    PQ = Q-P
+    magPQ = np.sqrt(PQ[1]**2+PQ[2]**2)
+    
+    fig = plt.figure(figsize = (8,8), label = ' ')
+    ax = plt.axes(projection='3d')
+    
+    #Straight segment 1
+    u = np.linspace(0, np.pi, 2)
+    
+    t = np.linspace(d, h, 2)
+    
+    x = 0
+    y = 0
+    z = t
+    
+    ax.plot(x, y, z)
+    
+    #Circular segment 1
+    
+    t = np.linspace(0, a*(np.pi+theta), 100)
+    
+    x = 0
+    y = a*(1+np.cos(np.pi-t/a))
+    z = h+a*np.sin(np.pi-t/a)
+    
+    ax.plot(x, y, z)
+    
+    #Straight segment 2
+    
+    t = np.linspace(0, magPQ, 2)
+    
+    x = (t/magPQ)*Q[0] + (1-t/magPQ)*P[0]
+    y = (t/magPQ)*Q[1] + (1-t/magPQ)*P[1]
+    z = (t/magPQ)*Q[2] + (1-t/magPQ)*P[2]
+    
+    ax.plot(x, y, z)
+    
+    #Circular segment 2
+    
+    t = np.linspace(0, b*theta, 100)
+    
+    x = 0
+    y = b+b*np.cos(np.pi-theta+t/b)
+    z = b*np.sin(np.pi-theta+t/b)
+    
+    ax.plot(x, y, z)
 
-ax.plot(x, y, z)
+    #Straight segment 3
 
-#Circular segment
-u = np.linspace(0, 5*np.pi/4, 100)
+    t = np.linspace(0, -d, 2)
+    
+    x = 0
+    y = 0
+    z = -t
+    
+    ax.plot(x, y, z)
+    
 
-x = 0
-y = 3+3*np.cos(np.pi-u)
-z = 8+3*np.sin(np.pi-u)
+    #Annotations
+    #ax.scatter(P[0],P[1],P[2],color='k')
+    #ax.text(P[0],P[1],P[2]-.5*a, "P")
+    
+    #ax.scatter(Q[0],Q[1],Q[2],color='k')
+    #ax.text(Q[0],Q[1],Q[2]-.5*a, "Q")
+    
+    # Axis labels
+    ax.set_xlabel(' ')
+    ax.set_ylabel(' ')
+    ax.set_zlabel('z')
+    
+    ax.set(xlim=(-2,2), ylim=(-1.5*a,2.5*a), zlim=(1.2*d,1.2*(h+a)))
+    ax.set_xticks([])
+    ax.set_yticks([0,b,a], labels=["0", "b", "a"])
+    ax.set_zticks([d, 0,h,h+a], labels=["d", "0", "h", "h+a"])
+    ax.set_aspect('equal')
+    
+    ax.view_init(elev=0, azim=0, roll=0)
+    
+    plt.show()
 
-ax.plot(x, y, z)
+output =  widgets.interactive_output(f, {'d': d, 'a': a, 'b': b, 'theta': theta})
 
-#Straight segment 2
-u = np.linspace(0, .8, 2)
+parameters = widgets.VBox([widgets.HTML(value="Bottle control points:"), d, a, b, theta],layout=Layout())
 
-x = 0
-y = (3+3*np.sqrt(2)/2)*(1-u)
-z = (8-3*np.sqrt(2)/2)*(1-u)
+widgets.VBox([parameters,output],layout=Layout())
 
-ax.plot(x, y, z)
-
-# Axis labels
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-
-ax.set(xlim=(-5,8),ylim=(-5,8),zlim=(-2,15))
-
-ax.set_aspect('equal')
-
-ax.view_init(elev=0, azim=0, roll=0)
-
-plt.show()
 :::
 
 Directrix experiments
 ::::
-
-
-
-::::{figure}
-:align: center
-:::{code-cell} python
-:label: helix
-:tags: remove-input
-import numpy as np
-import matplotlib.pyplot as plt
-
-fig = plt.figure(figsize = (6,6), label = ' ')
-ax = plt.axes(projection='3d')
-
-#Straight segment 
-u = np.linspace(-5, 22, 2)
-
-x = 0
-y = 0
-z = u
-
-ax.plot(x, y, z)
-
-#Half-heart
-u = np.linspace(0, np.pi, 100)
-
-x = 0
-y = 16*(np.sin(u))**3
-z = 17+13*np.cos(u)-5*np.cos(2*u)-2*np.cos(3*u)-np.cos(4*u)
-
-ax.plot(x, y, z)
-
-# Axis labels
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-
-ax.set(xlim=(-5,8))
-
-ax.set_aspect('equal')
-
-ax.view_init(elev=0, azim=0, roll=0)
-
-plt.show()
-:::
-
-Directrix experiments
-::::
-
-
