@@ -11,9 +11,10 @@ project:
   toc:
    - file: intro.md
    - file: torus.md
-   - file: pipe-canal-surfaces.md
    - file: interactive-torus-crochet.md
    - file: interactive-toral-geodesics.md
+   - file: pipe-canal-surfaces.md
+   - file: interactive-klein.md
    - file: gallery.md
    - file: colour-work-patterns.md
   numbering:

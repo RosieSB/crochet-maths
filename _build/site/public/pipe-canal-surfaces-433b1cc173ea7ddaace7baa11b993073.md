@@ -845,7 +845,7 @@ plt.show()
 ::::
 :::::
 
-(klein)=
+
 ## Klein bottle as a channel surface??
 
 The trick will be choosing the right directrix and radius function, for optimum crochetability. 
@@ -923,7 +923,6 @@ $$
 L: \; z=(\cot\theta)y+b(\csc\theta-\cot\theta).
 $$
 
-(directrix-param)=
 #### Arc length parametrisation
 We take the concatenation of the following parametric curves.
 
@@ -973,8 +972,6 @@ magPQ = np.sqrt(PQ[1]**2+PQ[2]**2)
 
 Below is an example, made with parameter values d={eval}`d`, a={eval}`a` and b={eval}`b`. From these we get P=(0,{eval}`float(np.round(P[1],dp))`,{eval}`float(np.round(P[2],dp))`), Q=(0,{eval}`float(np.round(Q[1],dp))`,{eval}`float(np.round(Q[2],dp))`) and h={eval}`float(np.round(h,dp))`.
 
-::::{figure}
-:label: fig:klein-directrix1
 :::{code-cell} python
 :label: klein-directrix-calc
 :tags: hide-input
@@ -1080,4 +1077,3 @@ ax.set_aspect('equal')
 
 ax.view_init(elev=0, azim=0, roll=0)
 :::
-::::
