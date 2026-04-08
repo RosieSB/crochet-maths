@@ -918,7 +918,7 @@ So,
 $$
 h-a(\csc\theta+\cot\theta)=b(\csc\theta-\cot\theta),
 $$
-which rearranges to give $(1)$.
+which rearranges to give [](#hab-constraint).
 
 So $L$ has Cartesian equation
 $$
@@ -1086,6 +1086,7 @@ ax.view_init(elev=0, azim=0, roll=0)
 
 ### Radius function
 :::{figure} figs/klein-radius.png
+:width: 600
 
 Radius function sketch
 :::
@@ -1113,10 +1114,14 @@ $$
 k=h-a\sin\phi+(\cot\phi)(p+a-a\cos\phi)=h+(a+p)\cot\phi-a\csc\phi
 $$
 So we have the following constraints on our choice of new parameters $p$ and $\phi$:
+$$
+h\sin\phi+(a+p)\cos\phi = a+p-2d,
+$$
+or in other words,
 :::{math}
 :enumerated: true
 :label:pphi-constraint
-h+(a+p)\cot\phi-a\csc\phi = (p-2d)\csc\phi.
+d= \frac{(a+p)(1-\cos\phi) -h\sin\phi}{2}
 :::
 
 Linear section equation:
@@ -1129,7 +1134,7 @@ r=p+a-\sqrt{a^2-(z-h)^2}, \hspace{1em}z\in[h-a\sin\phi,h]
 $$
 
 First attempt at parametrisation:
-- $r_1(u) = p-d-\sqrt{d^2-(u+d)^2}$ , $\dot r_1(u) = \frac{u+d}{\sqrt{d^2-(u+d)^2}}$, for $u\in[0,-d]$.
+- $r_1(u) = p-d-\sqrt{d^2-u^2}$ , $\dot r_1(u) = \frac{u+d}{\sqrt{d^2-u^2}}$, for $u\in[0,-d]$.
 - $r_2(u) = p-d+\sqrt{d^2-u^2}$ , $\dot r_2(u) = -\frac{u}{\sqrt{d^2-u^2}}$ , for $u\in[d,0]$.
 - $r_3(u)=\sqrt{(p-2d)^2-u^2}$, $\dot r_3(u)=-\frac{u}{\sqrt{(p-2d)^2-u^2}}$, for $u\in[0,(p-2d)\sin\phi]$.
 - $r_4(u)=(p-2d)\sec\phi-u\tan\phi$, $\dot r_4(u)=-\tan\phi$, for $u\in[(p-2d)\sin\phi,h-a\sin\phi]$.
