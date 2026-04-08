@@ -1101,27 +1101,27 @@ $$
 
 Next circular section: 
 $$
-r=\sqrt{(p-2d)^2-z^2} \hspace{1em} 0\leq z\leq (p-2d)\sin\phi
+r=\sqrt{c^2-z^2} \hspace{1em} 0\leq z\leq c\sin\phi
 $$
 
-Linear section: note $X=((p-2d)\cos\phi,(p-2d)\sin\phi)$, $Y=(p+a-a\cos\phi,h-a\sin\phi)$, so line through $X$ and $Y$ has equation $z=(-\cot\phi)r +k$, where
+Linear section: note $X=(c\cos\phi,c\sin\phi)$, $Y=(p+a-a\cos\phi,h-a\sin\phi)$, so line through $X$ and $Y$ has equation $z=(-\cot\phi)r +k$, where
 $$
-k=(p-2d)\sin\phi+(\cot\phi)(p-2d)\cos\phi=(p-2d)\csc\phi.
+k=c\sin\phi+(\cot\phi)c\cos\phi=c\csc\phi.
 $$
 On the other hand
 $$
 k=h-a\sin\phi+(\cot\phi)(p+a-a\cos\phi)=h+(a+p)\cot\phi-a\csc\phi
 $$
-So we have the following constraints on our choice of new parameters $p$ and $\phi$:
+So we have the following constraints on our choice of new parameters $p$, $c$ and $\phi$:
 :::{math}
 :enumerated: true
-:label:pphi-constraint
-h+(a+p)\cot\phi-a\csc\phi = (p-2d)\csc\phi.
+:label:pcphi-constraint
+h+(a+p)\cot\phi-a\csc\phi = c\csc\phi.
 :::
 
 Linear section equation:
 $$
-r=((p-2d)\csc\phi-z)\tan\phi=(p-2d)\sec\phi-z\tan\phi.
+r=(c\csc\phi-z)\tan\phi=c\sec\phi-z\tan\phi.
 $$
 Final circular section: $(r-p-a)^2+(z-h)^2=a^2$, so
 $$
@@ -1131,8 +1131,8 @@ $$
 First attempt at parametrisation:
 - $r_1(u) = p-d-\sqrt{d^2-(u+d)^2}$ , $\dot r_1(u) = \frac{u+d}{\sqrt{d^2-(u+d)^2}}$, for $u\in[0,-d]$.
 - $r_2(u) = p-d+\sqrt{d^2-u^2}$ , $\dot r_2(u) = -\frac{u}{\sqrt{d^2-u^2}}$ , for $u\in[d,0]$.
-- $r_3(u)=\sqrt{(p-2d)^2-u^2}$, $\dot r_3(u)=-\frac{u}{\sqrt{(p-2d)^2-u^2}}$, for $u\in[0,(p-2d)\sin\phi]$.
-- $r_4(u)=(p-2d)\sec\phi-u\tan\phi$, $\dot r_4(u)=-\tan\phi$, for $u\in[(p-2d)\sin\phi,h-a\sin\phi]$.
+- $r_3(u)=\sqrt{c^2-u^2}$, $\dot r_3(u)=-\frac{u}{\sqrt{c^2-u^2}}$, for $u\in[0,c\sin\phi]$.
+- $r_4(u)=c\sec\phi-u\tan\phi$, $\dot r_4(u)=-\tan\phi$, for $u\in[c\sin\phi,h-a\sin\phi]$.
 - $r_5(u)=p+a-\sqrt{a^2-(u-h)^2}$, $\dot r_5(u)=\frac{u-h}{\sqrt{a^2-(u-h)^2}}$ for $u\in[h-a\sin\phi,h]$.
 
 For canal surface, it is required that $|\dot r|<\Vert\dot\gamma\Vert=1$, The smaller $|\dot r|$, the smoother (less lumpy) the resulting surface.

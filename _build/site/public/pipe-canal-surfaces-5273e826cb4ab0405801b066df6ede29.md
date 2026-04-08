@@ -1112,10 +1112,10 @@ On the other hand
 $$
 k=h-a\sin\phi+(\cot\phi)(p+a-a\cos\phi)=h+(a+p)\cot\phi-a\csc\phi
 $$
-So we have the following constraints on our choice of new parameters $p$ and $\phi$:
+So we have the following constraints on our choice of new parameters $p$, $(p-2d)$ and $\phi$:
 :::{math}
 :enumerated: true
-:label:pphi-constraint
+:label:pcphi-constraint
 h+(a+p)\cot\phi-a\csc\phi = (p-2d)\csc\phi.
 :::
 
