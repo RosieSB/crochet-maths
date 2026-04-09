@@ -998,8 +998,6 @@ fig.tight_layout()
 ax = plt.axes(projection='3d')
 
 #Straight segment 1
-u = np.linspace(0, np.pi, 2)
-
 t = np.linspace(0, h-d, 2)
 
 x = 0
@@ -1091,21 +1089,18 @@ ax.view_init(elev=0, azim=0, roll=0)
 Radius function sketch
 :::
 
-Starting from the bottom, first circular section has equation $(r-(p-d))^2+z^2=d^2$, so 
+We leave the base for now, as it has an unbounded derivative (note its equation,
 $$
-r=p-d-\sqrt{d^2-z^2} \hspace{1em} d\leq z\leq 0. 
+r=p-d\pm\sqrt{d^2-z^2},\; \dot r=\mp\frac{z}{\sqrt{d^2-z^2}} \hspace{1em} d\leq z\leq 0
 $$
-followed by
-$$
-r=p-d+\sqrt{d^2-z^2} \hspace{1em} d\leq z\leq 0. 
-$$
+is unbounded and singular at $z=d$).
 
-Next circular section: 
+Middle circular section: 
 $$
 r=\sqrt{(p-2d)^2-z^2} \hspace{1em} 0\leq z\leq (p-2d)\sin\phi
 $$
 
-Linear section: note $X=((p-2d)\cos\phi,(p-2d)\sin\phi)$, $Y=(p+a-a\cos\phi,h-a\sin\phi)$, so line through $X$ and $Y$ has equation $z=(-\cot\phi)r +k$, where
+Linear section: we have end points $X=((p-2d)\cos\phi,(p-2d)\sin\phi)$, $Y=(p+a-a\cos\phi,h-a\sin\phi)$, so line through $X$ and $Y$ has equation $z=(-\cot\phi)r +k$, where
 $$
 k=(p-2d)\sin\phi+(\cot\phi)(p-2d)\cos\phi=(p-2d)\csc\phi.
 $$
@@ -1128,17 +1123,16 @@ Linear section equation:
 $$
 r=((p-2d)\csc\phi-z)\tan\phi=(p-2d)\sec\phi-z\tan\phi.
 $$
+
 Final circular section: $(r-p-a)^2+(z-h)^2=a^2$, so
 $$
 r=p+a-\sqrt{a^2-(z-h)^2}, \hspace{1em}z\in[h-a\sin\phi,h]
 $$
 
 First attempt at parametrisation:
-- $r_1(u) = p-d-\sqrt{d^2-u^2}$ , $\dot r_1(u) = \frac{u+d}{\sqrt{d^2-u^2}}$, for $u\in[0,-d]$.
-- $r_2(u) = p-d+\sqrt{d^2-u^2}$ , $\dot r_2(u) = -\frac{u}{\sqrt{d^2-u^2}}$ , for $u\in[d,0]$.
-- $r_3(u)=\sqrt{(p-2d)^2-u^2}$, $\dot r_3(u)=-\frac{u}{\sqrt{(p-2d)^2-u^2}}$, for $u\in[0,(p-2d)\sin\phi]$.
-- $r_4(u)=(p-2d)\sec\phi-u\tan\phi$, $\dot r_4(u)=-\tan\phi$, for $u\in[(p-2d)\sin\phi,h-a\sin\phi]$.
-- $r_5(u)=p+a-\sqrt{a^2-(u-h)^2}$, $\dot r_5(u)=\frac{u-h}{\sqrt{a^2-(u-h)^2}}$ for $u\in[h-a\sin\phi,h]$.
+- $r_1(u)=\sqrt{(p-2d)^2-u^2}$, $\dot r_1(u)=-\frac{u}{\sqrt{(p-2d)^2-u^2}}$, for $u\in[0,(p-2d)\sin\phi]$.
+- $r_2(u)=(p-2d)\sec\phi-u\tan\phi$, $\dot r_2(u)=-\tan\phi$, for $u\in[(p-2d)\sin\phi,h-a\sin\phi]$.
+- $r_3(u)=p+a-\sqrt{a^2-(u-h)^2}$, $\dot r_3(u)=\frac{u-h}{\sqrt{a^2-(u-h)^2}}$ for $u\in[h-a\sin\phi,h]$.
 
 For canal surface, it is required that $|\dot r|<\Vert\dot\gamma\Vert=1$, The smaller $|\dot r|$, the smoother (less lumpy) the resulting surface.
 
@@ -1155,7 +1149,7 @@ from scipy import special
 import matplotlib.pyplot as plt
 %matplotlib ipympl
 
-d = -.5
+d = -1
 a = 1 
 b = 2
 theta = .7
@@ -1171,7 +1165,7 @@ fig = plt.figure(figsize = (7,8), label = ' ')
 fig.tight_layout()
 ax = plt.axes(projection='3d')
 
-#Straight segment 1
+#Bottle 1
 
 u = np.linspace(0, h-d, 100)
 v = np.linspace(0,2*np.pi,100)
