@@ -1316,7 +1316,7 @@ z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(
 ax.plot_surface(x, y, z, color = 'yellow', edgecolor = 'black', linewidth = .1, alpha = .5)
 
 #Base
-u = np.linspace(0, np.pi, 50)
+u = np.linspace(-np.pi, 0, 50)
 v = np.linspace(0, 2 * np.pi, 50)
 u, v = np.meshgrid(u, v)
 
@@ -1325,7 +1325,7 @@ r = -d
 
 x = (R - r * np.cos(u)) * np.sin(v)
 y = (R - r * np.cos(u)) * np.cos(v)
-z = -r * np.sin(u)
+z = r * np.sin(u)
 ax.plot_surface(x, y, z, edgecolor='black', linewidth=.1, alpha=0.5)
 
 #Axis labels

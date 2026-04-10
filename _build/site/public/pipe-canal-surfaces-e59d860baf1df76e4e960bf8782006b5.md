@@ -1323,9 +1323,9 @@ u, v = np.meshgrid(u, v)
 R = p-d
 r = -d
 
-x = (R - r * np.cos(u)) * np.sin(v)
-y = (R - r * np.cos(u)) * np.cos(v)
-z = -r * np.sin(u)
+x = (R - r * np.cos(u)) * np.cos(v)
+y = (R - r * np.cos(u)) * np.sin(v)
+z = r * np.sin(u)
 ax.plot_surface(x, y, z, edgecolor='black', linewidth=.1, alpha=0.5)
 
 #Axis labels
