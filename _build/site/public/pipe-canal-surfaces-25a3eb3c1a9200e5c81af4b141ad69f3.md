@@ -1154,14 +1154,13 @@ dp=2
 
 #Parameters
 a = 3
-b = 4
-c = 7
+b = 2
 p = 1
 theta = .7
-phi = .5
+phi = .6
 
 h = (a+b+(a-b)*np.cos(theta))/np.sin(theta)
-d = ((c+p)*(1-np.cos(phi)) -h*np.sin(phi))/2
+d = ((a+p)*(1-np.cos(phi)) -h*np.sin(phi))/2
 
 P = np.array([0,a*(1+np.cos(theta)),h-a*np.sin(theta)])
 Q = np.array([0,b*(1-np.cos(theta)),b*np.sin(theta)])
@@ -1174,8 +1173,8 @@ fig = plt.figure(figsize = (7,8), label = ' ')
 fig.tight_layout()
 ax = plt.axes(projection='3d')
 
-#Bottle 1
-u = np.linspace(0, (p-2*d)*np.sin(phi), 50)
+#z axis 1
+u = np.linspace(0, (p-2*d)*np.sin(phi), 100)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 
@@ -1198,8 +1197,8 @@ z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(
 ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .5)
 
 
-#Bottle 2
-u = np.linspace((p-2*d)*np.sin(phi), h-c*np.sin(phi), 40)
+#z axis 2
+u = np.linspace((p-2*d)*np.sin(phi), h-a*np.sin(phi), 100)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 
@@ -1221,8 +1220,8 @@ z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(
 
 ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .5)
 
-#Bottle 3
-u = np.linspace(h-c*np.sin(phi), h, 20)
+#z axis 3
+u = np.linspace(h-a*np.sin(phi), h, 100)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 
@@ -1235,8 +1234,8 @@ N = (1,0,0)
 B = (0,1,0)
 
 #Radius function
-r = p+c-np.sqrt(c**2-(u-h)**2)
-rdot = (u-h)/np.sqrt(c**2-(u-h)**2)
+r = p+a-np.sqrt(a**2-(u-h)**2)
+rdot = (u-h)/np.sqrt(a**2-(u-h)**2)
 
 x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
 y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
@@ -1269,8 +1268,8 @@ z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(
 ax.plot_surface(x, y, z, color = 'yellow', edgecolor = 'black', linewidth = .1, alpha = .5)
 
 #Handle 2
-u = np.linspace(0, magPQ, 50)
-v = np.linspace(0,2*np.pi,50)
+u = np.linspace(0, magPQ, 100)
+v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 
 #Diretrix
@@ -1322,18 +1321,18 @@ ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_zlabel('z')
 
-ax.set(xlim=(-1.5*a,2.5*a), ylim=(-1.5*a,2.5*a), zlim=(1.2*d,1.2*(h+a)))
+ax.set(xlim=(-2,2), ylim=(-1.5*a,2.5*a), zlim=(1.2*d,1.2*(h+a)))
 
 #Ticks
+ax.set_xticks([])
+
 
 if b<=a:
-    ax.set_xticks([0,b,a], labels=["0", str(b), str(a)])
     ax.set_yticks([0,b,a], labels=["0", str(b), str(a)])
 else:
-    ax.set_xticks([0,a,b], labels=["0", str(a), str(b)])
     ax.set_yticks([0,a,b], labels=["0", str(a), str(b)])
 
-ax.set_zticks([d, 0,h,h+a], labels=[str(np.round(d,dp)), "0", str(float(np.round(h,dp))), str(float(np.round(h+a,dp)))])
+ax.set_zticks([d, 0,h,h+a], labels=[str(d), "0", str(float(np.round(h,dp))), str(float(np.round(h+a,dp)))])
 
 ax.set_aspect('equal')
 

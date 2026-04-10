@@ -1155,7 +1155,7 @@ dp=2
 #Parameters
 a = 3
 b = 4
-c = 7
+c = 5
 p = 1
 theta = .7
 phi = .5
@@ -1222,7 +1222,7 @@ z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(
 ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .5)
 
 #Bottle 3
-u = np.linspace(h-c*np.sin(phi), h, 20)
+u = np.linspace(h-c*np.sin(phi), h, 100)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 
@@ -1269,8 +1269,8 @@ z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(
 ax.plot_surface(x, y, z, color = 'yellow', edgecolor = 'black', linewidth = .1, alpha = .5)
 
 #Handle 2
-u = np.linspace(0, magPQ, 50)
-v = np.linspace(0,2*np.pi,50)
+u = np.linspace(0, magPQ, 100)
+v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 
 #Diretrix
