@@ -1144,8 +1144,6 @@ For canal surface, it is required that $|\dot r|<\Vert\dot\gamma\Vert=1$, The sm
 :tags: hide-input
 import numpy as np
 
-from scipy import special
-
 import matplotlib.pyplot as plt
 %matplotlib ipympl
 
