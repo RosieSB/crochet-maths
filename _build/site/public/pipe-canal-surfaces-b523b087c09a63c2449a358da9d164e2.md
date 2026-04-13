@@ -1089,29 +1089,7 @@ ax.view_init(elev=0, azim=0, roll=0)
 Radius function sketch
 :::
 
-Base: Half ellipse with centre $r=\frac{e+p}{2}$. Note $\dot r$ has a singularity at $z=d$. This means we can't use the canal surface parametrisation; however we can easily model it as the lower half of a (stretched) torus. It has equation  
-$$
-\left(\frac{r-\frac{1}{2}(e+p)}{\frac{1}{2}(e-p)}\right)^2+\frac{z}{d^2}=1, \hspace{1em} d\leq z\leq 0,
-$$
-and at $(e,0)$ meets the circular segment
-$$
-r^2+z^2=e^2, \hspace{1em} 0\leq z\leq e\sin\phi.
-$$
-We would like to choose $d$ so that the curvature of these two sections of curve agree at their meeting point $(e,0)$. The circular section has constant curvature equal to $\frac{1}{e^2}$. 
-
-The curvature of an ellipse with equation $x=A\cos(t)$, $y=B\sin(t)$ is given by the formula 
-$$
-\kappa=\frac{AB}{\left(A^2\sin^2(t)+B^2\cos^2(t)\right)^\frac{3}{2}}.
-$$Applying this with $A=\frac{1}{2}(e-p)$, $B=d$ and $t=0$ tells us that the half-ellipse has curvature $\kappa=\frac{A}{B^2} = \frac{e-p}{2d^2}$ at $(e,0$). In other words, we should choose $d$ so that
-$$
-\frac{e-p}{2d^2}=\frac{1}{e^2}.
-$$
-So, we take 
-:::{math}
-:enumerated: true
-:label:de-constraint
-d := -\sqrt{\frac{e(e-p)}{2}}.
-:::
+We leave the base for now, as for this section $\dot r$ has a singularity at $z=d$.
 
 
 Middle circular section: 
@@ -1127,23 +1105,23 @@ On the other hand
 $$
 k=h-c\sin\phi+(\cot\phi)(p+c-c\cos\phi)=h+(c+p)\cot\phi-c\csc\phi
 $$
-So we have the following constraint on our choice of new parameters $p$, $e$ and $\phi$:
+So we have the following constraint on our choice of new parameters $p$ and $\phi$:
 $$
 e = h\sin\phi+(c+p)\cos\phi-c
 $$
 or in other words,
 :::{math}
 :enumerated: true
-:label:pephi-constraint
+:label:pphi-constraint
 c = \frac{h\sin\phi+p\cos\phi-e}{1-\cos\phi}
 :::
 
 Linear section equation:
 $$
-r=(e\csc\phi-z)\tan\phi=\frac{e}{\cos\phi}-z\tan\phi.
+r=(e\csc\phi-z)\tan\phi=e\sec\phi-z\tan\phi.
 $$
 
-Final circular section: subject to [](#pephi-constraint), 
+Final circular section: $(r-p-c)^2+(z-h)^2=c^2$, so
 $$
 r=p+c-\sqrt{c^2-(z-h)^2}, \hspace{1em}z\in[h-c\sin\phi,h]
 $$
@@ -1171,17 +1149,16 @@ import matplotlib.pyplot as plt
 dp=2
 
 #Parameters
-p = 1 #pipe thickness
 a = 3
 b = 4
-e = 4 #.5*width
-
+c = 7
+p = 1
 theta = .7
 phi = .5
+alpha = .2
 
 h = (a+b+(a-b)*np.cos(theta))/np.sin(theta)
-d = -np.sqrt(e*(e-p)/2)
-c = (h*np.sin(phi)+p*np.cos(phi)-e)/(1-np.cos(phi))
+d = (p*np.sin(phi)*np.sin(alpha)+p-h*np.sin(phi)*np.cos(alpha)+c*np.cos(alpha)-(p+c)*np.cos(phi)*np.cos(alpha))/(np.sin(phi)*np.sin(alpha)+np.cos(alpha)+1)
 
 P = np.array([0,a*(1+np.cos(theta)),h-a*np.sin(theta)])
 Q = np.array([0,b*(1-np.cos(theta)),b*np.sin(theta)])
@@ -1189,7 +1166,12 @@ PQ = Q-P
 magPQ = np.sqrt(PQ[1]**2+PQ[2]**2)
 PQhat = PQ/magPQ
 
-X = np.array([0,e*np.cos(phi),e*np.sin(phi)])
+C=np.array([0,0,(p-d)*np.tan(alpha)])
+Z=np.array([0,p-d-d*np.cos(alpha),d*np.sin(alpha)])
+CZ=Z-C
+magCZ = np.sqrt(CZ[1]**2+CZ[2]**2)
+
+X = np.array([0,((p-d)/np.cos(alpha)-d)*np.cos(phi),(p-d)*np.tan(alpha) + ((p-d)/np.cos(alpha)-d)*np.sin(phi)])
 Y = np.array([0,p+c-c*np.cos(phi),h-c*np.sin(phi)])
 
 #Figure
@@ -1198,8 +1180,8 @@ fig.tight_layout()
 ax = plt.axes(projection='3d')
 
 #Bottle 1
-u = np.linspace(0, e*np.sin(phi), 50)
-ax.plot(0,np.sqrt(e**2-u**2),u)
+u = np.linspace(d*np.sin(alpha), X[2], 50)
+ax.plot(0,np.sqrt( ((p-d)/np.cos(alpha)-d)**2-(u-(p-d)*np.tan(alpha))**2 ),u)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 
@@ -1212,8 +1194,9 @@ N = (1,0,0)
 B = (0,1,0)
 
 #Radius function
-r = np.sqrt(e**2-u**2)
-rdot = -u/np.sqrt(e**2-u**2)
+r = np.sqrt( ((p-d)/np.cos(alpha)-d)**2-(u-(p-d)*np.tan(alpha))**2 )
+#r = np.sqrt(magCZ**2-(u-(p-d)*np.tan(alpha))**2)
+rdot = -(u-(p-d)*np.tan(alpha))/np.sqrt(((p-d)/np.cos(alpha)-d)**2-(u-(p-d)*np.tan(alpha))**2 )
 
 x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
 y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
@@ -1223,8 +1206,8 @@ ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, al
 
 
 #Bottle 2
-u = np.linspace(e*np.sin(phi), h-c*np.sin(phi), 40)
-ax.plot(0,e/np.cos(phi)-u*np.tan(phi),u)
+u = np.linspace((p-d)*np.tan(alpha)+magCZ*np.sin(phi), h-c*np.sin(phi), 40)
+ax.plot(0,h*np.tan(phi)-c/np.cos(phi)+(p+c)-u*np.tan(phi),u)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 
@@ -1237,14 +1220,14 @@ N = (1,0,0)
 B = (0,1,0)
 
 #Radius function
-r = e/np.cos(phi)-u*np.tan(phi)
+r = h*np.tan(phi)-c/np.cos(phi)+(p+c)-u*np.tan(phi)
 rdot = -np.tan(phi)
 
 x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
 y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
 z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v)) 
 
-ax.plot_surface(x, y, z, color = 'tab:green', edgecolor = 'black', linewidth = .1, alpha = .25)
+ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .25)
 
 #Bottle 3
 u = np.linspace(h-c*np.sin(phi), h, 20)

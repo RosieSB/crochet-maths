@@ -1189,6 +1189,11 @@ PQ = Q-P
 magPQ = np.sqrt(PQ[1]**2+PQ[2]**2)
 PQhat = PQ/magPQ
 
+C=np.array([0,0,(p-d)*np.tan(alpha)])
+Z=np.array([0,p-d-d*np.cos(alpha),d*np.sin(alpha)])
+CZ=Z-C
+magCZ = np.sqrt(CZ[1]**2+CZ[2]**2)
+
 X = np.array([0,e*np.cos(phi),e*np.sin(phi)])
 Y = np.array([0,p+c-c*np.cos(phi),h-c*np.sin(phi)])
 
@@ -1244,7 +1249,7 @@ x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(
 y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
 z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v)) 
 
-ax.plot_surface(x, y, z, color = 'tab:green', edgecolor = 'black', linewidth = .1, alpha = .25)
+ax.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .25)
 
 #Bottle 3
 u = np.linspace(h-c*np.sin(phi), h, 20)
