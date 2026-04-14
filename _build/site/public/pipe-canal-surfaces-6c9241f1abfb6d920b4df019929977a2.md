@@ -1352,7 +1352,7 @@ ax.plot_surface(x, y, z, color = 'yellow', edgecolor = 'black', linewidth = .1, 
 
 #Base
 #Not canal surface parametrisation! But join has dotr=0 so values match
-u = np.linspace(0,np.pi, 100)
+u = np.linspace(0, b*theta, 100)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 
