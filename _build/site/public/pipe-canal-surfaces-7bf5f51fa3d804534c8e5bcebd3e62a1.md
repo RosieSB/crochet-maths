@@ -1168,7 +1168,7 @@ For canal surface, it is required that $|\dot r|<\Vert\dot\gamma\Vert=1$, The sm
 
 ::::{figure}
 :::{code-cell} python
-:label: klein-canal
+:label: klein-canal-1
 :tags: hide-input
 
 import numpy as np
@@ -1186,6 +1186,7 @@ dp=2
 p = 1 #pipe thickness
 a = 3
 b = 4
+e = 4 #.5*width
 w = 8
 
 theta = .7

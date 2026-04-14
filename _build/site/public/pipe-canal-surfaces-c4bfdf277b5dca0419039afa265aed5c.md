@@ -1090,15 +1090,16 @@ Radius function sketch
 :::
 
 Base: Half ellipse with centre $r=\frac{e+p}{2}$. Note $\dot r$ has a singularity at $z=d$. This means we can't use the canal surface parametrisation; however we can easily model it as the lower half of a (stretched) torus:
-$$
+:::{math}
+:enumerated: true
+:label: eq:klein-base
 \left\{
     \begin{array}{rcl}
     x &=& \left(\frac{e+p}{2}-\frac{e-p}{2}\cos(u)\right)\cos(v) \\
     y &=& \left(\frac{e+p}{2}-\frac{e-p}{2}\cos(u)\right)\sin(v) \\
     z &=& d\sin(u)
-    \end{array}
     \right.
-$$
+:::
 In the $(r,z)$ plane, the base has equation  
 $$
 \left(\frac{r-\frac{1}{2}(e+p)}{\frac{1}{2}(e-p)}\right)^2+\frac{z}{d^2}=1, \hspace{1em} d\leq z\leq 0,
@@ -1168,7 +1169,7 @@ For canal surface, it is required that $|\dot r|<\Vert\dot\gamma\Vert=1$, The sm
 
 ::::{figure}
 :::{code-cell} python
-:label: klein-canal
+:label: klein-canal-1
 :tags: hide-input
 
 import numpy as np
@@ -1186,6 +1187,7 @@ dp=2
 p = 1 #pipe thickness
 a = 3
 b = 4
+e = 4 #.5*width
 w = 8
 
 theta = .7
@@ -1380,7 +1382,7 @@ ax.set_zlabel('z')
 
 ax.set_aspect('equal')
 
-ax.view_init(elev=20, azim=30, roll=0)
+ax.view_init(elev=20, azim=0, roll=0)
 
 plt.show()
 :::
