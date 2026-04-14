@@ -28,7 +28,7 @@ $$
 
 The "envelope condition" is simply the smoothness condition
 $$
-f_t(\mathbf{x},u)=0,
+\frac{\partial f}{\partial u}(\mathbf{x},u)=0,
 $$
 or in other words,
 $$
@@ -1089,7 +1089,7 @@ ax.view_init(elev=0, azim=0, roll=0)
 Radius function sketch
 :::
 
-Base: Half ellipse with centre $r=\frac{e+p}{2}$. Note $\dot r$ has a singularity at $z=d$. This means we can't use the canal surface parametrisation; however we can easily model it as the lower half of a (stretched) torus. It has equation  
+Base: Half ellipse with centre $r=\frac{e+p}{2}$. Note $\dot r$ has a singularity at $z=d$. This means we can't use the canal surface parametrisation; however we can easily model it as the lower half of a (stretched) torus. A cross-section in the $(r,z)$ plane has equation  
 $$
 \left(\frac{r-\frac{1}{2}(e+p)}{\frac{1}{2}(e-p)}\right)^2+\frac{z}{d^2}=1, \hspace{1em} d\leq z\leq 0,
 $$
