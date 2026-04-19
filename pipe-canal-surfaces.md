@@ -1225,7 +1225,7 @@ u, v = np.meshgrid(u, v)
 
 x = (((w/2)+p)/2-(((w/2)-p)/2)*np.cos(u))*np.cos(v)
 y = (((w/2)+p)/2-(((w/2)-p)/2)*np.cos(u))*np.sin(v)
-z = -d*np.sin(u) + d
+z = d-d*np.sin(u)
 
 ax.plot_surface(x, y, z, color = colour, edgecolor = 'black', linewidth = .1, alpha = .25)
 
