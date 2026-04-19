@@ -6,6 +6,7 @@ kernelspec:
 
 # Interactive Klein bottle 
 
+## Directrix
 
 As discussed in [](#klein), a Klein bottle is an example of a channel surface with directrix as in [](#directrix-param). 
 
@@ -26,6 +27,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 %matplotlib ipympl
+
+plt.rcParams['text.usetex'] = True
 
 p = widgets.FloatText(value=1,min=0,max=5,step=.1,description='Pipe radius')
 a = widgets.FloatText(value=3.4,min=0,max=5,step=.1,description='a')
