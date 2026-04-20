@@ -119,11 +119,7 @@ def g(p,a,b,theta,w):
 parameters = widgets.VBox([widgets.HTML(value="Bottle control points:"), p, a, b, theta, phi, w],layout=Layout())
 directrix = widgets.interactive_output(g, {'p': p, 'a': a, 'b': b, 'theta': theta, 'w': w})
 widgets.HBox([parameters,directrix], layout=Layout(align_items='center'))
-:::
 
-:::{code-cell} python
-:label: interactive-klein-surface
-:tag: hide-input
 colour = 'blue'
 
 def f(p,a,b,theta,phi,w):

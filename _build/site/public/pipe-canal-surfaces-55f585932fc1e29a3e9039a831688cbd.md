@@ -902,7 +902,10 @@ $$
 
 So $h-a(\csc\theta+\cot\theta)=b(\csc\theta-\cot\theta)$, which rearranges to give [](#hab-constraint).
 
-Hence $L$ has Cartesian equation $z=(\cot\theta)y+b(\csc\theta-\cot\theta)$.
+So $L$ has Cartesian equation
+$$
+L: \; z=(\cot\theta)y+b(\csc\theta-\cot\theta).
+$$
 
 (directrix-param)=
 #### Arc length parametrisation
@@ -1148,7 +1151,7 @@ For canal surface, it is required that $|\dot r|<\Vert\dot\gamma\Vert=1$, The sm
 ::::{figure}
 :::{code-cell} python
 :label: klein-canal
-:tags: remove-input
+:tags: hide-input
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -1188,8 +1191,7 @@ TotalSteps = 1000
 Steps = np.round(TotalSteps*Proportions)
 
 # set up a figure twice as wide as it is tall
-fig, axs = plt.subplots(1, 2, subplot_kw={'projection': '3d'}, figsize=(12,6))
-
+fig, axs = plt.subplots(1, 2, subplot_kw={'projection': '3d'}, figsize=(10,5))
 
 t = np.array([
     0,

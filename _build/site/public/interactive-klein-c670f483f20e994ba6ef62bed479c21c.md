@@ -16,7 +16,7 @@ To use it, click the power and play buttons displayed somewhere in the top right
 
 :::{code-cell} python
 :label: interactive-klein-directrix
-:tag: hide-input
+:tag: remove-input
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -117,13 +117,14 @@ def g(p,a,b,theta,w):
     plt.show()
 
 parameters = widgets.VBox([widgets.HTML(value="Bottle control points:"), p, a, b, theta, phi, w],layout=Layout())
+display(parameters)
 directrix = widgets.interactive_output(g, {'p': p, 'a': a, 'b': b, 'theta': theta, 'w': w})
-widgets.HBox([parameters,directrix], layout=Layout(align_items='center'))
+display(directrix)
 :::
 
 :::{code-cell} python
 :label: interactive-klein-surface
-:tag: hide-input
+:tag: remove-input
 colour = 'blue'
 
 def f(p,a,b,theta,phi,w):
@@ -324,5 +325,5 @@ def f(p,a,b,theta,phi,w):
 
 surface =  widgets.interactive_output(f, {'p': p, 'a': a, 'b': b, 'theta': theta, 'phi': phi, 'w': w})
 
-widgets.HBox([parameters,surface],layout=Layout(align_items='center'))
+display(surface)
 :::

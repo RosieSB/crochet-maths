@@ -1188,8 +1188,7 @@ TotalSteps = 1000
 Steps = np.round(TotalSteps*Proportions)
 
 # set up a figure twice as wide as it is tall
-fig, axs = plt.subplots(1, 2, subplot_kw={'projection': '3d'}, figsize=(12,6))
-
+fig, axs = plt.subplots(2, 1, subplot_kw={'projection': '3d'}, figsize=(5,10))
 
 t = np.array([
     0,
