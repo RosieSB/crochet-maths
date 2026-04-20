@@ -1,0 +1,335 @@
+---
+kernelspec:
+  name: python3
+  display_name: 'Python 3'
+---
+(klein)=
+# Klein bottle crochet
+
+The goal of this section is to design an easily adaptable and structurally precise crochet pattern for a Klein bottle of specified dimensions, by first expressing it as a parametrised canal surface, (c.f. [](#canal)).
+
+## Klein bottle as a canal surface
+
+### Directrix shape
+
+It seems simplest to build the directrix out of straight and circular arc segments as follows:
+
+- Straight segment 1: For main bottle section, from base to beginning of handle.
+
+- Circlular arc 1: Out of top of main bottle section round to form top of handle
+
+- Straight segment 2: For middle of handle (includes self intersection point)
+
+- Circular arc 2: to smooth out join of handle to main bottle directrix
+
+- Straight segment 3: Down to base of bottle. 
+
+The main equations to find are for straight segment 2 and the two circular arcs. 
+
+For simplicity, assume Straight segment 1 lies on the $z$ axis, and fix the origin as the join of Circular arc 2 with Straight segment 3. The base point is at height $d<0$ on the negative $z$-axis. 
+
+:::{image} figs/Klein-directrix.png
+:width: 600
+:::
+
+Using the notation in the diagram, 
+
+$$
+P=(a+a\cos\theta,h+d-a\sin\theta), \;\;Q=(b-b\cos\theta,d+b\sin\theta)
+$$
+
+Write $z=my+c$ for the equation of $L$. Then 
+$$
+m = \cot\theta = \frac{b\sin\theta - h+a\sin\theta}{b-b\cos\theta - a-a\cos\theta}
+$$
+
+which rearranges to give the following contraint on our choice of $h$, $a$ and $b$:
+:::{math}
+:enumerated: true
+:label: hab-constraint
+h=(a+b)\csc\theta+(a-b)\cot\theta.
+:::
+For the $z$-intercept $c$, using coordinates of $Q$,
+$$
+c = b\sin\theta - \cot\theta(b-b\cos\theta) =b(\csc\theta-\cot\theta).
+$$  
+
+On the other hand, using coordinates of $P$,
+$$
+c=h-a\sin\theta-\cot\theta(a+a\cos\theta) = h-a(\csc\theta+\cot\theta).
+$$
+
+So $h-a(\csc\theta+\cot\theta)=b(\csc\theta-\cot\theta)$, which rearranges to give [](#hab-constraint).
+
+Hence $L$ has Cartesian equation $z=(\cot\theta)y+b(\csc\theta-\cot\theta)$.
+
+(directrix-param)=
+#### Arc length parametrisation
+We take the concatenation of the following parametric curves.
+
+- Straight segment 1: 
+$$
+\gamma_1(t)=(0,0,d+t),\hspace{1em} t\in[0,h-d]
+$$
+
+- Circlular arc 1: 
+$$
+\gamma_2(t)=\left(0,a+a\cos\left(\pi-\frac{t}{a}\right), h+a\sin\left(\pi-\frac{t}{a}\right)\right),\hspace{1em} t\in[0,a(\pi+\theta)]
+$$
+
+- Straight segment 2: 
+$$
+\gamma_3(t)=\frac{t}{\Vert Q-P\Vert}Q + \left(1-\frac{t}{\Vert Q-P\Vert}\right)P,\hspace{1em} t\in[0,{\Vert Q-P\Vert}]
+$$
+
+- Circular arc 2: 
+$$\gamma_4(t)=\left(0, b+b\cos\left(\pi-\theta+\frac{t}{b}\right), b\sin\left(\pi-\theta+\frac{t}{b}\right)\right),\hspace{1em} t\in[0,b\theta]
+$$
+
+- Straight segment 3: 
+$$
+\gamma_5=\left(0, 0, -t\right) ,\hspace{1em} t\in[0,-d]
+$$
+
+### Radius function
+:::{figure} figs/klein-radius-fn.png
+:width: 500
+
+Radius function sketch
+:::
+
+Base: Half ellipse with centre $r=\frac{e+p}{2}$. Note $\dot r$ has a singularity at $z=d$. This means we can't use the canal surface parametrisation; however we can easily model it as the lower half of a (stretched) torus:
+$$
+\left\{
+    \begin{array}{rcl}
+    x &=& \left(\frac{e+p}{2}-\frac{e-p}{2}\cos(u)\right)\cos(v) \\
+    y &=& \left(\frac{e+p}{2}-\frac{e-p}{2}\cos(u)\right)\sin(v) \\
+    z &=& d\sin(u)
+    \end{array}
+    \right.
+$$
+In the $(r,z)$ plane, the base has equation  
+$$
+\left(\frac{r-\frac{1}{2}(e+p)}{\frac{1}{2}(e-p)}\right)^2+\frac{z}{d^2}=1, \hspace{1em} d\leq z\leq 0,
+$$
+and at $(e,0)$ meets the circular segment
+$$
+r^2+z^2=e^2, \hspace{1em} 0\leq z\leq e\sin\phi.
+$$
+We would like to choose $d$ so that the curvature of these two sections of curve agree at their meeting point $(e,0)$. The circular section has constant curvature equal to $\frac{1}{e^2}$. 
+
+The curvature of an ellipse with equation $x=A\cos(t)$, $y=B\sin(t)$ is given by the formula 
+$$
+\kappa=\frac{AB}{\left(A^2\sin^2(t)+B^2\cos^2(t)\right)^\frac{3}{2}}.
+$$Applying this with $A=\frac{1}{2}(e-p)$, $B=d$ and $t=0$ tells us that the half-ellipse has curvature $\kappa=\frac{A}{B^2} = \frac{e-p}{2d^2}$ at $(e,0$). In other words, we should choose $d$ so that
+$$
+\frac{e-p}{2d^2}=\frac{1}{e^2}.
+$$
+So, we take 
+:::{math}
+:enumerated: true
+:label:de-constraint
+d := -\sqrt{\frac{e(e-p)}{2}}.
+:::
+
+Middle circular section: 
+$$
+r=\sqrt{e^2-z^2} \hspace{1em} 0\leq z\leq e\sin\phi
+$$
+
+Linear section: we have end points $X=(e\cos\phi,e\sin\phi)$, $Y=(p+c-c\cos\phi,h-c\sin\phi)$, so line through $X$ and $Y$ has equation $z=(-\cot\phi)r +k$, where
+$$
+k=e\sin\phi+(\cot\phi)e\cos\phi=e\csc\phi.
+$$
+On the other hand
+$$
+k=h-c\sin\phi+(\cot\phi)(p+c-c\cos\phi)=h+(c+p)\cot\phi-c\csc\phi
+$$
+So we have the following constraint on our choice of new parameters $p$, $e$ and $\phi$:
+$$
+e = h\sin\phi+(c+p)\cos\phi-c
+$$
+or in other words,
+:::{math}
+:enumerated: true
+:label:pephi-constraint
+c = \frac{h\sin\phi+p\cos\phi-e}{1-\cos\phi}
+:::
+
+Linear section equation:
+$$
+r=(e\csc\phi-z)\tan\phi=\frac{e}{\cos\phi}-z\tan\phi.
+$$
+
+Final circular section: subject to [](#pephi-constraint), 
+$$
+r=p+c-\sqrt{c^2-(z-h)^2}, \hspace{1em}z\in[h-c\sin\phi,h]
+$$
+
+Parametrisation:
+- $r_1(u)=\sqrt{e^2-u^2}$, $\dot r_1(u)=-\frac{u}{\sqrt{e^2-u^2}}$, for $u\in[0,e\sin\phi]$.
+- $r_2(u)=e\sec\phi-u\tan\phi$, $\dot r_2(u)=-\tan\phi$, for $u\in[e\sin\phi,h-c\sin\phi]$.
+- $r_3(u)=p+c-\sqrt{c^2-(u-h)^2}$, $\dot r_3(u)=\frac{u-h}{\sqrt{c^2-(u-h)^2}}$ for $u\in[h-c\sin\phi,h]$.
+
+For canal surface, it is required that $|\dot r|<\Vert\dot\gamma\Vert=1$, The smaller $|\dot r|$, the smoother (less lumpy) the resulting surface.
+
+### Klein bottle
+
+::::{figure}
+:::{code-cell} python
+:label: klein-canal
+:tags: remove-input
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+
+p = 1
+a = 3.4
+b = 4
+theta = .7
+phi = .45
+w = 8.6
+
+h = (a+b+(a-b)*np.cos(theta))/np.sin(theta)
+d = np.sqrt((w/2)*((w/2)-p)/2)
+c = (h*np.sin(phi)+p*np.cos(phi)-(w/2))/(1-np.cos(phi))
+
+P = np.array([0,a*(1+np.cos(theta)),d+h-a*np.sin(theta)])
+Q = np.array([0,b*(1-np.cos(theta)),d+b*np.sin(theta)])
+PQ = Q-P
+magPQ = np.sqrt(PQ[1]**2+PQ[2]**2)
+PQhat = PQ/magPQ
+
+X = np.array([0,(w/2)*np.cos(phi),d+(w/2)*np.sin(phi)])
+Y = np.array([0,p+c-c*np.cos(phi),h-c*np.sin(phi)])
+
+# Set up a figure and axes
+fig = plt.figure(figsize=plt.figaspect(.5))
+fig.suptitle('Klein bottle as canal surface')
+
+ax1 = fig.add_subplot(1, 2, 1)
+ax2 = fig.add_subplot(1, 2, 2, projection='3d')
+
+ax1.set_title('Directrix')
+ax2.set_title('Surface')
+
+
+t = np.array([
+    0,
+    d, 
+    (w/2)*np.sin(phi)+d, 
+    h-c*np.sin(phi)+d, 
+    h+d, 
+    h+d+a*(np.pi+theta), 
+    h+d+a*(np.pi+theta)+magPQ, 
+    h+d+a*(np.pi+theta)+magPQ+b*theta
+])
+
+u = np.linspace(0, h+d+a*(np.pi+theta)+magPQ+b*theta, 100)
+
+d_index = int(np.max(np.argwhere(u<=d)))
+ubase = u[:d_index]
+urest = u[d_index:]
+
+#Plot base (not canal)
+u = np.linspace(0,np.pi,d_index)
+
+v = np.linspace(0,2*np.pi,100)
+u, v = np.meshgrid(u, v)
+x = (((w/2)+p)/2-(((w/2)-p)/2)*np.cos(u))*np.cos(v)
+y = (((w/2)+p)/2-(((w/2)-p)/2)*np.cos(u))*np.sin(v)
+z = d-d*np.sin(u)
+ax2.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .25)
+
+#Rest of bottle
+u = urest
+l = len(u)
+gamma = np.zeros((3,l))
+T = np.zeros((3,l))
+N = np.zeros((3,l))
+B = np.zeros((3,l))
+r = np.zeros(l)
+rdot = np.zeros(l)
+
+for j in range(l):
+    if u[j] < t[4]:
+        #Diretrix
+        gamma[:,j] = (0,0,u[j])
+        #ON frame
+        T[:,j] = (0,0,1)
+        N[:,j] = (0,1,0)
+        B[:,j] = (1,0,0)
+        #Radius function
+        if u[j] <= t[2]:
+            r[j] = np.sqrt((w/2)**2-(u[j]-d)**2)
+            rdot[j] = -(u[j]-d)/np.sqrt((w/2)**2-(u[j]-d)**2)
+        elif t[2] < u[j] <= t[3]:
+            r[j] = (w/2)/np.cos(phi)-(u[j]-d)*np.tan(phi)
+            rdot[j] = -np.tan(phi)
+        elif t[3] < u[j] <= t[4]:
+            r[j] = p+c-np.sqrt(c**2-(u[j]-t[4])**2)
+            rdot[j] = (u[j]-t[4])/np.sqrt(c**2-(u[j]-t[4])**2)
+    else:
+        #Handle
+        #Radius function
+        r[j] = p
+        rdot[j] = 0            
+        if u[j] <= t[5]:
+            #Directrix
+            gamma[:,j] = (0, a*(1+np.cos(np.pi-(u[j]-t[4])/a)), d+h+a*np.sin(np.pi-(u[j]-t[4])/a))
+            #ON frame
+            T[:,j] = (0,np.sin(np.pi-(u[j]-t[4])/a),-np.cos(np.pi-(u[j]-t[4])/a))
+            N[:,j] = (0,-np.cos(np.pi-(u[j]-t[4])/a),-np.sin(np.pi-(u[j]-t[4])/a))
+            B[:,j] = (1,0,0)
+        elif t[5] < u[j] <= t[6]:
+            #Directrix
+            gamma[:,j] = ((u[j]-t[5])/magPQ)*Q + (1-(u[j]-t[5])/magPQ)*P
+            #ON frame
+            T[:,j] = (0,PQhat[1],PQhat[2])
+            N[:,j] = (0,PQhat[2],-PQhat[1])
+            B[:,j] = (1,0,0)
+        elif t[6] < u[j] <= t[7]:
+            #Directrix
+            gamma[:,j] = (0, b+b*np.cos(np.pi-theta+(u[j]-t[6])/b), d+b*np.sin(np.pi-theta+(u[j]-t[6])/b))
+            #ON frame
+            T[:,j] = (0,-np.sin(np.pi-theta+(u[j]-t[6])/b),np.cos(np.pi-theta+(u[j]-t[6])/b))
+            N[:,j] = (0,np.cos(np.pi-theta+(u[j]-t[6])/b),np.sin(np.pi-theta+(u[j]-t[6])/b))
+            B[:,j] = (1,0,0)
+
+#Directrix plot
+y = gamma[1]
+z = gamma[2]
+ax1.plot(y, z)
+
+#Plot canal surface
+v = np.linspace(0,2*np.pi,100)
+u, v = np.meshgrid(u, v)
+x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
+y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
+z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v)) 
+
+ax2.plot_surface(x, y, z, color = 'blue', edgecolor = 'black', linewidth = .1, alpha = .25)
+
+ax2.set_title('Klein bottle surface')
+
+# Axis labels
+ax1.set_xlabel('y')
+ax1.set_ylabel('z')
+ax1.set_ylim(0,1.01*(h+d+a))
+
+ax2.set_xlabel('x')
+ax2.set_ylabel('y')
+ax2.set_zlabel('z')
+
+ax1.set_aspect('equal')
+ax2.set_aspect('equal')
+
+ax2.view_init(elev=0, azim=0, roll=0)
+
+plt.show()
+:::
+::::
