@@ -1189,9 +1189,8 @@ Steps = np.round(TotalSteps*Proportions)
 
 # set up a figure twice as wide as it is tall
 fig, axs = plt.subplots(1, 2, subplot_kw={'projection': '3d'}, figsize=(12,6))
-fig.suptitle('Klein bottle as canal surface', fontsize=16)
 axs[0].set_title('Directrix')
-axs[1].set_title('Surface')
+axs[1].set_title('Klein bottle surface')
 
 t = np.array([
     0,
