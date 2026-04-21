@@ -27,7 +27,9 @@ $$
 $$
 
 The "envelope condition" is simply the smoothness condition
-$$
+:::{math}
+:enumerated: true
+:label: eq:envelope-cond
 \frac{\partial f}{\partial u}(\mathbf{x},u)=0,
 $$
 or in other words,
