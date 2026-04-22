@@ -637,12 +637,6 @@ Left: Klein bottle produced using canal surface parametrisation; Right: Klein bo
 ## Towards crochetability
 The first problem to solve is to decide how to measure rows. The most accurate would be to measure them along meridians of constant $v$, according to the canal surface parametrisation.
 
-The line element/Riemannian metrix for a parametrised surface $\mathbf{x}(u,v)$ is
-$$
-ds^2 = Edu^2 + 2Fdudv + Gdv^2,
-$$
-where coefficients $E=\mathbf{x}_u^2$, $F=\mathbf{x}u\cdot\mathbf{x}_v$ and $F=\mathbf{x}_v^2$. We should calculate $E$ for row count, as this measures distances along constant $v$-meridians.
-
 ### Main body
 For the main body of the Klein bottle, we have unit speed directrix 
 $$
@@ -659,60 +653,17 @@ Its derivative is
 $$
 \dot r(u)=\left\{\begin{array}{lr} -\frac{u}{\sqrt{e^2-(u-d)^2}} & \text{ for } d\leq u\leq d+e\sin\phi \\
 -\tan\phi & \text{ for } d+e\sin\phi\leq u\leq d+h-c\sin\phi \\
-\frac{u-d-h}{\sqrt{c^2-(u-d-h)^2}} & \text{ for } d+h-c\sin\phi\leq u\leq d+h.
+\frac{u-d-h}{\sqrt{c^2-(u-d-h)^2}} & \text{ for } d+h-c\sin\phi\leq u\leq h.
 \end{array}\right.
 $$
 Moreover, 
 :::{math}
 :enumerated: true
 :label: eq:body
-\mathbf{x}(u,v) = \gamma-r\dot{r}\mathbf{T} +r\sqrt{1-\dot{r}^2}\Big( \mathbf{N}\cos(v)+\mathbf{B}\sin(v)\Big)
-:::
-so,
-$$
 \begin{aligned}
-\mathbf{x}_u  &= \left(1-r\ddot{r}-\dot{r}^2\right)\mathbf{T} + \left(\dot{r}\sqrt{1-{\dot r}^2}-\frac{r\dot{r}\ddot{r}}{\sqrt{1-\dot{r}^2}}\right)\cos(v)\mathbf{N} \\
-&\hspace{8em}+ \left(\dot{r}\sqrt{1-{\dot r}^2}-\frac{r\dot{r}\ddot{r}}{\sqrt{1-\dot{r}^2}}\right)\sin(v)\mathbf{B},
-\\[1em]
-&= \left(1-r\ddot{r}-\dot{r}^2\right)\mathbf{T} + \frac{\dot{r}\left(1-{\dot r}^2-r\ddot{r}\right)}{\sqrt{1-\dot{r}^2}}\cos(v)\mathbf{N} \\
-&\hspace{8em}+ \frac{\dot{r}\left(1-{\dot r}^2-r\ddot{r}\right)}{\sqrt{1-\dot{r}^2}}\sin(v)\mathbf{B},
+\mathbf{x}(u,v) &= \gamma-r\dot{r}\mathbf{T} +r\sqrt{1-\dot{r}^2}\Big( \mathbf{N}\cos(v)+\mathbf{B}\sin(v)\Big)\\
+&= \left(r\sqrt{1-\dot{r}^2}\sin(v),r\sqrt{1-\dot{r}^2}\cos(v),u-r\dot{r}\right)
 \end{aligned}
-$$
-and
-$$
-\mathbf{x}_v &= -r\sqrt{1-\dot{r}^2}\sin(v)\mathbf{N} + r\sqrt{1-\dot{r}^2}\cos(v)\mathbf{B}.
-$$
-So:
-\begin{gather}
-E = \mathbf{x}_u^2  = \left(1-r\ddot{r}-\dot{r}^2\right)^2 + \frac{\dot{r}^2(1-\dot{r}^2-r\ddot{r})^2}{1-\dot{r}^2},\\[1em]
-F = \mathbb{x}_u\cdot\mathbb{x}_v = 0, \hspace{2em} G = \mathbb{x}_v^2 = r^2\left(1-\dot{r}^2\right)
-\end{gather}
-
-This is another example of a Clairaut parametrisation, where the Riemannian metric/line element
-$$
-ds^2 = Edu^2 + Gdv^2
-$$
-depends only on $u$, not on $v$. In particular, if we hold $v$ constant and move along the surface, lengths $ds$ are related to changes in $u$ by
-$$
-ds = \sqrt{E}du.
-$$
-
-Suppose we have crocheted $n$ rows. We'd expect the length of produced fabric to satisfy
-$$
-nh \approx \sqrt{E}u
-$$
-(remember $u$ is arc length for the directrix, and begins at $0$). To work out the total number of rows needed we need only evaluate at $u=d+h$ and divide by stitch height.
-
-We can also calculate the $u$-steps required (this will not be constant). Write $0=u_0,u_1,u_2,\ldots$ for the $u$ values associated with rows $n=0,1,2\ldots,N$. Then,
-:::{math}
-:enumerated: true
-:label: eq:un
-\text{Stitch height} \approx \sqrt{E|_{u=u_n}}\cdot (u_n-u_{n-1}), \hspace{1em} n=1,2,\ldots,N.
 :::
-Stitch width and stitch count per row will behave more regularly. On a given row $n$ (i.e. for $u=u_n$), circumference can be calculated two ways:
-:::{math}
-:enumerated: true
-:label: eq:stitch-count
-(\text{Stitch width})\cdot(\text{Row $n$ stitch count}) \approx 2\pi r\sqrt{1-\dot{r}^2}.
-:::
-Assuming a constant crochet gauge, and for a given set of bottle parameters, equations [](#eq:un) and [](#eq:stitch-count) together can be solved numerically to obtain a pattern for the main body.
+(as we saw in the previous section).
+
