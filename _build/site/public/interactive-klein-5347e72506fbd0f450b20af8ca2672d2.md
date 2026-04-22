@@ -15,7 +15,7 @@ To use it, click the power and play buttons displayed somewhere in the top right
 
 
 :::{code-cell} python
-:label: interactive-klein
+:label: interactive-klein-directrix
 :tag: remove-input
 import numpy as np
 import matplotlib.pyplot as plt
@@ -26,7 +26,7 @@ from ipywidgets import Layout
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-#%matplotlib ipympl
+%matplotlib ipympl
 
 p = widgets.FloatText(value=1,min=0,max=5,step=.1,description='Pipe radius')
 a = widgets.FloatText(value=3.4,min=0,max=5,step=.1,description='Handle radius')
@@ -35,28 +35,114 @@ theta = widgets.FloatText(value=.7,min=0,max=np.pi/2,step=.01,description='θ')
 phi = widgets.FloatText(value=.45,min=0,max=np.pi/2,step=.01,description='ϕ')
 w = widgets.FloatText(value=8.6,min=0,max=20,step=.1,description='Bulb radius')
 
+#Directrix
+def g(p,a,b,theta,w):
+    plt.clf()
+    plt.close()
+    
+    h = (a+b+(a-b)*np.cos(theta))/np.sin(theta)
+    d = np.sqrt( (w/2)*((w/2)-p)/2 )
+    
+    P = np.array([a*(1+np.cos(theta)),h-a*np.sin(theta)])    
+    Q = np.array([b*(1-np.cos(theta)),b*np.sin(theta)])
+    PQ = Q-P
+    magPQ = np.sqrt(PQ[0]**2+PQ[1]**2)
+    
+    fig1 = plt.figure(figsize = (7,8), label = ' ')
+    ax1 = plt.axes()#projection='3d')
+    
+    #Straight segment 1
+    t = np.linspace(0, h-d, 2)
+    
+    #x = 0
+    y = 0*t
+    z = d+t
+    
+    ax1.plot( y, z, color='tab:blue')
+    ax1.text( -.35*a ,h/2 ,'γ₁', color='tab:blue', fontsize=16)
+    
+    #Circular segment 1
+    
+    t = np.linspace(0, a*(np.pi+theta), 100)
+    
+    #x = 0
+    y = a*(1+np.cos(np.pi-t/a))
+    z = h+a*np.sin(np.pi-t/a)
+    
+    ax1.plot( y, z, color='tab:orange')
+    ax1.text( 2.05*a ,1.1*h ,'γ₂', color='tab:orange', fontsize=16)
+    
+    #Straight segment 2
+    
+    t = np.linspace(0, magPQ, 2)
+    
+    y = (t/magPQ)*Q[0] + (1-t/magPQ)*P[0]
+    z = (t/magPQ)*Q[1] + (1-t/magPQ)*P[1]
+    
+    ax1.plot( y, z, color='tab:green')
+    ax1.text( (P[0]+Q[0])/2-.1*a ,(P[1]+Q[1])/2-.3*a ,'γ₃', color='tab:green', fontsize=16)
+    
+    #Circular segment 2
+    
+    t = np.linspace(0, b*theta, 100)
+    
+    #x = 0
+    y = b+b*np.cos(np.pi-theta+t/b)
+    z = b*np.sin(np.pi-theta+t/b)
+    
+    ax1.plot( y, z, color='tab:red')
+    ax1.text( b+b*np.cos(np.pi-theta/2)+.1*a, b*np.sin(np.pi-theta/2)-.1*a, 'γ₄', color='tab:red', fontsize=16)
+    
+    #Straight segment 3
+    
+    t = np.linspace(0, -d, 2)
+    
+    #x = 0
+    y = 0*t
+    z = -t
+    
+    ax1.plot( y, z, color='tab:purple')
+    ax1.text( -.35*a, d/2, 'γ₅', color='tab:purple', fontsize=16)
+    
+    
+    #Axis labels
+    ax1.set_xlabel('y')
+    ax1.set_ylabel('z')
+    
+    ax1.set(xlim=(-1.5*a,2.5*a), ylim=(0,1.1*(h+a)))
+    
+    ax1.set_aspect('equal')
+    
+    #ax1.view_init(elev=0, azim=0, roll=0)
+    plt.show()
 
 parameters = widgets.VBox([widgets.HTML(value="Bottle control points:"), p, a, b, theta, phi, w],layout=Layout())
+display(parameters)
+directrix = widgets.interactive_output(g, {'p': p, 'a': a, 'b': b, 'theta': theta, 'w': w})
+display(directrix)
+:::
 
+:::{code-cell} python
+:label: interactive-klein-surface
+:tag: remove-input
+colour = 'blue'
 
 def f(p,a,b,theta,phi,w):
     plt.clf()
     plt.close()
         
-    e = w/2
     h = (a+b+(a-b)*np.cos(theta))/np.sin(theta)
     d = np.sqrt((w/2)*((w/2)-p)/2)
     c = (h*np.sin(phi)+p*np.cos(phi)-(w/2))/(1-np.cos(phi))
-
-    P = np.array([0,a*(1+np.cos(theta)),d+h-a*np.sin(theta)])
-    Q = np.array([0,b*(1-np.cos(theta)),d+b*np.sin(theta)])
+    
+    P = np.array([0,a*(1+np.cos(theta)),h-a*np.sin(theta)])
+    Q = np.array([0,b*(1-np.cos(theta)),b*np.sin(theta)])
     PQ = Q-P
     magPQ = np.sqrt(PQ[1]**2+PQ[2]**2)
     PQhat = PQ/magPQ
-
-    X = np.array([0,(w/2)*np.cos(phi),d+(w/2)*np.sin(phi)])
+    
+    X = np.array([0,(w/2)*np.cos(phi),(w/2)*np.sin(phi)])
     Y = np.array([0,p+c-c*np.cos(phi),h-c*np.sin(phi)])
-
     
     t = np.array([
         0,

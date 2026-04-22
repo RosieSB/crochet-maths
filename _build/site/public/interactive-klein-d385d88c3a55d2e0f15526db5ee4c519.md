@@ -37,6 +37,7 @@ w = widgets.FloatText(value=8.6,min=0,max=20,step=.1,description='Bulb radius')
 
 
 parameters = widgets.VBox([widgets.HTML(value="Bottle control points:"), p, a, b, theta, phi, w],layout=Layout())
+display(parameters)
 
 
 def f(p,a,b,theta,phi,w):

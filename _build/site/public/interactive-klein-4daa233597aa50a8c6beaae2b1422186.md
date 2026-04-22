@@ -35,10 +35,6 @@ theta = widgets.FloatText(value=.7,min=0,max=np.pi/2,step=.01,description='θ')
 phi = widgets.FloatText(value=.45,min=0,max=np.pi/2,step=.01,description='ϕ')
 w = widgets.FloatText(value=8.6,min=0,max=20,step=.1,description='Bulb radius')
 
-
-parameters = widgets.VBox([widgets.HTML(value="Bottle control points:"), p, a, b, theta, phi, w],layout=Layout())
-
-
 def f(p,a,b,theta,phi,w):
     plt.clf()
     plt.close()

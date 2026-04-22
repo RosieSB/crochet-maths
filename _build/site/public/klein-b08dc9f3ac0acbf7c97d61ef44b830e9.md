@@ -184,7 +184,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from matplotlib import cm
-#%matplotlib ipympl
+%matplotlib ipympl
 
 
 #Rounding
@@ -379,6 +379,8 @@ ax1.view_init(elev=0, azim=0, roll=0)
 ax2.set_aspect('equal')
 
 plt.show()
+
+
 
 :::
 ::::
