@@ -656,9 +656,10 @@ and constant Frenet-Serret apparatus $\mathbf{T}=(0,0,1)$, $\mathbf{N}=(0,1,0)$,
 :::{math}
 :enumerated: true
 :label: eq:body
-\mathbf{x}(u,v) = \gamma-r\dot{r}\mathbf{T} +r\sqrt{1-\dot{r}^2}\Big( \mathbf{N}\cos(v)+\mathbf{B}\sin(v)\Big),
+\mathbf{x}(u,v) = \gamma-r\dot{r}\mathbf{T} +r\sqrt{1-\dot{r}^2}\Big( \mathbf{N}\cos(v)+\mathbf{B}\sin(v)\Big),\hspace{1em}  0\leq u\leq d+h,\; 0\leq v\leq 2\pi.
 :::
-for $0\leq u\leq d+h$, $0\leq v\leq 2\pi$. The radius $r$ function comes in three pieces:
+
+The radius function comes in three pieces:
 $$
 r(u)=\left\{\begin{array}{lr} \sqrt{e^2-(u-d)^2} & \text{ for } d\leq u\leq d+e\sin\phi \\
 d\tan\phi+e\sec\phi-u\tan\phi & \text{ for } d+e\sin\phi\leq u\leq d+h-c\sin\phi \\
@@ -674,9 +675,9 @@ $$
 $$
 and
 $$
-\ddot{r}(u)=\left\{\begin{array}{lr} -e^2\left(e^2-(u-d)^2\right)^{-\frac{3}{2}} & \text{ for } d<u<d+e\sin\phi \\
+\ddot{r}(u)=\left\{\begin{array}{lr} -e^2\left(e^2-(u-d)^2\right)^{\frac{3}{2}} & \text{ for } d<u<d+e\sin\phi \\
 0 & \text{ for } d+e\sin\phi<u<d+h-c\sin\phi \\
-c^2\left(c^2-(u-d-h)^2\right)^{-\frac{3}{2}} & \text{ for } d+h-c\sin\phi<u<d+h.
+c^2\left(c^2-(u-d-h)^2\right)^{\frac{3}{2}} & \text{ for } d+h-c\sin\phi<u<d+h.
 \end{array}\right.
 $$
 Observe that $\dot{r}$ is well-defined and continuous at the boundary points where its formula changes, but is not differentiable there.

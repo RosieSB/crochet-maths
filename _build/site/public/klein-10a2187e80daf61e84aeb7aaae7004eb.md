@@ -674,9 +674,9 @@ $$
 $$
 and
 $$
-\ddot{r}(u)=\left\{\begin{array}{lr} -e^2\left(e^2-(u-d)^2\right)^{-\frac{3}{2}} & \text{ for } d<u<d+e\sin\phi \\
+\ddot{r}(u)=\left\{\begin{array}{lr} -e^2\left(e^2-(u-d)^2\right)^{\frac{3}{2}} & \text{ for } d<u<d+e\sin\phi \\
 0 & \text{ for } d+e\sin\phi<u<d+h-c\sin\phi \\
-c^2\left(c^2-(u-d-h)^2\right)^{-\frac{3}{2}} & \text{ for } d+h-c\sin\phi<u<d+h.
+c^2\left(c^2-(u-d-h)^2\right)^{\frac{3}{2}} & \text{ for } d+h-c\sin\phi<u<d+h.
 \end{array}\right.
 $$
 Observe that $\dot{r}$ is well-defined and continuous at the boundary points where its formula changes, but is not differentiable there.
