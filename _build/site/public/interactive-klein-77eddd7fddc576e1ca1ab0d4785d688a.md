@@ -1,0 +1,231 @@
+---
+kernelspec:
+  name: python3
+  display_name: 'Python 3'
+---
+
+# Interactive Klein bottle 
+
+
+As discussed in [](#klein), a Klein bottle is an example of a channel surface with directrix as in [](#directrix-param). 
+
+Below is an interactive widget to help determine aesthetically pleasing parameter values.
+
+To use it, click the power and play buttons displayed somewhere in the top right-hand side of the page.
+
+
+:::{code-cell} python
+:label: interactive-klein
+:tag: remove-input
+import numpy as np
+import matplotlib.pyplot as plt
+
+import ipywidgets as widgets
+from ipywidgets import Layout
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+#%matplotlib ipympl
+
+p = widgets.FloatText(value=1,min=0,max=5,step=.1,description='Pipe radius')
+a = widgets.FloatText(value=3.4,min=0,max=5,step=.1,description='Handle radius')
+b = widgets.FloatText(value=4,min=0,max=5,step=.1,description='b')
+theta = widgets.FloatText(value=.7,min=0,max=np.pi/2,step=.01,description='θ')
+phi = widgets.FloatText(value=.45,min=0,max=np.pi/2,step=.01,description='ϕ')
+e = widgets.FloatText(value=8.6,min=0,max=20,step=.1,description='Bulb radius')
+
+
+parameters = widgets.VBox([widgets.HTML(value="Bottle control points:"), p, a, b, theta, phi, e],layout=Layout())
+
+
+def f(p,a,b,theta,phi,e):
+    plt.clf()
+    plt.close()
+        
+    d = np.sqrt(e*(e-p)/2)
+    H = (a+b+(a-b)*np.cos(theta))/np.sin(theta) + d
+    c = ((H-d)*np.sin(phi)+p*np.cos(phi)-e)/(1-np.cos(phi))
+
+    P = np.array([0,a*(1+np.cos(theta)),H-a*np.sin(theta)])
+    Q = np.array([0,b*(1-np.cos(theta)),d+b*np.sin(theta)])
+    PQ = Q-P
+    magPQ = np.sqrt(PQ[1]**2+PQ[2]**2)
+    PQhat = PQ/magPQ
+
+    X = np.array([0,e*np.cos(phi),d+e*np.sin(phi)])
+    Y = np.array([0,p+c-c*np.cos(phi),H-d-c*np.sin(phi)])
+
+    
+    t = np.array([
+        0,
+        d, 
+        e*np.sin(phi)+d, 
+        H-c*np.sin(phi), 
+        H, 
+        H+a*(np.pi+theta), 
+        H+a*(np.pi+theta)+magPQ, 
+        H+a*(np.pi+theta)+magPQ+b*theta,
+        H+d+a*(np.pi+theta)+magPQ+b*theta
+    ])
+
+    u = np.linspace(0, np.max(t), 100)
+
+    ut = [0]*(len(t)-1)
+
+    for j in range(len(t)-1):
+        ut[j] = int(np.max(np.argwhere(u<t[j+1])))
+
+    usplit = [u[:ut[0]],
+            u[ut[0]:ut[1]+1],
+            u[ut[1]:ut[2]+1],
+            u[ut[2]:ut[3]+1],
+            u[ut[3]:ut[4]+1],
+            u[ut[4]:ut[5]+1],
+            u[ut[5]:ut[6]+1],
+            u[ut[6]:ut[7]+1]]
+
+    for j in range(len(ut)): #to remove annoying gaps
+        l=len(usplit[j])
+        usplit[j][l-1] = t[j+1]
+
+    # Set up a figure and axes
+    fig = plt.figure(figsize=plt.figaspect(.5))
+    fig.suptitle('Klein bottle as canal surface')
+
+    ax2 = fig.add_subplot(1, 2, 1)
+    ax1 = fig.add_subplot(1, 2, 2, projection='3d')
+
+    ax2.set_title('Directrix')
+    ax1.set_title('Surface')
+
+    #Base 1
+    #Not canal
+    u = usplit[0]
+    r = (p+e)/2+((e-p)/2)*np.sqrt(1-((u-d)/d)**2)
+    gamma = (0,0,u)
+    T = (0,0,1)
+    N = (0,1,0)
+    B = (1,0,0)
+    v = np.linspace(0,2*np.pi,100)
+    u, v = np.meshgrid(u, v)
+    x = gamma[0] + r*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
+    y = gamma[1] + r*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
+    z = gamma[2] + r*(N[2]*np.cos(v)+B[2]*np.sin(v))
+
+    ax1.plot_surface(x, y, z, edgecolor = 'black', linewidth = .1, alpha = .25)
+    ax2.plot(0*gamma[2],gamma[2])
+
+    #Bottle canal 1
+    u = usplit[1]
+    r = np.sqrt(e**2-(u-d)**2)
+    rdot = -(u-d)/np.sqrt(e**2-(u-d)**2)
+    gamma = (0,0,u)
+    v = np.linspace(0,2*np.pi,100)
+    u, v = np.meshgrid(u, v)
+    x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
+    y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
+    z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v))
+
+    ax1.plot_surface(x, y, z, edgecolor = 'black', linewidth = .1, alpha = .25)
+    ax2.plot(0*gamma[2],gamma[2])
+
+    #Bottle canal 2
+    u = usplit[2]
+    r = e/np.cos(phi)-(u-d)*np.tan(phi)
+    rdot = -np.tan(phi)
+    gamma = (0,0,u)
+    v = np.linspace(0,2*np.pi,100)
+    u, v = np.meshgrid(u, v)
+    x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
+    y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
+    z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v))
+
+    ax1.plot_surface(x, y, z, edgecolor = 'black', linewidth = .1, alpha = .25)
+    ax2.plot(0*gamma[2],gamma[2])
+
+
+    #Bottle canal 3
+    u = usplit[3]
+    r = p+c-np.sqrt(c**2-(u-t[4])**2)
+    rdot = (u-t[4])/np.sqrt(c**2-(u-t[4])**2)
+    gamma = (0,0,u)
+    v = np.linspace(0,2*np.pi,100)
+    u, v = np.meshgrid(u, v)
+    x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
+    y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
+    z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v))
+
+    ax1.plot_surface(x, y, z, edgecolor = 'black', linewidth = .1, alpha = .25)
+    ax2.plot(0*gamma[2],gamma[2])
+
+    #Handle 4
+    u = usplit[4]
+    r = p
+    rdot = 0
+    gamma = (0, a*(1+np.cos(np.pi-(u-t[4])/a)), H+a*np.sin(np.pi-(u-t[4])/a))
+    T = (0,np.sin(np.pi-(u-t[4])/a),-np.cos(np.pi-(u-t[4])/a))
+    N = (0,-np.cos(np.pi-(u-t[4])/a),-np.sin(np.pi-(u-t[4])/a))
+    v = np.linspace(0,2*np.pi,100)
+    u, v = np.meshgrid(u, v)
+    x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
+    y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
+    z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v))
+
+    ax1.plot_surface(x, y, z, edgecolor = 'black', linewidth = .1, alpha = .25)
+    ax2.plot(gamma[1],gamma[2])
+
+    #Handle 5
+    u = usplit[5]
+    gamma = (0,((u-t[5])/magPQ)*Q[1] + (1-(u-t[5])/magPQ)*P[1],((u-t[5])/magPQ)*Q[2] + (1-(u-t[5])/magPQ)*P[2])
+    T = (0,PQhat[1],PQhat[2])
+    N = (0,PQhat[2],-PQhat[1])
+    v = np.linspace(0,2*np.pi,100)
+    u, v = np.meshgrid(u, v)
+    x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
+    y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
+    z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v))
+
+    ax1.plot_surface(x, y, z, edgecolor = 'black', linewidth = .1, alpha = .25)
+    ax2.plot(gamma[1],gamma[2])
+
+    #Handle 6
+    u = usplit[6]
+    gamma = (0, b+b*np.cos(np.pi-theta+(u-t[6])/b), d+b*np.sin(np.pi-theta+(u-t[6])/b))
+    T = (0,-np.sin(np.pi-theta+(u-t[6])/b),np.cos(np.pi-theta+(u-t[6])/b))
+    N = (0,np.cos(np.pi-theta+(u-t[6])/b),np.sin(np.pi-theta+(u-t[6])/b))
+    v = np.linspace(0,2*np.pi,100)
+    u, v = np.meshgrid(u, v)
+    x = gamma[0] - r*rdot*T[0] + r*np.sqrt(1-(rdot)**2)*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
+    y = gamma[1] - r*rdot*T[1] + r*np.sqrt(1-(rdot)**2)*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
+    z = gamma[2] - r*rdot*T[2] + r*np.sqrt(1-(rdot)**2)*(N[2]*np.cos(v)+B[2]*np.sin(v))
+
+    ax1.plot_surface(x, y, z, edgecolor = 'black', linewidth = .1, alpha = .25)
+    ax2.plot(gamma[1],gamma[2])
+
+    #Base 7
+    u = usplit[7]
+    r = (p+e)/2-((e-p)/2)*np.sqrt(1-((u-u[0])/d)**2)
+    gamma = (0,0,H+d+a*(np.pi+theta)+magPQ+b*theta-u)
+    T = (0,0,-1)
+    N = (0,-1,0)
+    v = np.linspace(0,2*np.pi,100)
+    u, v = np.meshgrid(u, v)
+    x = gamma[0] + r*(N[0]*np.cos(v)+B[0]*np.sin(v)) 
+    y = gamma[1] + r*(N[1]*np.cos(v)+B[1]*np.sin(v)) 
+    z = gamma[2] + r*(N[2]*np.cos(v)+B[2]*np.sin(v))
+
+    ax1.plot_surface(x, y, z, edgecolor = 'black', linewidth = .1, alpha = .25)
+    ax2.plot(0*u,H+d+a*(np.pi+theta)+magPQ+b*theta-u)
+
+    ax1.set_aspect('equal')
+    ax1.view_init(elev=0, azim=0, roll=0)
+
+    ax2.set_aspect('equal')
+
+    plt.show()
+
+surface =  widgets.interactive_output(f, {'p': p, 'a': a, 'b': b, 'theta': theta, 'phi': phi, 'e': e})
+display(parameters)
+display(surface)
+:::

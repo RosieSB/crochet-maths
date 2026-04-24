@@ -681,7 +681,7 @@ $$
 $$
 and
 $$
-\mathbf{x}_v = -r\sqrt{1-\dot{r}^2}\sin(v)\mathbf{N} + r\sqrt{1-\dot{r}^2}\cos(v)\mathbf{B}.
+\mathbf{x}_v &= -r\sqrt{1-\dot{r}^2}\sin(v)\mathbf{N} + r\sqrt{1-\dot{r}^2}\cos(v)\mathbf{B}.
 $$
 So:
 \begin{gather}
