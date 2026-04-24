@@ -404,7 +404,7 @@ Handle:
 - Circular section 2: Outer $(b+p)\theta=${eval}`float(np.round((b+p)*theta,dp))`, inner $(b-p)\theta=${eval}`float(np.round((b-p)*theta,dp))`  
 
 Base: 
-- Stretched half-torus, cross section half-ellipse with height $d=${eval}`float(np.round(d,dp))` and width $e-p=${eval}`float(np.round(e-p,dp))`  
+- Stretched half-torus, cross section half-ellipse with height $d=${eval}`float(np.round(d,dp))` and width $e-p=${eval}`float(np.round(w/2-p,dp))`  
 
 Rest of main bottle: 
 - Height H={eval}`float(np.round(H,dp))`
