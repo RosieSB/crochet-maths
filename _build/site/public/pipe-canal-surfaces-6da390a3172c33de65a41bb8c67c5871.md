@@ -481,10 +481,9 @@ This confirms our suspicion: small deviations in the parameter $u$ give surface 
 This suggests a method for crocheting pipe (and eventually, canal surfaces): work out how to crochet small sections of pipe of a specified radius and curvature, and then stack them, changing the curvature and radius as needed. For now, we continue to restrict to the torsion-free (i.e. planar directrix) case.
 
 ### Curved pipe pattern examples
-The following example patterns were created by taking small sections of torus, modified from [](#torus-crochet-eg) and similar. 
+The following patterns were created by taking small sections of torus, modified from [](#torus-crochet-eg) and similar. 
 
-
-The sections were chosen so as to line up with a single stitch on the inside of the bend, as this is the smallest possible section of torus that can be crocheted. The turning angle $\alpha$ in each case should therefore satisfy 
+The sections were chosen so as to line up with a single stitch on the inside of the bend, as this is the smallest possible section of torus that can be crocheted. The turning angle $\theta$ in each case should therefore satisfy 
 :::::{grid} 2
 ::::{grid-item}
 :::{image} figs/Pipe-turning-angle.png
@@ -494,7 +493,7 @@ The sections were chosen so as to line up with a single stitch on the inside of 
 ::::
 ::::{grid-item}
 $$
-\alpha=2\arcsin\left(\frac{w}{2(R-r)}\right) \approx \frac{w}{R-r}.%w=2(R-r)\sin\left(\frac{\alpha}{2}\right) 
+\theta=2\arcsin\left(\frac{w}{2(R-r)}\right) \approx \frac{w}{R-r}.%w=2(R-r)\sin\left(\frac{\theta}{2}\right) 
 $$
 ::::
 :::::
@@ -502,20 +501,19 @@ $$
 
 We can also easily calculate curvature using work from [](#torus-curvature). We had principal curvatures
 $$
-\kappa_\alpha=-\frac{1}{r}, \hspace{1em} \kappa_\phi=\frac{\cos\alpha}{R-r\cos\alpha},
+\kappa_\theta=-\frac{1}{r}, \hspace{1em} \kappa_\phi=\frac{\cos\theta}{R-r\cos\theta},
 $$
 and Gauss curvature
 $$
-K = \kappa_\alpha\kappa_\phi =  -\frac{\cos\alpha}{r(R-r\cos\alpha)}.
+K = \kappa_\theta\kappa_\phi =  -\frac{\cos\theta}{r(R-r\cos\theta)}.
 $$
 
 In more practical terms, $K$ takes all values in the interval
 $$
 -\frac{1}{r(R-r)}\leq K\leq \frac{1}{r(R+r)},
 $$
-attaining its minimum (negative) value at the inner most point of the turn ($\alpha=0$), and its maximum (positive) at the outer most point of the turn ($\alpha=\pi$). See below for concrete evaluation of these formulae in specific cases. 
+attaining its minimum (negative) value at the inner most point of the turn ($\theta=0$), and its maximum (positive) at the outer most point of the turn ($\theta=\pi$). See below for concrete evaluation of these formulae in specific cases. 
 
-:::::{tip} Example patterns
 ::::{dropdown} Example 1
 :::{code-cell} python 
 :label: curved-pipe-parameters-1
@@ -548,7 +546,7 @@ K_outer = float(np.round(1/(r*(R+r)),dp))
 
 #Turning angle
 #np.set_printoptions(legacy='1.25')
-turning_angle = float(np.round(2*np.arcsin(w/(2*(R-r))),dp))
+theta = float(np.round(2*np.arcsin(w/(2*(R-r))),dp))
 :::
 
 Parameter values: $R=${eval}`R`, $r=${eval}`r`, $w=${eval}`w` and $h=${eval}`h`.
@@ -558,7 +556,7 @@ Curvature:
 
 - Of pipe: {eval}`K_inner`$\leq K \leq ${eval}`K_outer`.
 
-Turning angle: $\alpha = 2\arcsin\left(\frac{w}{2(R-r)}\right)=${eval}`turning_angle`.
+Turning angle: $\theta = 2\arcsin\left(\frac{w}{2(R-r)}\right)=${eval}`theta`.
 
 :::{code-cell} python
 :label: curved-pipe-code-2
@@ -659,7 +657,7 @@ K_outer = float(np.round(1/(r*(R+r)),dp))
 
 #Turning angle
 #np.set_printoptions(legacy='1.25')
-turning_angle = float(np.round(2*np.arcsin(w/(2*(R-r))),dp))
+theta = float(np.round(2*np.arcsin(w/(2*(R-r))),dp))
 :::
 
 Parameter values: $R=${eval}`R`, $r=${eval}`r`, $w=${eval}`w` and $h=${eval}`h`.
@@ -669,7 +667,7 @@ Curvature:
 
 - Of pipe: {eval}`K_inner`$\leq K \leq ${eval}`K_outer`.
 
-Turning angle: $\alpha = 2\arcsin\left(\frac{w}{2(R-r)}\right)=${eval}`turning_angle`.
+Turning angle: $\theta = 2\arcsin\left(\frac{w}{2(R-r)}\right)=${eval}`theta`.
 
 :::{code-cell} python
 :label: curved-pipe-code-1
@@ -771,7 +769,7 @@ K_outer = float(np.round(1/(r*(R+r)),dp))
 
 #Turning angle
 #np.set_printoptions(legacy='1.25')
-turning_angle = float(np.round(2*np.arcsin(w/(2*(R-r))),dp))
+theta = float(np.round(2*np.arcsin(w/(2*(R-r))),dp))
 :::
 
 Parameter values: $R=${eval}`R`, $r=${eval}`r`, $w=${eval}`w` and $h=${eval}`h`.
@@ -781,7 +779,7 @@ Curvature:
 
 - Of pipe: {eval}`K_inner`$\leq K \leq ${eval}`K_outer`.
 
-Turning angle: $\alpha = 2\arcsin\left(\frac{w}{2(R-r)}\right)=${eval}`turning_angle`.
+Turning angle: $\theta = 2\arcsin\left(\frac{w}{2(R-r)}\right)=${eval}`theta`.
 
 :::{code-cell} python
 :label: curved-pipe-code-3
@@ -849,4 +847,3 @@ ax.view_init(elev=50, azim=-155, roll=0)
 plt.show()
 :::
 ::::
-:::::

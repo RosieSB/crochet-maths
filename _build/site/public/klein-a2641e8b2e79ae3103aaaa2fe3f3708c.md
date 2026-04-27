@@ -1092,10 +1092,13 @@ repeats_b = int(np.round(theta/turning_angle_b))
 
 Still working with stitch dimension w={eval}`w`, h={eval}`h`, work a curved pipe formed of {eval}`int(np.round(2*np.pi*p/w))` stitches using the technique described in [](#pipe). 
 
-For the top part of the handle, use radii R=a={eval}`a` and r=p={eval}`p`, repeating the rows of [Example 1](#curved-pipe-parameters-1) until you have turned a total angle of {eval}`float(np.round(np.pi+theta,dp))` radians. Each iteration produces a turning angle of $\alpha_a=2\arcsin\left(\frac{w}{2(a-p)}\right)=${eval}`turning_angle_a`, so the number of repeats needed should be approximately $\left[\frac{\pi+\theta}{\alpha_a}\right]=${eval}`repeats_a`.
+For the top part of the handle, use radii R=a={eval}`a` and r=p={eval}`p`, repeating the rows of [Example 1](#curved-pipe-parameters-1) until you have turned a total angle of {eval}`float(np.round(np.pi+theta,dp))` radians. Each iteration produces a turning angle of $\alpha=2\arcsin\left(\frac{w}{2(a-p)}\right)=${eval}`turning_angle_a`, so the number of repeats needed should be approximately $\left[\frac{\pi+\theta}{\alpha}\right]=${eval}`repeats_a`.
 
 Then, work a straight section consisting of {eval}`int(np.round(magPQ/h))` rows.
 
-Finally, work another curved pipe, this time with radii R=b={eval}`b` and r=p={eval}`p`, turning a total of {eval}`theta` radians. This is described by [Example 2](#curved-pipe-parameters-2), in which each iteration produces a turning angle of $\alpha_b=2\arcsin\left(\frac{w}{2(b-p)}\right)=${eval}`turning_angle_b`. So the number of repeats needed here should be $\left[\frac{\pi+\theta}{\alpha_b}\right]=${eval}`repeats_b`. 
+Finally, work another curved pipe, this time with radii R=b={eval}`b` and r=p={eval}`p`, turning a total of {eval}`theta` radians.  See [Example 2](#curved-pipe-parameters-2) for details. Each iteration produces a turning angle of $\alpha=2\arcsin\left(\frac{w}{2(a-p)}\right)=${eval}`turning_angle_a`, so the number of repeats needed should be approximately $\left[\right]=${eval}`repeats_a`. 
+
+:::{figure} #curved-pipe-parameters-2
+:::
 
 (In theory) you should now match up with the last part of the base, described above.
