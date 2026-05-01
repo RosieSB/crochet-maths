@@ -32,7 +32,7 @@ $$
 $$
 or in other words,
 $$
-2(\mathbf{x}-\gamma)\dot\gamma - r\dot r = 0.
+2(\mathbf{x}-\gamma)\dot\gamma - r\dot r = 0
 $$
 
 :::{note}

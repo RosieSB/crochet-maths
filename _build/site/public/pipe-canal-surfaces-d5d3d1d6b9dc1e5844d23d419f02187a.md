@@ -26,13 +26,15 @@ $$
 \forall u\in[a,b], \hspace{1em} S_u = \left\{\mathbf{x}\in\mathbb{R}^3:f(\mathbf{x},u)=0\right\}
 $$
 
-The envelope condition is simply the smoothness condition
-$$
+The "envelope condition" is simply the smoothness condition
+:::{math}
+:enumerated: true
+:label: eq:envelope-cond
 \frac{\partial f}{\partial u}(\mathbf{x},u)=0,
 $$
 or in other words,
 $$
-2(\mathbf{x}-\gamma)\dot\gamma - r\dot r = 0.
+2(\mathbf{x}-\gamma)\dot\gamma - r\dot r = 0
 $$
 
 :::{note}
