@@ -322,7 +322,7 @@ plt.show()
 :::{code-cell} python
 :label: handle-table
 :tags: remove-input
-table = tabulate(base0,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
+table = tabulate(base0,headers=['Row','Stitch count','u','z','E','G','du','dz','ds','s','Circumference'],tablefmt='html')
 display(table)
 :::
 
@@ -453,7 +453,9 @@ plt.show()
 **Rows {eval}`rc[4]`–{eval}`rc[5]`:** 
 Repeat the following two rows {eval}`int(np.round((np.pi+theta)/turning_angle_a))` times:
  - Work {eval}`dual_st_count_a[0]` dc around. 
- - Work another short row, this time of {eval}`dual_st_count_a[1]` stitches, and placed on the **opposite** side to the previous short rows, so that the pipe turns in the opposite direction.
+ -  Work another short row, this time of {eval}`dual_st_count_a[1]` stitches, and placed on the **opposite** side to the previous short rows, so that the pipe turns in the opposite direction.
+
+
 
 :::{code-cell} python
 :label: lower-handle
@@ -520,11 +522,11 @@ dz = np.zeros(l)
 for j in range(1,l):
     dz[j] = z[j]-z[j-1]
 
-s = np.ones(l)*(rc[5]+1)*h
+s = np.zeros(l)
 for j in range(1,l):
     s[j] = s[j-1]+ds[j]
 
-row = [int(i/h) for i in s]
+row = [rc[5]+1+int(i/h) for i in s]
 
 #circumference
 C = 2*np.pi*np.sqrt(G)
@@ -552,12 +554,11 @@ index = [int(i) for i in index]
 
 data = data[index]
 
-table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
+table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds','s','Circumference'],tablefmt='html')
 
 rc = np.concatenate([rc,rc[5]+1,max(row)],axis=None)
 rc = [int(i) for i in rc]
 :::
-
 :::{code-cell} python
 :tags: remove-input
 fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
@@ -576,13 +577,17 @@ plt.show()
 
 Worked from the top down.
 
-
 **Rows {eval}`min(row)`–{eval}`max(row)`:** Work the following row counts, spacing increases evenly throughout each round.
+
+
 
 :::{code-cell} python
 :tags: remove-input
 display(table)
 :::
+
+
+
 ## Derivation
 
 The majority of the Klein bottle pattern comes from its parametrisation as a canal surface. Discussion of the choice of directrix and radius function are below.
@@ -1519,7 +1524,7 @@ index = [int(i) for i in index]
 
 data = data[index]
 
-table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
+table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds','s','Circumference'],tablefmt='html')
 
 print('Number of rows: ',max(row))
 print('Stitch width: ',w)

@@ -300,7 +300,19 @@ base0 = base0[index]
 
 
 #### Inner base
+**Row 0:** Make a foundation chain of {eval}`int(base0[0,1])` stitches, and join into a ring. 
 
+**Rows 1–{eval}`max(row0)`:**  Work the following stitch counts evenly throughout each round to form the inside of the base/very bottom of the handle:
+:::::{grid} 2 2 2 2
+::::{grid-item}
+:::{code-cell} python
+:label: handle-table
+:tags: remove-input
+table = tabulate(base0,headers=['Row','Stitch count','u','z','E','G','du','dz','ds','s','Circumference'],tablefmt='html')
+display(table)
+:::
+::::
+::::{grid-item}
 :::{code-cell} python
 :label: inner-base
 :tags: remove-input
@@ -314,37 +326,10 @@ ax.view_init(elev=10, azim=-30, roll=0)
 ax.set_axis_off()
 plt.show()
 :::
-
-**Row 0:** Make a foundation chain of {eval}`int(base0[0,1])` stitches, and join into a ring. 
-
-**Rows 1–{eval}`max(row0)`:**  Work the following stitch counts evenly throughout each round to form the inside of the base/very bottom of the handle:
-
-:::{code-cell} python
-:label: handle-table
-:tags: remove-input
-table = tabulate(base0,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
-display(table)
-:::
+::::
+:::::
 
 #### Lower curved section.
-
-
-:::{code-cell} python
-:label: lower-handle
-:tags: remove-input
-fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
-
-x = np.concatenate([x0,x1],axis=1)
-y = np.concatenate([y0,y1],axis=1)
-z = np.concatenate([z0,z1],axis=1)
-
-ax.plot_surface(x,y,z, cmap='viridis',  alpha = .5)
-
-ax.set_aspect('equal')
-ax.view_init(elev=10, azim=-30, roll=0)
-ax.set_axis_off()
-plt.show()
-:::
 
 :::{code-cell} python
 :label: pipe-turns-for-handle
@@ -423,15 +408,36 @@ Turn work upside down, to work the next round into the other side of the foundat
 To have the "right side" facing outwards for the majority of the visible surface, you should crochet with stitches facing the **opposite** way around for this next section of work.
 :::
 
-**Rows {eval}`rc[0]`–{eval}`rc[1]`:** Repeat the following two rows {eval}`int(np.round(theta/turning_angle_b))` times.
- - Work {eval}`int(base0[0,1])` dc around. 
- - Work a short row of {eval}`dual_st_count_b[1]` stitches, placed on outside of bend.
+**Rows {eval}`rc[0]`–{eval}`rc[1]`:**
+
+Repeat the following two rows {eval}`int(np.round(theta/turning_angle_b))` times.
+ - Next row: {eval}`int(base0[0,1])` dc around. 
+ - Next row: Short row of {eval}`dual_st_count_b[1]` stitches, placed on outside of bend.
 
 Pipe should have turned approximately {eval}`float(np.round(theta,dp))` radians.
 
 
+:::{code-cell} python
+:label: lower-handle
+:tags: remove-input
+fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
 
-**Rows {eval}`rc[2]`–{eval}`rc[3]`:** {eval}`dual_st_count_b[0]` dc in each st around, {eval}`int(np.round(magPQ/h))` times.
+x = np.concatenate([x0,x1],axis=1)
+y = np.concatenate([y0,y1],axis=1)
+z = np.concatenate([z0,z1],axis=1)
+
+ax.plot_surface(x,y,z, cmap='viridis',  alpha = .5)
+
+ax.set_aspect('equal')
+ax.view_init(elev=10, azim=-30, roll=0)
+ax.set_axis_off()
+plt.show()
+:::
+
+
+**Rows {eval}`rc[2]`–{eval}`rc[3]`:**
+
+{eval}`dual_st_count_b[0]` dc in each st around, {eval}`int(np.round(magPQ/h))` times.
 
 :::{code-cell} python
 :label: straight-section
@@ -453,8 +459,10 @@ plt.show()
 **Rows {eval}`rc[4]`–{eval}`rc[5]`:** 
 Repeat the following two rows {eval}`int(np.round((np.pi+theta)/turning_angle_a))` times:
  - Work {eval}`dual_st_count_a[0]` dc around. 
- - Work another short row, this time of {eval}`dual_st_count_a[1]` stitches, and placed on the **opposite** side to the previous short rows, so that the pipe turns in the opposite direction.
+ -  Work another short row, this time of {eval}`dual_st_count_a[1]` stitches, and placed on the **opposite** side to the previous short rows, so that the pipe turns in the opposite direction.
 
+:::::{grid} 2 2 2 2
+::::{grid-item}
 :::{code-cell} python
 :label: lower-handle
 :tags: remove-input
@@ -470,9 +478,13 @@ ax.set_aspect('equal')
 ax.view_init(elev=10, azim=-30, roll=0)
 ax.set_axis_off()
 plt.show()
-:::
+::::
+::::{grid-item}
+<br></br>
 
 Pipe should have turned approximately {eval}`float(np.round(np.pi+theta,dp))` radians.
+::::
+:::::
 
 ### Main body - still need to sort self-intersection
 
@@ -520,11 +532,11 @@ dz = np.zeros(l)
 for j in range(1,l):
     dz[j] = z[j]-z[j-1]
 
-s = np.ones(l)*(rc[5]+1)*h
+s = np.zeros(l)
 for j in range(1,l):
     s[j] = s[j-1]+ds[j]
 
-row = [int(i/h) for i in s]
+row = [rc[5]+1+int(i/h) for i in s]
 
 #circumference
 C = 2*np.pi*np.sqrt(G)
@@ -552,12 +564,20 @@ index = [int(i) for i in index]
 
 data = data[index]
 
-table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
+table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds','s','Circumference'],tablefmt='html')
 
 rc = np.concatenate([rc,rc[5]+1,max(row)],axis=None)
 rc = [int(i) for i in rc]
 :::
 
+:::::{grid} 2 2 2 2
+::::{grid-item}
+Worked from the top down.
+:::{card} Rows {eval}`min(row)`–{eval}`max(row)`:
+Work the following row counts, spacing increases evenly throughout each round.
+:::
+::::
+::::{grid-item}
 :::{code-cell} python
 :tags: remove-input
 fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
@@ -573,16 +593,16 @@ ax.view_init(elev=10, azim=-30, roll=0)
 ax.set_axis_off()
 plt.show()
 :::
-
-Worked from the top down.
-
-
-**Rows {eval}`min(row)`–{eval}`max(row)`:** Work the following row counts, spacing increases evenly throughout each round.
+::::
+:::::
 
 :::{code-cell} python
 :tags: remove-input
 display(table)
 :::
+
+
+
 ## Derivation
 
 The majority of the Klein bottle pattern comes from its parametrisation as a canal surface. Discussion of the choice of directrix and radius function are below.
@@ -1519,7 +1539,7 @@ index = [int(i) for i in index]
 
 data = data[index]
 
-table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
+table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds','s','Circumference'],tablefmt='html')
 
 print('Number of rows: ',max(row))
 print('Stitch width: ',w)
