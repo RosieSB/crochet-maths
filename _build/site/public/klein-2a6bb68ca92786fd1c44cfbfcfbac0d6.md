@@ -588,7 +588,7 @@ The majority of the Klein bottle pattern comes from a canal surface parametrisat
 
 :::::{grid} 1 1 2 2
 ::::{grid-item}
-:::{figure} figs/klein-directrix.png
+:::{figure} figs/Klein-directrix.png
 :label: fig:directrix
 :height: 300
 
@@ -606,32 +606,9 @@ Radius function
 :::::
 
 The directrix, [](#fig:directrix), is composed of straight and circular segments, and parametrised by arc length. Specifically, for a given set of parameters, it is $\gamma:[0,T]\to\mathbb{R}^3$,
-
-$$
-t = \left(\begin{array}{c}
-t_1 \\ t_2 \\ t_3 \\ t_4 \\ t_5 \\ t_6 \\ t_7 \\ t_8
-\end{array}\right) = 
-\left(\begin{array}{c}
-d \\ 
-d+b\theta \\
-d+b\theta+\Vert\overrightarrow{PQ}\Vert \\
-d+b\theta+\Vert\overrightarrow{PQ}\Vert+a(\pi+\theta)\\
-d+b\theta+\Vert\overrightarrow{PQ}\Vert+a(\pi+\theta)+c\sin(\phi)\\
-b\theta+\Vert\overrightarrow{PQ}\Vert+a(\pi+\theta)+H-e\sin(\phi) \\
-b\theta+\Vert\overrightarrow{PQ}\Vert+a(\pi+\theta)+H \\
-d+b\theta+\Vert\overrightarrow{PQ}\Vert+a(\pi+\theta)+H
-\end{array}\right)
-$$
-
 $$
 \gamma(u) = \left\{\begin{array}{lr}
-\left(0, b+b\cos\left(\pi-\frac{u-t_1}{b}\right), d+b\sin\left(\pi-\frac{u-d}{b}\right)\right) & t_1\leq u\leq t_2 \\
-\frac{u-t[2]}{\Vert\overrightarrow{PQ}\Vert}P + \left(1-\frac{u-t[2]}{\Vert\overrightarrow{PQ}\Vert}\right)Q & t_2\leq u\leq t_3 \\
-\left( 0, a\left(1+\cos\left( \frac{u-t_3}{a}-\theta \right)\right), H+a\sin\left(\frac{u-t_3}{a}-\theta\right) \right) & t_3\leq u\leq t_4 \\
-(0,0,H-u+t_4) & t_4\leq u\leq t_5 \\
-(0,0,H-c\sin(\phi)-u+t_5) & t_5\leq u\leq t_6 \\
-(0,0,d\sin(u)) & t_6\leq u\leq t_7 \\
-(0,0,e\sin(\phi)-u+t_6+d)& t_7\leq u\leq t_8 \\
+(0, b+b\cos\left(\pi-\frac{u-d}{b}\right), d+b\sin\left(\pi-\frac{u-d}{b}\right)) & 0\leq s\leq d
 \end{array}\right.
 $$
 
@@ -713,7 +690,7 @@ $$
 
 - Straight segment 2:
 $$
-\gamma_3(t)=\frac{t}{\Vert\overrightarrow{PQ}\Vert}Q + \left(1-\frac{t}{\Vert\overrightarrow{PQ}\Vert}\right)P,\hspace{1em} t\in\left[0,\Vert\overrightarrow{PQ}\Vert\right]
+\gamma_3(t)=\frac{t}{\left\Vert\overrightarrow{PQ}\right\Vert}Q + \left(1-\frac{t}{\left\Vert\overrightarrow{PQ}\right\Vert}\right)P,\hspace{1em} t\in\left[0,\left\Vert\overrightarrow{PQ}\right\Vert\right]
 $$
 
 - Circular arc 2: 
