@@ -7,6 +7,8 @@ kernelspec:
 # Canal surfaces and pipe surfaces
 
 ## Canal/Channel Surfaces
+
+(canal-param)=
 ### Parametrisation
 
 **References:** 
