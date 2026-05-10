@@ -862,7 +862,8 @@ For canal surface, it is required that $|\dot r|<\Vert\dot\gamma\Vert=1$ (c.f. [
 
 (canal_v_SoR)=
 ### Canal surface vs surface of revolution
-While it is true that a canal surface with directrix the $z$ axis is a surface of revolution, it is not the same as the surface obtained by revolving the radius function around the $z$ axis. This is a consequence of the envelope conditon described in [](#canal-param).
+
+A canal surface with directrix the $z$ axis is a surface of revolution, but not of the radius function.
 
 To illustrate this, suppose we have unit speed directrix $\gamma(u)=(0,0,u)$ and Frenet-Serret apparatus $\mathbf{T}=(0,0,1)$, $\mathbf{N}=(0,1,0)$, $\mathbf{B}=(1,0,0)$. The canal parametrisation [](#eq:canal-unit-speed) simplifies to
 $$
