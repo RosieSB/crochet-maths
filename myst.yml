@@ -22,6 +22,7 @@ project:
     code: false
     equations: false
     headings: true
+    title: true
   jupyter: true
 site:
   template: book-theme

@@ -385,7 +385,6 @@ ax.set_axis_off()
 plt.show()
 :::
 
-Lower curved section
 ::::
 
 Turn work upside down, to work the next round into the other side of the foundation chain.
@@ -400,10 +399,9 @@ To have the "right side" facing outwards for the majority of the visible surface
 Pipe should have turned approximately {eval}`float(np.round(theta,dp))` radians.
 
 #### Straight section
-::::{figure}
-:label: straight-section
 
 :::{code-cell} python
+:label: straight-section
 :tags: hide-input
 fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
 
@@ -419,16 +417,12 @@ ax.set_axis_off()
 plt.show()
 :::
 
-Straight section
-::::
-
 **Rows {eval}`rc[2]`–{eval}`rc[3]`:** {eval}`dual_st_count_b[0]` dc in each st around, {eval}`int(np.round(magPQ/h))` times.
 
 #### Upper curved section
 
-::::{figure}
-:label: upper-handle-plot
 :::{code-cell} python
+:label: lower-handle-plot
 :tags: hide-input
 fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
 
@@ -444,8 +438,6 @@ ax.set_axis_off()
 plt.show()
 :::
 
-Upper curved section
-::::
 **Rows {eval}`rc[4]`–{eval}`rc[5]`:** 
 Repeat the following two rows {eval}`int(np.round((np.pi+theta)/turning_angle_a))` times:
  - Work {eval}`dual_st_count_a[0]` dc around. 
@@ -455,10 +447,8 @@ Pipe should have turned approximately {eval}`float(np.round(np.pi+theta,dp))` ra
 
 ### Main body - still need to sort self-intersection
 
-::::{figure}
-:label: body-pattern
-
 :::{code-cell} python
+:label: body-pattern
 :tags: hide-input
 
 #Calculate first fundamental form Edu^2+Gdv^2
@@ -554,8 +544,6 @@ ax.set_axis_off()
 plt.show()
 :::
 
-Main body
-::::
 Worked from the top down.
 
 **Rows {eval}`min(row)`–{eval}`max(row)`:** Work the following row counts, spacing increases evenly throughout each round.

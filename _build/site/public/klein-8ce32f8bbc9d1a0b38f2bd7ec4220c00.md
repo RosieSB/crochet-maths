@@ -180,7 +180,7 @@ plt.show()
 ::::{figure}
 :label: handle-fig
 :::{code-cell} python
-:tags: hide-input
+:tags: remove-input
 fig, ax = plt.subplots(1, 1, figsize=(6, 9), subplot_kw={'projection': '3d'})
 
 x = np.concatenate([x0,x1,x2,x3],axis=1)
@@ -207,10 +207,9 @@ Klein bottle handle
 
 (inner-base)=
 #### Inner base
-::::{figure}
-:label: inner-base-pattern
 
 :::{code-cell} python
+:label: inner-base-pattern
 :tags: hide-input
 
 from tabulate import tabulate
@@ -268,10 +267,13 @@ for j in range(1,l):
 index = [int(i) for i in index]
 base0 = base0[index]
 
-#Tabulate (displayed later)
+#Tabulate (displayed below)
 table = tabulate(base0,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
+:::
 
-#Graphic
+:::{code-cell} python
+:tags: remove-input
+
 fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
 
 ax.plot_surface(x0,y0,z0, cmap='viridis',  alpha = .5)
@@ -281,9 +283,6 @@ ax.view_init(elev=10, azim=-30, roll=0)
 ax.set_axis_off()
 plt.show()
 :::
-
-Inner base
-::::
 
 **Row 0:** Make a foundation chain of {eval}`int(base0[0,1])` stitches, and join into a ring. 
 
@@ -297,12 +296,27 @@ display(table)
 
 #### Lower curved section.
 
-::::{figure}
-:label: lower-curved
 :::{code-cell} python
+:label: lower-handle
+:tags: remove-input
+fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
+
+x = np.concatenate([x0,x1],axis=1)
+y = np.concatenate([y0,y1],axis=1)
+z = np.concatenate([z0,z1],axis=1)
+
+ax.plot_surface(x,y,z, cmap='viridis',  alpha = .5)
+
+ax.set_aspect('equal')
+ax.view_init(elev=10, azim=-30, roll=0)
+ax.set_axis_off()
+plt.show()
+:::
+
+:::{code-cell} python
+:label: pipe-turns-for-handle
 :tags: hide-input
 
-#Pipe-turns-for-handle
 #Turning angle a
 turning_angle_a = float(np.round(2*np.arcsin(w/(2*(a-p))),dp))
 
@@ -360,7 +374,7 @@ for n in range(1,N+1):
         r = r + 1
         rnd.append(r)
 
-#Row count shorthand (for readability)
+#Row count shorthand
 rc = [
     max(row0)+1,
     max(row0)+2*int(np.round(theta/turning_angle_b))+1,
@@ -369,24 +383,7 @@ rc = [
     max(row0)+2*int(np.round(theta/turning_angle_b))+int(np.round(magPQ/h))+3,
     max(row0)+2*int(np.round(theta/turning_angle_b))+int(np.round(magPQ/h))+2*int(np.round((np.pi+theta)/turning_angle_a))+3
     ]
-
-#Graphic
-fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
-
-x = np.concatenate([x0,x1],axis=1)
-y = np.concatenate([y0,y1],axis=1)
-z = np.concatenate([z0,z1],axis=1)
-
-ax.plot_surface(x,y,z, cmap='viridis',  alpha = .5)
-
-ax.set_aspect('equal')
-ax.view_init(elev=10, azim=-30, roll=0)
-ax.set_axis_off()
-plt.show()
 :::
-
-Lower curved section
-::::
 
 Turn work upside down, to work the next round into the other side of the foundation chain.
 :::{tip} Important note!
@@ -400,11 +397,10 @@ To have the "right side" facing outwards for the majority of the visible surface
 Pipe should have turned approximately {eval}`float(np.round(theta,dp))` radians.
 
 #### Straight section
-::::{figure}
-:label: straight-section
 
 :::{code-cell} python
-:tags: hide-input
+:label: straight-section
+:tags: remove-input
 fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
 
 x = np.concatenate([x0,x1,x2],axis=1)
@@ -419,17 +415,13 @@ ax.set_axis_off()
 plt.show()
 :::
 
-Straight section
-::::
-
 **Rows {eval}`rc[2]`–{eval}`rc[3]`:** {eval}`dual_st_count_b[0]` dc in each st around, {eval}`int(np.round(magPQ/h))` times.
 
 #### Upper curved section
 
-::::{figure}
-:label: upper-handle-plot
 :::{code-cell} python
-:tags: hide-input
+:label: lower-handle-plot
+:tags: remove-input
 fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
 
 x = np.concatenate([x0,x1,x2,x3],axis=1)
@@ -444,8 +436,6 @@ ax.set_axis_off()
 plt.show()
 :::
 
-Upper curved section
-::::
 **Rows {eval}`rc[4]`–{eval}`rc[5]`:** 
 Repeat the following two rows {eval}`int(np.round((np.pi+theta)/turning_angle_a))` times:
  - Work {eval}`dual_st_count_a[0]` dc around. 
@@ -455,10 +445,8 @@ Pipe should have turned approximately {eval}`float(np.round(np.pi+theta,dp))` ra
 
 ### Main body - still need to sort self-intersection
 
-::::{figure}
-:label: body-pattern
-
 :::{code-cell} python
+:label: body-pattern
 :tags: hide-input
 
 #Calculate first fundamental form Edu^2+Gdv^2
@@ -532,14 +520,15 @@ for j in range(1,l):
 index = [int(i) for i in index]
 data = data[index]
 
-#Tabulate (displayed later)
+#Tabulate
 table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
 
-#Row count shorthand (for readability)
 rc = np.concatenate([rc,rc[5]+1,max(row)],axis=None)
 rc = [int(i) for i in rc]
+:::
 
-#Graphic
+:::{code-cell} python
+:tags: remove-input
 fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
 
 x = np.concatenate([x4,x5,x6,x7],axis=1)
@@ -554,17 +543,15 @@ ax.set_axis_off()
 plt.show()
 :::
 
-Main body
-::::
 Worked from the top down.
+
 
 **Rows {eval}`min(row)`–{eval}`max(row)`:** Work the following row counts, spacing increases evenly throughout each round.
 
 :::{code-cell} python
-:tags: hide-input
+:tags: remove-input
 display(table)
 :::
-
 ## Derivation
 The majority of the Klein bottle pattern comes from a canal surface parametrisation with the following directrix.
 
