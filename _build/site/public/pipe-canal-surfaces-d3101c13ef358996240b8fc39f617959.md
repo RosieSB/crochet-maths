@@ -33,11 +33,10 @@ $$
 \frac{\partial f}{\partial u}(\mathbf{x},u)=0,
 $$
 or in other words,
-:::{math}
-:enumerated: true
-:label: eq:envelope-cond
+$$
 2(\mathbf{x}-\gamma)\dot\gamma - r\dot r = 0.
-:::
+$$
+
 :::{note}
 When $r$ is constant, the resulting envelope is called a *pipe surface*.
 :::
@@ -497,6 +496,7 @@ The sections were chosen so as to line up with a single stitch on the inside of 
 
 $$
 \alpha=2\arcsin\left(\frac{w}{2(R-r)}\right) \approx \frac{w}{R-r}.
+%w=2(R-r)\sin\left(\frac{\alpha}{2}\right) 
 $$
 
 ::::

@@ -29,15 +29,17 @@ $$
 $$
 
 The envelope condition is simply the smoothness condition
-$$
-\frac{\partial f}{\partial u}(\mathbf{x},u)=0,
-$$
-or in other words,
 :::{math}
-:enumerated: true
+:enumerate: true
 :label: eq:envelope-cond
-2(\mathbf{x}-\gamma)\dot\gamma - r\dot r = 0.
+\frac{\partial f}{\partial u}(\mathbf{x},u)=0,
 :::
+
+or in other words,
+$$
+2(\mathbf{x}-\gamma)\dot\gamma - r\dot r = 0.
+$$
+
 :::{note}
 When $r$ is constant, the resulting envelope is called a *pipe surface*.
 :::

@@ -746,7 +746,7 @@ where we have applied [](#eq:hab-constraint) to the second line. --->
 
 (directrix-param)=
 #### Arc length parametrisation
-We take the concatenation of the following arc length-parametrised curves.
+We take the concatenation of the following unit speed parametric curves.
 
 \begin{gather*}
 \gamma_1(u) = \left(0, b+b\cos\left(\pi-\frac{u}{b}\right), d+b\sin\left(\pi-\frac{u}{b}\right)\right), \hspace{1em} 0\leq u\leq b\theta \\
@@ -757,7 +757,7 @@ We take the concatenation of the following arc length-parametrised curves.
 
 This gives a unit speed parametrised curve $\gamma:[0,T]\to\mathbb{R}^3$, where $T=H+a(\pi+\theta)+\Vert\overrightarrow{PQ}\Vert+b\theta$ is the total length of $\gamma$.
 
-The Frenet-Serret apparatus are then simple to compute from these formulae: $\mathbf{T}=\dot{\gamma}$, $\mathbb{N}=\frac{\ddot{\gamma}}{\Vert\ddot{\gamma}\Vert}$, $\mathbf{B}=(1,0,0)$.
+The Frenet-Serret apparatus are simple to compute: $\mathbb{T}=\dot{\gamma}$, $\mathbb{N}=\frac{\ddot{\gamma}}{\Vert\ddot{\gamma}\Vert}$, $\mathbf{B}=(1,0,0)$.
 
 <!---::::{admonition} Example
 For the pattern example in [](#patt_eg): 
@@ -790,7 +790,7 @@ directrix.text(.1,(H+d)/2,'γ₄',color='tab:purple')
 ::::--->
 
 ### Radius function
-:::{embed} fig:radius-fn
+:::{figure} figs/klein-radius.png
 :width: 400
 
 Radius function sketch
@@ -858,6 +858,7 @@ Parametrisation:
 - $r_2(u)=d\tan\phi+e\sec\phi-u\tan\phi$, $\dot r_2(u)=-\tan\phi$, for $u\in[d+e\sin\phi,H-c\sin\phi]$.
 - $r_3(u)=p+c-\sqrt{c^2-(u-H)^2}$, $\dot r_3(u)=\frac{u-H}{\sqrt{c^2-(u-H)^2}}$ for $u\in[H-c\sin\phi,H]$.
 
+For canal surface, it is required that $|\dot r|<\Vert\dot\gamma\Vert=1$ (c.f. [eq](#eq:canal-unit-speed)), The smaller $|\dot r|$, the smoother (less lumpy) the resulting surface.
 
 (canal_v_SoR)=
 ### Canal surface vs surface of revolution
