@@ -1247,7 +1247,18 @@ print('\nFrom B: u2 = ',(B1-B3)/B4,' + ',B2/B4,'u1')
 print('So, \n',A1,' + ',A2,'u1 = ',A3 + A4*(B1-B3)/B4,' + ',A4*B2/B4,'u1')
 print(A2-(A4*B2/B4),'u1 = ',A3+A4*(B1-B3)/B4-A1)
 print('u1 = ',(A3+A4*(B1-B3)/B4-A1)/(A2-(A4*B2/B4)))
+
+
+print(usplit[5])
+tol = 1
+for u2 in usplit[2]:
+    for u1 in usplit[5]:
+        if (A1+A2*u1 - (A3+A4*u2))**2<tol:
+            print('u1=',u1,' and u2=',u2)
+
+
 :::
+
 
 For the pattern example in [](#patt_eg), the parameter values were $H =$ {eval}`float(np.round(H,dp))`, $a =$ {eval}`a`, $b =$ {eval}`b`, $d =$ {eval}`float(np.round(d,dp))`, and $\theta =$ {eval}`theta`. 
 
