@@ -73,6 +73,7 @@ surf.set_title(' ')
 #Not canal
 u = usplit[0]
 gamma0 = (0*u,0*u,d*np.sin(u))
+r0 = (e+p)/2+((e-p)/2)*np.cos(u)
 v = np.linspace(0,2*np.pi,100)
 u, v = np.meshgrid(u, v)
 x0 = ((e+p)/2+((e-p)/2)*np.cos(u))*np.sin(v)
@@ -455,177 +456,8 @@ Pipe should have turned approximately {eval}`float(np.round(np.pi+theta,dp))` ra
 
 ### Main body 
 
-::::{dropdown} (For self-intersection)
-:::{code-cell} python
-:tags: hide-input
-:label: self-intersect
-v1 = 0
-v2 = 0
 
-print('Case 1: When v1 = ', v1,' and v2 = ',v2)
-
-#Eqn A: A1u1+A2 = A3
-#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
-#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
-X1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X3 = p*np.sin(v2)
-
-#Eqn B: B1u1+B2 = B3u2+B4
-#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v) )
-#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
-#= u2*( -PQhat[1] )+t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
-B1 = np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1)
-B2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
-B3 = -PQhat[1]
-B4 = t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
-
-print(B1,'u1 + ',B2,' = ',B3,'u2 + ',B4)
-
-#Eqn C: C1u1+C2 = C3u2+C4
-#u1*( (np.tan(phi))**2-1 )
-#+H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
-#= u2*( -PQhat[2] )+t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
-C1 = (np.tan(phi))**2-1
-C2 = H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
-C3 = -PQhat[2]
-C4 = t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
-
-print(C1,'u1 + ',C2,' = ',C3,'u2 + ',C4)
-
-#B1*u1 + B2 = B3*u2 + B4
-#u2 = (B1/B3)*u1 + (B2-B4)/B3
-#C1*u1 + C2 = C3*u2 + C4
-#u1 = (C3/C1)*u2 + (C4-C2)/C1 = (C3/C1)*( (B1/B3)*u1 + (B2-B4)/B3 ) + (C4-C2)/C1
-#= (C3/C1)*(B1/B3)*u1 + (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 
-u1a = ( (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 )/(1 - (C3/C1)*(B1/B3))
-print('Conclusion: When v1 = ',v1,'and v2 = ',v2,'\n ','\t'*6,' u1 = ',u1a)
-
-v1 = 0
-v2 = np.pi
-print('\nCase 2: When v1 = ', v1,' and v2 = ',v2)
-
-#Eqn A: A1u1+A2 = A3
-#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
-#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
-X1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X3 = p*np.sin(v2)
-
-#Eqn B: B1u1+B2 = B3u2+B4
-#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v) )
-#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
-#= u2*( -PQhat[1] )+t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
-B1 = np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1)
-B2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
-B3 = -PQhat[1]
-B4 = t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
-
-print(B1,'u1 + ',B2,' = ',B3,'u2 + ',B4)
-
-#Eqn C: C1u1+C2 = C3u2+C4
-#u1*( (np.tan(phi))**2-1 )
-#+H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
-#= u2*( -PQhat[2] )+t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
-C1 = (np.tan(phi))**2-1
-C2 = H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
-C3 = -PQhat[2]
-C4 = t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
-
-print(C1,'u1 + ',C2,' = ',C3,'u2 + ',C4)
-
-#B1*u1 + B2 = B3*u2 + B4
-#u2 = (B1/B3)*u1 + (B2-B4)/B3
-#C1*u1 + C2 = C3*u2 + C4
-#u1 = (C3/C1)*u2 + (C4-C2)/C1 = (C3/C1)*( (B1/B3)*u1 + (B2-B4)/B3 ) + (C4-C2)/C1
-#= (C3/C1)*(B1/B3)*u1 + (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 
-u1b = ( (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 )/(1 - (C3/C1)*(B1/B3))
-print('Conclusion: When v1 = ',v1,'and v2 = ',v2,'\n ','\t'*6,' u1 = ',u1b)
-
-v1 = np.pi
-v2 = np.pi
-print('\nCase 3: When v1 = ', v1,' and v2 = ',v2)
-
-#Eqn A: A1u1+A2 = A3
-#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
-#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
-X1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X3 = p*np.sin(v2)
-
-#Eqn B: B1u1+B2 = B3u2+B4
-#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v) )
-#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
-#= u2*( -PQhat[1] )+t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
-B1 = np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1)
-B2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
-B3 = -PQhat[1]
-B4 = t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
-
-print(B1,'u1 + ',B2,' = ',B3,'u2 + ',B4)
-
-#Eqn C: C1u1+C2 = C3u2+C4
-#u1*( (np.tan(phi))**2-1 )
-#+H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
-#= u2*( -PQhat[2] )+t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
-C1 = (np.tan(phi))**2-1
-C2 = H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
-C3 = -PQhat[2]
-C4 = t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
-
-print(C1,'u1 + ',C2,' = ',C3,'u2 + ',C4)
-
-#B1*u1 + B2 = B3*u2 + B4
-#u2 = (B1/B3)*u1 + (B2-B4)/B3
-#C1*u1 + C2 = C3*u2 + C4
-#u1 = (C3/C1)*u2 + (C4-C2)/C1 = (C3/C1)*( (B1/B3)*u1 + (B2-B4)/B3 ) + (C4-C2)/C1
-#= (C3/C1)*(B1/B3)*u1 + (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 
-u1c = ( (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 )/(1 - (C3/C1)*(B1/B3))
-print('Conclusion: When v1 = ',v1,'and v2 = ',v2,'\n ','\t'*6,' u1 = ',u1c)
-
-v1 = np.pi
-v2 = 0
-print('\nCase 3: When v1 = ', v1,' and v2 = ',v2)
-
-#Eqn A: A1u1+A2 = A3
-#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
-#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
-X1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X3 = p*np.sin(v2)
-
-#Eqn B: B1u1+B2 = B3u2+B4
-#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v) )
-#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
-#= u2*( -PQhat[1] )+t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
-B1 = np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1)
-B2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
-B3 = -PQhat[1]
-B4 = t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
-
-print(B1,'u1 + ',B2,' = ',B3,'u2 + ',B4)
-
-#Eqn C: C1u1+C2 = C3u2+C4
-#u1*( (np.tan(phi))**2-1 )
-#+H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
-#= u2*  ( -PQhat[2] )+t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
-C1 = (np.tan(phi))**2-1
-C2 = H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
-C3 = -PQhat[2]
-C4 = t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
-
-print(C1,'u1 + ',C2,' = ',C3,'u2 + ',C4)
-
-#B1*u1 + B2 = B3*u2 + B4
-#u2 = (B1/B3)*u1 + (B2-B4)/B3
-#C1*u1 + C2 = C3*u2 + C4
-#u1 = (C3/C1)*u2 + (C4-C2)/C1 = (C3/C1)*( (B1/B3)*u1 + (B2-B4)/B3 ) + (C4-C2)/C1
-#= (C3/C1)*(B1/B3)*u1 + (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 
-u1d = ( (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 )/(1 - (C3/C1)*(B1/B3))
-print('Conclusion: When v1 = ',v1,'and v2 = ',v2,'\n ','\t'*6,' u1 = ',u1d)
-:::
-::::
-#### Neck
+<!---#### Neck
 ::::{figure}
 :label: neck-pattern
 
@@ -705,7 +537,7 @@ ax.set_axis_off()
 plt.show()
 :::
 
-Nect
+Neck
 ::::
 Worked from the top down.
 
@@ -796,7 +628,7 @@ ax.set_axis_off()
 plt.show()
 :::
 
-Main body
+Conical section (self-intersection)
 ::::
 
 
@@ -808,6 +640,9 @@ display(table)
 :::
 
 #### Rest of body
+
+--->
+
 ::::{figure}
 :label: body-pattern
 
@@ -865,7 +700,7 @@ row = [int(i/h) for i in s]
 C = 2*np.pi*np.sqrt(G)
 st_count = np.round(C/w)
 
-data = np.transpose([row,
+body = np.transpose([row,
                      st_count,
                      u,
                      z,
@@ -883,10 +718,10 @@ for j in range(1,l):
     if row[j]>row[j-1]: 
         index = np.append(index,j)
 index = [int(i) for i in index]
-data = data[index]
+body = body[index]
 
 #Tabulate (displayed later)
-table = tabulate(data,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
+body_table = tabulate(body,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
 
 #Row count shorthand (for readability)
 rc = np.concatenate([rc,rc[5]+1,max(row)],axis=None)
@@ -895,9 +730,9 @@ rc = [int(i) for i in rc]
 #Graphic
 fig, ax = plt.subplots(1, 1, figsize=(4, 6), subplot_kw={'projection': '3d'})
 
-x = np.concatenate([x6,x7],axis=1)
-y = np.concatenate([y6,y7],axis=1)
-z = np.concatenate([z6,z7],axis=1)
+x = np.concatenate([x4,x5,x6,x7],axis=1)
+y = np.concatenate([y4,y5,y6,y7],axis=1)
+z = np.concatenate([z4,z5,z6,z7],axis=1)
 
 ax.plot_surface(x,y,z, cmap='viridis',  alpha = .5)
 
@@ -905,17 +740,202 @@ ax.set_aspect('equal')
 ax.view_init(elev=10, azim=-30, roll=0)
 ax.set_axis_off()
 plt.show()
+
+#For self-intersection
+v1 = 0
+v2 = 0
+
+#print('Case 1: When v1 = ', v1,' and v2 = ',v2)
+
+#Eqn A: A1u1+A2 = A3
+#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
+#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
+A1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A3 = p*np.sin(v2)
+
+#Eqn B: B1u1+B2 = B3u2+B4
+#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v) )
+#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
+#= u2*( -PQhat[1] )+t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
+B1 = np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1)
+B2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
+B3 = -PQhat[1]
+B4 = t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
+
+#print(B1,'u1 + ',B2,' = ',B3,'u2 + ',B4)
+
+#Eqn C: C1u1+C2 = C3u2+C4
+#u1*( (np.tan(phi))**2-1 )
+#+H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
+#= u2*( -PQhat[2] )+t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
+C1 = (np.tan(phi))**2-1
+C2 = H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
+C3 = -PQhat[2]
+C4 = t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
+
+#print(C1,'u1 + ',C2,' = ',C3,'u2 + ',C4)
+
+#B1*u1 + B2 = B3*u2 + B4
+#u2 = (B1/B3)*u1 + (B2-B4)/B3
+#C1*u1 + C2 = C3*u2 + C4
+#u1 = (C3/C1)*u2 + (C4-C2)/C1 = (C3/C1)*( (B1/B3)*u1 + (B2-B4)/B3 ) + (C4-C2)/C1
+#= (C3/C1)*(B1/B3)*u1 + (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 
+u1a = ( (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 )/(1 - (C3/C1)*(B1/B3))
+#print('Conclusion: When v1 = ',v1,'and v2 = ',v2,'\n ','\t'*6,' u1 = ',u1a)
+
+v1 = 0
+v2 = np.pi
+#print('\nCase 2: When v1 = ', v1,' and v2 = ',v2)
+
+#Eqn A: A1u1+A2 = A3
+#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
+#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
+A1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A3 = p*np.sin(v2)
+
+#Eqn B: B1u1+B2 = B3u2+B4
+#u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v) )
+#+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
+#= u2*( -PQhat[1] )+t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
+B1 = np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1)
+B2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.cos(v1) 
+B3 = -PQhat[1]
+B4 = t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
+
+#print(B1,'u1 + ',B2,' = ',B3,'u2 + ',B4)
+
+#Eqn C: C1u1+C2 = C3u2+C4
+#u1*( (np.tan(phi))**2-1 )
+#+H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
+#= u2*( -PQhat[2] )+t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
+C1 = (np.tan(phi))**2-1
+C2 = H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
+C3 = -PQhat[2]
+C4 = t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
+
+#print(C1,'u1 + ',C2,' = ',C3,'u2 + ',C4)
+
+#B1*u1 + B2 = B3*u2 + B4
+#u2 = (B1/B3)*u1 + (B2-B4)/B3
+#C1*u1 + C2 = C3*u2 + C4
+#u1 = (C3/C1)*u2 + (C4-C2)/C1 = (C3/C1)*( (B1/B3)*u1 + (B2-B4)/B3 ) + (C4-C2)/C1
+#= (C3/C1)*(B1/B3)*u1 + (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 
+u1b = ( (C3/C1)*(B2-B4)/B3 + (C4-C2)/C1 )/(1 - (C3/C1)*(B1/B3))
+#print('Conclusion: When v1 = ',v1,'and v2 = ',v2,'\n ','\t'*6,' u1 = ',u1b)
+
+#Find corresponding row numbers
+i = np.argmin(abs(body[:,2]-u1a))
+row_a = int(body[i,0])
+st_count_a = int(body[i,1])
+
+j = np.argmin(abs(body[:,2]-u1b))
+row_b = int(body[j,0])
+st_count_b = int(body[j,1])
+
+#print('Self-intersection begins at row ',row_a,'(',st_count_a,' stitches ), and ends at row ',row_b, '(', st_count_b,' stitches ).')
+
+#Split table
+body_a = body[0:i,:]
+body_table_a = tabulate(body_a,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
+
+body_b = body[i:j+1,:]
+body_table_b = tabulate(body_b,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
+
+body_c = body[j+1:,:]
+body_table_c = tabulate(body_c,headers=['Row','Stitch count','u','z','E','G','du','dz','ds=√Edu','s≈(row no.)×(st height)','Circumference=2π√G'],tablefmt='html')
 :::
 
-Main body
+Main body - worked from the top down.
 ::::
-Worked from the top down.
 
-**Rows {eval}`min(row)`–{eval}`max(row)`:** Work the following row counts, spacing increases evenly throughout each round.
+#### Shape neck
+
+**Rows {eval}`rc[5]+1`–{eval}`row_a-1`:** Work the following row counts, spacing increases evenly throughout each round.
 
 :::{code-cell} python
 :tags: hide-input
-display(table)
+display(body_table_a)
+:::
+
+#### Self-intersection
+Goal: By omitting stitches, create a hole on the side closest to the handle.
+
+:::{code-cell} python
+:tags: hide-input
+
+for k in range(i,j+1):
+    row = int(body[k,0])
+    st_count = int(body[k,1])
+    u1 = body[k,2]
+    print('Row ', row, ':', st_count, '-(?) st omitting (?) st from previous row. ')    
+    print('u =',u1)
+    #Eqn A: A1*np.sin(v1) = A2*np.sin(v2)
+    #u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
+    #+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
+    A1 = u1*np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)
+    A2 = p
+    print('sin(v2) =',A1/A2,'sin(v1)')
+
+    print('cos²(v2) = 1-',(A1/A2)**2,'sin²(v1)')
+
+    print('cos²(v2) = ',(A1/A2)**2,'cos²(v1) -', (A1/A2)**2-1)
+
+    #Eqn B: B1*np.cos(v1) = B2u2+B3+B4*np.cos(v2)
+    #( u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2) +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)) )*np.cos(v1) 
+    #= u2*( -PQhat[1] )+t[2]*PQhat[1] + Q[1] + p*PQhat[2]*np.cos(v2)
+    B1 =  u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2) +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2))
+    B2 = -PQhat[1]
+    B3 = t[2]*PQhat[1] + Q[1] 
+    B4 = p*PQhat[2]
+    print(-B3/B2,'+',B1/B2,'cos(v1) = u2 +',B4/B2,'cos(v2)')
+
+    #Eqn C: C1 = C2u2+C3+C4*np.cos(v2)
+    #u1*( (np.tan(phi))**2-1 )+H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi) 
+    #= u2*( -PQhat[2] )+t[2]*PQhat[2] + Q[2] - p*PQhat[1]*np.cos(v2)
+    C1 = u1*( (np.tan(phi))**2-1 )+H-c*np.sin(phi)+t[5] +(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.tan(phi)
+    C2 = -PQhat[2]
+    C3 = t[2]*PQhat[2] + Q[2] 
+    C4 = - p*PQhat[1]
+    print((C1-C3)/C2,' = u2 + ',C4/C2,'cos(v2)')
+
+    #D1+D2cos(v1)=D3cos(v2)
+    D1 = (C1-C3)/C2+B3/B2
+    D2 = -B1/B2
+    D3 = C4/C2-B4/B2
+    print(D1,'+',D2,'cos(v1) = ',D3,'cos(v2)')
+
+    print(D1**2,'+',2*D1*D2,'cos(v1) +',D2**2,'cos²(v1) = ',D3**2,'cos²(v2)')
+
+    print(D1**2,'+',2*D1*D2,'cos(v1) +',D2**2,'cos²(v1) = ', (D3**2)*((A1/A2)**2),'cos²(v1) -', (D3**2)*( (A1/A2)**2-1) )
+
+    print(D1**2-(D3**2)*((A1/A2)**2-1),'+',2*D1*D2,'cos(v1) +',D2**2-(D3**2)*((A1/A2)**2),'cos²(v1) = 0')
+
+    #E1+E2cos(v1)+cos²(v1)=0
+    E1 = (D1**2-(D3**2)*((A1/A2)**2-1))/(D2**2-(D3**2)*((A1/A2)**2))
+    E2 = 2*D1*D2/(D2**2-(D3**2)*((A1/A2)**2))
+
+    print(E1,'+',E2,'cos(v1) + cos²(v1) = 0')
+    cosv1_a = ( -E2 + np.sqrt(E2**2-4*E1) )/2
+    cosv1_b = ( -E2 - np.sqrt(E2**2-4*E1) )/2
+
+    v1a = np.arccos(cosv1_a)
+    v1b = np.arccos(cosv1_b)
+
+    print('cos(v1) = (', -E2/2, ' ±',np.sqrt(E2**2-4*E1)/2 ,' = ',cosv1_a, ' or ', cosv1_b )
+    print('v1 =',v1a,' = ',v1a/np.pi,'π or ',v1b,' = ',v1b/np.pi,'π')
+
+    print('Angle gap = ',v1b-v1a,'\n')
+display(body_table_b)
+:::
+
+#### Rest of body
+**Rows {eval}`row_b+1`–{eval}`int(max(body[:,0]))`:** Work the following row counts, spacing increases evenly throughout each round.
+
+:::{code-cell} pyv1a/np.pithon
+:tags: hide-input
+display(body_table_c)
 :::
 
 ## Derivation
@@ -1609,9 +1629,9 @@ print('\nCase 2: When v1 = ', v1,' and v2 = ',v2)
 #Eqn A: A1u1+A2 = A3
 #u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
 #+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
-X1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X3 = p*np.sin(v2)
+A1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A3 = p*np.sin(v2)
 
 #Eqn B: B1u1+B2 = B3u2+B4
 #u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v) )
@@ -1650,9 +1670,9 @@ print('\nCase 3: When v1 = ', v1,' and v2 = ',v2)
 #Eqn A: A1u1+A2 = A3
 #u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
 #+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
-X1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X3 = p*np.sin(v2)
+A1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A3 = p*np.sin(v2)
 
 #Eqn B: B1u1+B2 = B3u2+B4
 #u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v) )
@@ -1686,14 +1706,14 @@ print('Conclusion: When v1 = ',v1,'and v2 = ',v2,'\n ','\t'*6,' u1 = ',u1c)
 
 v1 = np.pi
 v2 = 0
-print('\nCase 3: When v1 = ', v1,' and v2 = ',v2)
+print('\nCase 4: When v1 = ', v1,' and v2 = ',v2)
 
 #Eqn A: A1u1+A2 = A3
 #u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) )
 #+(d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) = p*np.sin(v2)) 
-X1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
-X3 = p*np.sin(v2)
+A1 =  np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A2 = (d*np.tan(phi) + e/np.cos(phi)-(H-c*np.sin(phi)+t[5])*np.tan(phi))*np.sqrt(1-(np.tan(phi))**2)*np.sin(v1) 
+A3 = p*np.sin(v2)
 
 #Eqn B: B1u1+B2 = B3u2+B4
 #u1*( np.tan(phi)*np.sqrt(1-(np.tan(phi))**2)*np.cos(v) )
