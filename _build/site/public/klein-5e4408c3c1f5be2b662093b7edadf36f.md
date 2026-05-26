@@ -931,7 +931,7 @@ for k in range(i,j+1):
     v1a = np.arccos(cosv1_a)
     v1b = np.arccos(cosv1_b)
 
-    print('cos(v1) = ', -E2/2, ' ±',np.sqrt(E2**2-4*E1)/2 ,' = ',cosv1_a, ' or ', cosv1_b )
+    print('cos(v1) = (', -E2/2, ' ±',np.sqrt(E2**2-4*E1)/2 ,' = ',cosv1_a, ' or ', cosv1_b )
     
     if -1<=cosv1_a<=1:
         if -1<=cosv1_b<=1:
@@ -943,8 +943,8 @@ for k in range(i,j+1):
             #ds=sqrt(G)dv
             G = body[k,5]
             ds = np.sqrt(G)*(2*v1a)
-            sts = round(ds/w)
-            print('G = ',G,', ds = sqrt(G)dv = ',ds, ' \nStitches to omit: ', sts)
+            sts = ds/w
+            print('G = ',G,' ds = sqrt(G)dv = ',ds, ' stitches to omit: ', sts)
     else:
         if -1<=cosv1_b<=1:
             print('v1 = ±',v1b,' = ±',v1b/np.pi,'π')
@@ -952,8 +952,8 @@ for k in range(i,j+1):
             #ds=sqrt(G)dv
             G = body[k,5]
             ds = np.sqrt(G)*(2*v1b)
-            sts = round(ds/w)
-            print('G = ',G,', ds = sqrt(G)dv = ',ds, ' \nStitches to omit: ', sts)
+            sts = ds/w
+            print('G = ',G,' ds = sqrt(G)dv = ',ds, ' stitches to omit: ', sts)
         else:
             print('Omit no stitches for this round')
     print('\n')
