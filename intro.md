@@ -50,13 +50,11 @@ Crochet with increases and decreases
 ::::
 :::::
 
-The two patches are crocheted in UK double crochet (dc), with identical yarn, hook and tension, and with all stitches facing the same way (the crochet version of stockinette). Two stitches are considered adjacent if they are next to one another on the same row, or if one stitch is worked into the top of the other. The graph overlays are constructed as follows: place one vertex on every stitch, and connect adjacent vertices by edges. 
+The two patches are crocheted in UK double crochet (dc), with identical yarn, hook and tension, and with all stitches facing the same way (the crochet version of stockinette). For the overlayed graphs, every stitch gets a vertex, and two stitches are considered adjacent if they are next to one another on the same row, or if one stitch is worked into the top of the other. 
 
-[](#fig:flat-crochet) contains no increases, and an example vertex is labelled $u$.
+[](#fig:flat-crochet) contains no increases, and an example vertex is labelled $u$. [](#fig:inc-dec-crochet) has a 2dc increase on row 3 (vertex $s$) and a 1dc decrease on row 4 (vertex $t$). The overlayed graphs illustrate the effect of these increases and decreases on the degree of each vertex: $d(u)=4$, $d(s)=6$ and $d(t)=3$. 
 
-[](#fig:inc-dec-crochet) has a 2dc increase on row 3 (vertex $v$) and a 1dc decrease on row 4 (vertex $w$). The overlayed graphs illustrate the effect of these increases and decreases on the degree of each vertex: $d(u)=4$, $d(v)=6$ and $d(w)=3$. 
-
-The *voronoidal decomposition* of a triangle $T$ with vertices $u,v,w$ is defined as follows. Let $c(T)$ denote the centroid of $T$, that is, the intersection of the perpendicular bisectors of the edges. Depending on $T$, $c(T)$ may lie inside or outside of $T$. For each vertex $v$ of $T$, the associated voronoidal region is the quadrilateral with vertices $v$, $c(T)$ and the midpoints of the two edges incident at $v$:
+The *voronoidal decomposition* of a triangle $T$ is defined as follows. Let $c(T)$ denote the centroid of $T$, that is, the intersection of the perpendicular bisectors of the edges. Depending on $T$, $c(T)$ may lie inside or outside of $T$. For each vertex $v$ of $T$, the associated voronoidal region is the quadrilateral with vertices $v$, $c(T)$ and the midpoints of the two edges incident at $v$:
 :::{figure} figs/tri-voronoi.png
 :label: fig:tri-voronoi
 :width: 250
@@ -79,14 +77,16 @@ Example: vertex $v$ with combined voronoidal region $A(v)$ and incident angles $
 :::
 
 The *mesh curvature* of $\Gamma$ at $v$ is 
-$$
-K(v) := \frac{1}{A(v)}\left((2\pi - \sum_{i=1}^n\theta_i)\right)
-$$
+:::{math}
+:enumerated: true
+:label: eq:mesh-curvature
+K(v) := \frac{1}{A(v)}\left(2\pi - \sum_{i=1}^n\theta_i\right)
+:::
 ::::
 
 By the Gauss-Bonnet theorem, $K(v)$ provides a good approximation of the Gauss curvature of the underlying surface. For how good, see .... papers .... 
 
-Returning to the crochet of [](#fig:flat-crochet) and [](#fig:inc-dec-crochet), we have the following graphs for vertices $u$, $v$ and $w$:
+Returning to the crochet of [](#fig:flat-crochet) and [](#fig:inc-dec-crochet), we have the following graphs for vertices $u$, $s$ and $t$:
 
 :::::{grid} 1 1 3 3
 ::::{grid-item}
@@ -102,7 +102,7 @@ Vertex $u$ and adjacent vertices (c.f. [](#fig:flat-crochet)).
 :label: fig:inc-dec-graph1
 :width: 150
 
-Vertex $v$ and adjacent vertices (c.f. [](#fig:inc-dec-crochet)).
+Vertex $s$ and adjacent vertices (c.f. [](#fig:inc-dec-crochet)).
 :::
 ::::
 ::::{grid-item}
@@ -110,7 +110,11 @@ Vertex $v$ and adjacent vertices (c.f. [](#fig:inc-dec-crochet)).
 :label: fig:inc-dec-graph2
 :width: 100
 
-Vertex $w$ and adjacent vertices (c.f. [](#fig:inc-dec-crochet)).
+Vertex $t$ and adjacent vertices (c.f. [](#fig:inc-dec-crochet)).
 :::
 ::::
 :::::
+
+Naiively, tension is uniform and all stitches should be the same size. This should mean that the voronoidal areas for each stitch are equal, and so are the angles incident at each stitch.  We can discuss the limitations of this assumption later. For now, we proceed.
+
+
