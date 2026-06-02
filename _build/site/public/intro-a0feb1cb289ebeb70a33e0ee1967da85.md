@@ -100,7 +100,7 @@ Vertex $u$ and adjacent vertices (c.f. [](#fig:flat-crochet)).
 ::::{grid-item}
 :::{figure} figs/inc-dec-graph1.png
 :label: fig:inc-dec-graph1
-:width: 150
+:width: 140
 
 Vertex $v$ and adjacent vertices (c.f. [](#fig:inc-dec-crochet)).
 :::
