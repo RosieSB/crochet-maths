@@ -103,7 +103,7 @@ Voronoidal region and angles for flat crochet (c.f. [](#fig:flat-crochet)).
 
 At a site of increase or decrease, the order $d(v)$ goes up or or down according to the number of stitches gained or lost, but the interior angles and voronoidal area contributed by each stitch do not change (much). This means that both the angle sum and combined voronoidal area will scale by a factor of $\frac{d(v)}{4}$. In the notation of [](#def:-curvature), 
 $$
-A(v) = \frac{d(v)hw}{4},\hspace{1em}\sum_i\theta_i = \frac{d(v)}{4}\cdot 2\pi, 
+A(v) = \frac{d(v)hw}{4},\hspace{1em}\sum_i\t1heta_i = \frac{d(v)}{4}\cdot 2\pi, 
 $$
 and
 :::{math}
@@ -193,52 +193,49 @@ More loops and vs.
 Let's get even more specific and label some dimensions. In addition to $w$, $h$ and $\theta$, let  denote the heights and widths of each face in the lattice of flat crochet (c.f. [](#fig:flat-crochet-graph)). 
 
 
-:::{figure} figs/labelled-stitch1.png
+:::{figure} figs/labelled-stitch.png
 :label: fig:labelled-stitch
 :width: 600
 
 More dc stitch dimensions
 :::
 
-Suppose we have crocheted $n$ dc stitches into a magic ring. Then, $\theta=\frac{2\pi}{n}$, and if $r$ denotes the radius of the centre hole,
+Suppose we have crocheted $n$ dc stitches into a magic ring. Then, if $r$ denotes the radius of the centre hole,
 
 $$
-\frac{a}{h+r} = \frac{b}{r} = 2\sin\left(\frac{\theta}{2}\right),
+\theta = \frac{a}{h+r} = \frac{b}{r} = 2\sin\left(\frac{\theta}{2}\right) = \frac{2\pi}{n},
 $$
 
-so  $r = \frac{bh}{a-b}$, and 
-
-$$
-b=\frac{2bh}{a-b}\sin\left(\frac{pi}{n}\right)
-$$
-
-Therefore, 
+so  
 :::{math}
 :enumerated: true
 :label: eq:theta-n
-\theta = 2\arcsin\left(\frac{a-b}{2h}\right) \; \text{ and } \;n= \frac{\pi}{\arcsin\left(\frac{a-b}{2h}\right)}.
+r = \frac{bh}{a-b}, \; \theta = \frac{a-b}{h}, \;\text{ and } \; n=\frac{2h\pi}{a-b}.
 :::
 
 :::{code-cell} python
 :tags: remove-input
 import numpy as np
-dp = 2
-a=1.4
-b=0.5
-h=1.5
 
-theta = 2*np.asin((a-b)/(2*h))
+dp = 4
+a=1.2
+b=0.3
+h=1.3
+w=.7
 
-n0 = int(round(2*np.pi/theta,dp))
-n = int(round(n0,dp))
+
+theta = (a-b)/h
+
+n0 = 2*np.pi/theta
+n = int(round(n0))
 
 r = (b*h)/(a-b)
 :::
 
-Moderately careful measurement suggests that for work from [](#fig:labelled-stitch) specifically, $a=${eval}`a`cm, $b=${eval}`b`cm and $h=${eval}`h`cm. Substituting these into [](#eq:theta-n) gives $n=${eval}`n0`, which we round to $n=${eval}`n`. The centre hole radius is $r=${eval}`float(np.round(r,dp))`cm, and $\theta =${eval}`float(np.round(theta,dp))`cm. 
+Moderately careful measurement suggests that for work in [](#fig:labelled-stitch) specifically, $a=$ {eval}`a`cm, $b=$ {eval}`b`cm and $h=${eval}`h`cm. Substituting these into [](#eq:theta-n) gives $n=$  {eval}`n0`, which we round to $n=$ {eval}`n`. The centre hole radius is $r=$ {eval}`float(np.round(r,dp))`cm, and $\theta =$ {eval}`float(np.round(theta,dp))`cm. 
 
-:::{figure} figs/10dc-round.jpg
-:label: fig:10dc-round
+:::{figure} figs/9dc-round.jpg
+:label: fig:9dc-round
 :width: 400
 
 {eval}`n`dc into a magic loop.
@@ -253,6 +250,37 @@ But using this calculation will hopefully give a more naturally flat feel.
 
 #### Round 2
 
-:::{embed} #fig:6dc-12dc-round
+:::{figure} 
+:label: fig:round2-measurements
+:width: 400
+:class: grid grid-rows-2 
+
+![Round 2 crochet](figs/6dc-12dc-round-graph3.png)
+
+![Stitch dimensions](figs/labelled-stitch2.png)
+
+More labelled stitch dimensions for round 2 calculation.
 :::
 
+Elementary trig gives
+$$
+c=\frac{w}{2\sin\left(\frac{\theta}{2}\right)}-r
+$$
+and,
+$$
+d = \sqrt{w^2+c^2-2wc\cos\left(\frac{\pi-\theta}{2}\right)},
+$$
+so
+$$
+\theta_2 = \arcsin\left(\frac{w\sin\left(\frac{\pi-\theta}{2}\right)}{d}\right)
+$$
+
+:::{code-cell} python
+:tags: hide-input
+c = 2/(np.sin(theta/2))-r
+d = np.sqrt(w**2+c**2-2*w*c*np.cos((np.pi-theta)/2))
+sin_theta_2 = w*np.sin( (np.pi-theta)/2 )/d
+theta_2 = np.asin(sin_theta_2)
+:::
+
+For these particular measurements, we get $c=$ {eval}`float(np.round(c,dp))`, $d=$ {eval}`float(np.round(d,dp))`, $\sin(\theta_2) = $ {eval}`float(np.round(sin_theta_2,dp))` and $\theta_2=$ {eval}`float(np.round(theta_2,dp) )`
