@@ -267,28 +267,27 @@ Labelled stitch dimensiocalculationns for round 2.
 
 Elementary trig gives
 
-1. $\frac{c+r}{w/2}=\sin\left(\frac{\theta}{2}\right)$, so $c=\frac{w}{2\sin\left(\frac{\theta}{2}\right)}-r$,
+1. $\cos\alpha = \frac{w/2}{d}$, so $\alpha=\arccos\left(\frac{w}{2d}\right)$
 
-2. $d = \sqrt{r^2+(r+c)^2-2r(r+c)\cos\left(\frac{\theta}{2}\right)}$
+2. $\frac{c+r}{w/2}=\sin\left(\frac{\theta}{2}\right)$, so $c=\frac{w}{2\sin\left(\frac{\theta}{2}\right)}-r$,
 
-3. $\sin\left(\frac{\theta_2}{2}\right)=\frac{w/2}{d}$, so $\theta_2 = 2\arcsin\left(\frac{w}{2d}\right)$
+3. $d = \sqrt{r^2+(r+c)^2-2r(r+c)\cos\left(\frac{\theta}{2}\right)}$
 
-4. $\cos\alpha = \frac{w/2}{d}$, so $\alpha=\arccos\left(\frac{w}{2d}\right)$
+4. $\sin\left(\frac{\theta_2}{2}\right)=\frac{w/2}{d}$, so $\theta_2 = \arcsin\left(\frac{w}{d}\right)$
 
 For these particular measurements, we get
 
 :::{code-cell} python
 :tags: hide-input
 c = w/(2*np.sin(theta/2))-r
-d = np.sqrt(r**2+(r+c)**2-2*r*(r+c)*np.cos(theta/2))
-theta_2 = 2*np.asin(w/(2*d))
+d = np.sqrt(w**2+c**2-2*w*c*np.cos((np.pi-theta)/2))
+sin_theta_2 = w*np.sin( (np.pi-theta)/2 )/d
+theta_2 = np.asin(sin_theta_2)
 alpha = np.acos(w/(2*d))
 
 from tabulate import tabulate
 tabulate([[a,b,c,d,w,h,theta,alpha,theta_2]],headers=["a","b","c","d","w","h","θ","⍺","θ₂"],tablefmt="html")
-#print("2⍺+θ₂ = ",2*alpha+theta_2)
 :::
 
-(Note, $2\alpha +\theta_2 = \pi$.) 
 
 

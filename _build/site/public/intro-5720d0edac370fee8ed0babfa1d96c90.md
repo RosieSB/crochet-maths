@@ -250,45 +250,37 @@ But using this calculation will hopefully give a more naturally flat feel.
 
 #### Round 2
 
-Consider be a general round 2 stitch, $v_{0j}$, and suppose $k_{v_{0j}}$ is the number stitches we will crochet into $v_{0j}$ in round 3.
-
-
 :::{figure} 
 :label: fig:round2-measurements
 :width: 400
-:class: grid grid-cols-2 
+:class: grid grid-rows-2 
 
-![Round 2 crochet](figs/rnd2'.png)
+![Round 2 crochet](figs/rnd2.png)
 
-![Stitch dimensions](figs/labelled-stitch3.png)
+![Stitch dimensions](figs/labelled-stitch2.png)
 
-Labelled stitch dimensiocalculationns for round 2.
+More labelled stitch dimensions for round 2 calculation.
 :::
 
-Elementary trig gives
-
-1. $\frac{c+r}{w/2}=\sin\left(\frac{\theta}{2}\right)$, so $c=\frac{w}{2\sin\left(\frac{\theta}{2}\right)}-r$,
-
-2. $d = \sqrt{r^2+(r+c)^2-2r(r+c)\cos\left(\frac{\theta}{2}\right)}$
-
-3. $\sin\left(\frac{\theta_2}{2}\right)=\frac{w/2}{d}$, so $\theta_2 = 2\arcsin\left(\frac{w}{2d}\right)$
-
-4. $\cos\alpha = \frac{w/2}{d}$, so $\alpha=\arccos\left(\frac{w}{2d}\right)$
-
-For these particular measurements, we get
+Elementary trig gives $\frac{c+r}{w/2}=\sin\left(\frac{\theta}{2}\right)$, so
+$$
+c=\frac{w}{2\sin\left(\frac{\theta}{2}\right)}-r
+$$
+and,
+$$
+d = \sqrt{w^2+c^2-2wc\cos\left(\frac{\pi-\theta}{2}\right)},
+$$
+and also $\frac{\sin\theta_2}{w}=\frac{\sin\left(\frac{\pi-\theta}{2}\right)}{d}$, i.e.
+$$
+\theta_2 = \arcsin\left(\frac{w\sin\left(\frac{\pi-\theta}{2}\right)}{d}\right)
+$$
 
 :::{code-cell} python
 :tags: hide-input
 c = w/(2*np.sin(theta/2))-r
-d = np.sqrt(r**2+(r+c)**2-2*r*(r+c)*np.cos(theta/2))
-theta_2 = 2*np.asin(w/(2*d))
-alpha = np.acos(w/(2*d))
-
-from tabulate import tabulate
-tabulate([[a,b,c,d,w,h,theta,alpha,theta_2]],headers=["a","b","c","d","w","h","θ","⍺","θ₂"],tablefmt="html")
-#print("2⍺+θ₂ = ",2*alpha+theta_2)
+d = np.sqrt(w**2+c**2-2*w*c*np.cos((np.pi-theta)/2))
+sin_theta_2 = w*np.sin( (np.pi-theta)/2 )/d
+theta_2 = np.asin(sin_theta_2)
 :::
 
-(Note, $2\alpha +\theta_2 = \pi$.) 
-
-
+For these particular measurements, we get $c=$ {eval}`float(np.round(c,dp))`, $d=$ {eval}`float(np.round(d,dp))`, $\sin(\theta_2) = $ {eval}`float(np.round(sin_theta_2,dp))` and $\theta_2=$ {eval}`float(np.round(theta_2,dp) )`
