@@ -139,7 +139,7 @@ Then: $r=\frac{bh}{a-b}$, $\theta = \frac{a-b}{h}$.
 $$
 2\pi - n\theta = 2\pi - n\frac{a-b}{h}
 $$
-The Gauss curvature at the centre is
+The curvature at the centre is
 $$
 K = \frac{1}{A}\left(2\pi - n\frac{a-b}{h}\right)
 $$

@@ -131,21 +131,20 @@ $$
 
 Stitch dimensions to measure
 :::
-Then: $r=\frac{bh}{a-b}$, $\theta = \frac{a-b}{h}$.
-
+Then: $r=\frac{bh}{a-b}$, $\theta = \frac{a-b}{h}$
 2. For flat work, crochet $\text{round}\left(\frac{2h\pi}{a-b}\right)$ dc into the magic ring.
 
 2. More generally, crocheting $n$ stitches into a magic ring and pulling closed will give the centre of the work an angular defect of 
 $$
 2\pi - n\theta = 2\pi - n\frac{a-b}{h}
 $$
-The Gauss curvature at the centre is
+The curvature at the centre is
 $$
 K = \frac{1}{A}\left(2\pi - n\frac{a-b}{h}\right)
 $$
 where
 $$
-A = \frac{n(r+c)^2}{4}\tan\left(\frac{\theta}{2}\right) --- CHECK
+A = \frac{n(r+c)^2}{4}\tan\left(\frac{\theta}{2})
 $$
 
 ::::
