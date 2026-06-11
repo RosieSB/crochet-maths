@@ -362,7 +362,7 @@ The angle $\beta$ will depend on the structure of the previous row. In isolation
 $$
 \beta = \frac{(n_{j-1}-2)\pi}{n_{j-1}}.
 $$
-Therefore, the angular defect at $v$ is
+Therefore, the (average) angular defect at $v$ is
 $$
 2\pi - \frac{(n_{j-1}-2)\pi}{n_{j-1}} - (\pi-\phi)- k_v\phi =  \frac{2\pi}{n_{j-1}}-k_v\phi
 $$
